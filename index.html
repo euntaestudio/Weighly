@@ -12,7 +12,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icon-192.png">
-<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<style>:root{box-sizing:border-box;padding-top:calc(env(safe-area-inset-top,0px) + 20px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
 <title>Weighly</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -416,9 +416,9 @@ ko:{
   num:'숫자', dot:'점', monthCount:n=>`이 달 ${n}일 기록`,
   calHint:'날짜를 누르면 그날 기록을 추가하거나 수정할 수 있어요. 오늘 이후 날짜는 기록할 수 없어요.',
   date:'날짜', weight:'몸무게', fat:'체지방률', muscle:'골격근량',
-  listHint:'줄을 누르면 수정, 왼쪽으로 밀면 삭제할 수 있어요.', listEmpty:'+를 눌러 기록을 추가해보세요.', del:'삭제',
+  listHint:'<span class="nw">줄을 누르면 수정,</span> <span class="nw">왼쪽으로 밀면</span> <span class="nw">삭제할 수 있어요.</span>', listEmpty:'+를 눌러 기록을 추가해보세요.', del:'삭제',
   addTitle:'기록 추가', editTitle:'기록 수정', memo:'메모', memoPh:'예: 운동 시작', optional:'(선택)',
-  sameTime:'매일 같은 시간, 같은 조건에서 재면 변화를 더 정확히 볼 수 있어요.\n(예: 아침 기상 후, 식사 전)',
+  sameTime:'매일 같은 시간, 같은 조건에서 재면 변화를 더 정확히 볼 수 있어요. (예: 아침 기상 후, 식사 전)',
   flagHint:'별을 켜면 캘린더와 그래프에 표시돼요.', flagLabel:'캘린더에 별 표시',
   ruleHint:'몸무게나 메모 중 하나만 입력해도 저장할 수 있어요.',
   save:'저장', cancel:'취소', close:'닫기', ok:'확인', deleteRecord:'이 기록 삭제',
@@ -469,9 +469,9 @@ ko:{
   tut5T:'목록 보기', tut5B:'목록에서는 한 달 기록을\n날짜별로 모아 볼 수 있어요.\n\n줄을 누르면 수정하고,\n왼쪽으로 밀면 삭제해요.',
   tut6T:'다른 날 기록하기', tut6B:'캘린더에서 날짜를 누르거나\n목록에서 +를 누르면\n다른 날의 기록도 남길 수 있어요.',
   tut7T:'흐름 보기', tut7B:'<b>그래프</b> 탭에서 기간별 변화와\n7일 평균을 볼 수 있어요.\n\n<b>보관함</b>에서는 지난 목표와\n저장한 기간을 다시 볼 수 있어요.',
-  prev:'이전', listLong:'긴 기간은 그래프 탭의 ‘표’에서 한 번에 볼 수 있어요.',
+  prev:'이전', listLong:'<span class="nw">긴 기간은</span> <span class="nw">그래프 탭의 ‘표’에서</span> <span class="nw">한 번에 볼 수 있어요.</span>',
   skip:'건너뛰기', next:'다음', startApp:'시작하기', tutAgain:'튜토리얼 다시 보기',
-  appSec:'앱', appVer:'버전', rate:'평가하기', theme:'테마', thAuto:'자동', thLight:'라이트', thDark:'다크', darkStyle:'다크 스타일', lightStyle:'라이트 스타일', lsA:'세이지', lsB:'스톤', dsA:'그래파이트', dsB:'앰버', fontSize:'글씨 크기', fsS:'작게', fsM:'보통', fsL:'크게', items:'기록 항목', itemsAll:'전체', itemsW:'몸무게만', rangeTitle:'그래프 기간', apply:'적용', resetRange:'최근 기간으로 돌아가기', rateLater:'앱스토어에 출시하면 열려요.', privacy:'개인정보 처리 방침', contact:'문의',
+  appSec:'앱', appVer:'버전', rate:'평가하기', theme:'테마', thAuto:'자동', thLight:'라이트', thDark:'다크', darkStyle:'다크 스타일', lightStyle:'라이트 스타일', lsA:'세이지', lsB:'스톤', dsA:'그래파이트', dsB:'앰버', fontSize:'글씨 크기', fsS:'작게', fsM:'보통', fsL:'크게', items:'기록 항목', itemsAll:'전체', itemsW:'몸무게만', rangeTitle:'그래프 기간', apply:'적용', resetRange:'최근 기간으로 돌아가기', rateLater:'앱스토어에 출시하면 열려요.', privacy:'개인정보 처리 방침', contact:'문의하기',
   privacyBody:['입력한 몸무게, 체지방, 골격근량, 메모, 목표는 이 기기 안에만 저장돼요.', '이 앱은 기록을 다른 곳으로 보내거나 모으지 않아요.', '백업 파일은 직접 만들 때만 생기고, 보관은 사용하는 분이 직접 해요.', '화면 글꼴을 불러올 때 Google Fonts에 연결돼요.', '계정 연동 같은 기능이 생기면 이 내용을 고쳐서 알려드릴게요.'],
   contactBody:'궁금한 점이나 고쳤으면 하는 점을 보내주세요.', contactAddr:'taestudio.support@gmail.com'
 },
@@ -488,9 +488,9 @@ en:{
   num:'Numbers', dot:'Dots', monthCount:n=>`${n} days logged`,
   calHint:'Tap a date to add or edit that day. Future dates can’t be logged.',
   date:'Date', weight:'Weight', fat:'Body fat %', muscle:'Muscle',
-  listHint:'Tap a row to edit. Swipe left to delete.', listEmpty:'Tap + to add an entry.', del:'Delete',
+  listHint:'<span class="nw">Tap a row to edit.</span> <span class="nw">Swipe left to delete.</span>', listEmpty:'Tap + to add an entry.', del:'Delete',
   addTitle:'New entry', editTitle:'Edit entry', memo:'Note', memoPh:'e.g. Started working out', optional:'(optional)',
-  sameTime:'Weigh in at the same time and under the same conditions each day for more accurate tracking.\n(e.g. after waking up, before eating)',
+  sameTime:'Weigh in at the same time and under the same conditions each day for more accurate tracking (e.g. after waking up, before eating).',
   flagHint:'Turn on the star to mark this day on the calendar and charts.', flagLabel:'Star on calendar',
   ruleHint:'You can save with just a weight or just a note.',
   save:'Save', cancel:'Cancel', close:'Close', ok:'OK', deleteRecord:'Delete this entry',
@@ -541,7 +541,7 @@ en:{
   tut5T:'Your list', tut5B:'The list shows a month of entries\nday by day.\n\nTap a row to edit it,\nswipe left to delete.',
   tut6T:'Log other days', tut6B:'Tap a date on the calendar\nor + in the list\nto add entries for other days.',
   tut7T:'See the trend', tut7B:'See changes and the 7-day average\nin <b>Charts</b>.\n\nThe <b>Archive</b> keeps past goals\nand saved periods.',
-  prev:'Back', listLong:'For long periods, use ‘Table’ in Charts.',
+  prev:'Back', listLong:'<span class="nw">For long periods,</span> <span class="nw">use ‘Table’</span> <span class="nw">in Charts.</span>',
   skip:'Skip', next:'Next', startApp:'Get started', tutAgain:'Replay tutorial',
   appSec:'App', appVer:'Version', rate:'Rate', theme:'Theme', thAuto:'Auto', thLight:'Light', thDark:'Dark', darkStyle:'Dark style', lightStyle:'Light style', lsA:'Sage', lsB:'Stone', dsA:'Graphite', dsB:'Amber', fontSize:'Text size', fsS:'Small', fsM:'Default', fsL:'Large', items:'Entries', itemsAll:'All', itemsW:'Weight only', rangeTitle:'Chart period', apply:'Apply', resetRange:'Back to recent period', rateLater:'Available once the app is on the App Store.', privacy:'Privacy policy', contact:'Contact us',
   privacyBody:['Your weight, body fat, muscle, notes and goals are stored only on this device.', 'This app doesn’t send your entries anywhere or collect them.', 'Backup files exist only when you create one, and you keep them yourself.', 'The app connects to Google Fonts to load its typeface.', 'If features like account sync are added, this policy will be updated.'],
@@ -816,7 +816,7 @@ function vList(){
     ${any || n > 1 ? body : `<p class="empty">${t('listEmpty')}</p>`}
   </div>
   ${hasOlder ? `<button class="textbtn" data-act="moreMonth">${t('prevMonth', monthName(mm))}</button>` : ''}
-  ${any ? `<span class="small" style="padding:0 4px">${t('listHint')}${n >= 3 ? '<br>' + t('listLong') : ''}</span>` : ''}`;
+  ${any ? `<span class="small" style="display:block;padding:0 4px">${t('listHint')}${n >= 3 ? ' ' + t('listLong') : ''}</span>` : ''}`;
 }
 
 function metricVal(r, met){ const x = r[met]; if (x == null) return null; return met === 'f' ? x : toU(x); }
@@ -1094,7 +1094,7 @@ function openRecord(k, mode){
       <div style="display:flex;flex-direction:column;border-bottom:1px solid var(--line2);padding:6px 0 12px">
         <div class="frow" style="border:0;min-height:52px"><label for="rW">${t('weight')}</label>
           <div class="unitin"><input class="nin main num" id="rW" maxlength="5" inputmode="decimal" autocomplete="off" placeholder="${ph}" value="${val(r.w)}"><span>${U()}</span></div></div>
-        <p class="small" style="margin:2px 0 0;white-space:pre-line">${t('sameTime')}</p>
+        <p class="small" style="margin:2px 0 0">${t('sameTime')}</p>
       </div>
       ${S.settings.items === 'w' ? '' : `<div class="frow"><label for="rF">${t('fat')} <span class="opt">${t('optional')}</span></label>
         <div class="unitin"><input class="nin num" id="rF" maxlength="4" inputmode="decimal" autocomplete="off" placeholder="–" value="${r.f == null ? '' : r.f.toFixed(1)}"><span>%</span></div></div>
@@ -1527,15 +1527,19 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (docume
 /* ---------- boot ---------- */
 try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => render(true)); } catch(_) {}
 /* Keep number phrases whole when text wraps: "0.5~1kg이에요." or "58.2kg" never split across lines. */
-/* After tapping a number field, the first key typed replaces the old value (no selection, so no Cut/Copy menu). */
-document.addEventListener('focusin', e => { const el = e.target; if (el.matches && el.matches('input.nin')) el.dataset.fresh = '1'; });
-document.addEventListener('beforeinput', e => { const el = e.target; if (!el.matches || !el.matches('input.nin') || el.dataset.fresh !== '1') return;
-  delete el.dataset.fresh; if (e.inputType && e.inputType.startsWith('insert') && el.value) el.value = ''; });
-document.addEventListener('focusout', e => { if (e.target.dataset) delete e.target.dataset.fresh; });
+/* Tapping a number field empties it so you type from scratch; the old value waits as gray placeholder text
+   and comes back if you leave the field without typing anything. */
+document.addEventListener('focusin', e => { const el = e.target; if (!el.matches || !el.matches('input.nin') || !el.value) return;
+  el.dataset.old = el.value; el.dataset.ph = el.getAttribute('placeholder') || ''; el.setAttribute('placeholder', el.value); el.value = ''; });
+document.addEventListener('submit', () => { const el = document.activeElement; if (el && el.matches && el.matches('input.nin') && el.dataset.old != null && el.value === '') el.value = el.dataset.old; }, true);
+document.addEventListener('focusout', e => { const el = e.target; if (!el.matches || !el.matches('input.nin') || el.dataset.old == null) return;
+  if (el.value === '') { el.value = el.dataset.old; el.dispatchEvent(new Event('input', { bubbles:true })); }
+  el.setAttribute('placeholder', el.dataset.ph); delete el.dataset.old; delete el.dataset.ph; });
 const NW_RE = /[−+\-]?\d+(?:[.,]\d+)?\s?(?:[~–]\s?\d+(?:[.,]\d+)?\s?)?(?:kg|lb|%|cm)?(?:[가-힣]+)?[.,!?)]*/g;
 function nwText(root){
   const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => {
     const p = n.parentElement; if (!p || p.closest('.nw,script,style,svg,input,textarea,button.dpd,.num.big,.seg')) return NodeFilter.FILTER_REJECT;
+    if (/flex|grid/.test(getComputedStyle(p).display)) return NodeFilter.FILTER_REJECT;
     NW_RE.lastIndex = 0; return NW_RE.test(n.data) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
   const list = []; while (w.nextNode()) list.push(w.currentNode);
   list.forEach(n => { const tx = n.data; let last = 0, m, out = document.createDocumentFragment(), hit = false; NW_RE.lastIndex = 0;
