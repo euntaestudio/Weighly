@@ -74,7 +74,7 @@
 .zw.sz{gap:16px}
 [hidden]{display:none!important}
 html,body{height:100%;touch-action:manipulation;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{word-break:keep-all;overflow-wrap:break-word;text-wrap:pretty;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;-webkit-tap-highlight-color:transparent;overflow:hidden}
+body{word-break:keep-all;overflow-wrap:break-word;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;-webkit-tap-highlight-color:transparent;overflow:hidden}
 button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 button{cursor:pointer}
 button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -91,9 +91,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .top{display:flex;justify-content:space-between;align-items:center;min-height:52px}
 .top h1{margin:0;font-size:24px;font-weight:700;line-height:1.2}
 .hdate{height:34px;display:flex;align-items:center}
-.homebody{display:flex;flex-direction:column;gap:22px;margin-top:6px}
-.homebody .hero{padding-top:26px;padding-bottom:24px}
-.homebody .cheer{margin-top:10px}
+.homebody{display:flex;flex-direction:column;gap:18px}
+.homebody .hero{padding-top:24px;padding-bottom:22px}
+.homebody .cheer{margin-top:0}
 .sub{color:var(--sub);font-size:14px}
 .small{font-size:12px;line-height:1.5;color:var(--sub)}
 .iconbtn{width:44px;height:44px;border-radius:22px;border:1px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;padding:0;color:var(--fg)}
@@ -359,10 +359,11 @@ input::placeholder,textarea::placeholder{color:var(--faint)}
 .err{color:var(--danger);font-size:13px;margin:0;text-align:center}
 .warn{color:var(--weekend);font-size:12px;line-height:1.5;margin:0}
 .dialog p{white-space:pre-line}
+.dialog .dnote{margin:6px 0 0;text-align:center;font-size:12px}
 .dialog{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(320px,calc(100% - 40px));background:var(--card);border-radius:20px;padding:24px 20px 16px;display:flex;flex-direction:column;gap:10px;animation:fade .15s}
 .dialog h3{margin:0;font-size:18px;line-height:1.45;text-align:center;white-space:pre-line}
 .dialog p{margin:0;font-size:15px;line-height:1.55;text-align:center;color:var(--sub)}
-.dacts{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px;margin:10px auto 0;width:fit-content}
+.dacts{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:16px;margin:10px auto 0;width:fit-content}
 .dacts button{min-width:96px;padding:0 16px;white-space:nowrap;height:44px;border-radius:12px;border:0;font-size:15px;font-weight:600;background:var(--line2)}
 .dacts .go{background:var(--btn);color:var(--btnFg)}
 .dacts .bad{background:var(--danger);color:#FFFFFF}
@@ -414,7 +415,7 @@ ko:{
   vsPrev:d=>`지난 기록보다 ${d}`, noRecord:'아직 기록이 없어요', recordToday:'오늘 몸무게 기록하기',
   hideNums:'몸무게 숫자 숨기기', showNums:'몸무게 숫자 보이기',
   goal:'목표', start:'시작', remain:'남은', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 남은 무게를 보여드려요.',
-  paceNote:'다이어트 시 일반적으로 권장되는 감량 속도는 주당 0.5~1kg이에요.', paceSrc:'출처: 영국 국민보건서비스 (NHS), 미국 질병통제예방센터 (CDC)',
+  paceNote:()=>`다이어트 시 일반적으로 권장되는 감량 속도는 주당 ${PACE()}이에요.`, paceSrc:'출처: 영국 국민보건서비스 (NHS), 미국 질병통제예방센터 (CDC)',
   cheerDown:'꾸준함이 제일 어려운 건데, 잘 해내고 있어요!', cheerSame:'정체기도 과정이에요. 흐름을 믿고 가봐요.',
   cheerUp:'하루 변동은 자연스러워요. 며칠 흐름을 봐요.', cheerNone:'오늘의 몸무게를 기록해볼까요?',
   sampleBanner:'예시 데이터로 보여주는 중이에요.', clearSample:'예시 지우고 시작',
@@ -435,12 +436,12 @@ ko:{
   startDate:'시작 날짜', noDate:'선택 안 함', noEnd:'기한 없음', qNone:'기한 없음', q1:'1개월', q3:'3개월', q6:'6개월', q12:'1년', errStart:'시작 날짜를 다시 확인해 주세요.', startW:'시작 몸무게', useRecordQ:(d, v)=>`${d}에 기록 (${v})이 있어요.\n이 몸무게로 바꿀까요?`, keepTyped:'입력한 값 유지', useRecord:'기록으로 바꾸기', errStartW:'시작 몸무게를 다시 확인해 주세요.',
   editCard:'카드 수정', edit:'수정', stStart:'시작 체중', stEnd:'마지막 체중', stChange:'총 변화',
   startFrom:(d, v)=>`시작 몸무게는 ${d} 기록인 ${v}이에요.`,
-  paceWarn:v=>`주당 약 ${v} 감량하는 목표예요. 일반적으로 권장되는 속도는 주당 0.5~1kg이에요.`,
+  paceWarn:v=>`주당 약 ${v} 감량하는 목표예요. 일반적으로 권장되는 속도는 주당 ${PACE()}이에요.`,
   needRecord:'먼저 몸무게를 한 번 기록해 주세요.', removeGoal:'목표 삭제', removeGoalQ:'지금 목표를 삭제할까요?',
   errTarget:'목표 몸무게를 다시 확인해 주세요.', errSame:'목표 몸무게가 지금 몸무게와 같아요.', errEnd:'목표 날짜는 내일 이후로 정해 주세요.',
   achievedTitle:'목표 달성!', achievedText:'정말 잘했어요. 이번 기간을 보관함에 저장했어요.',
   endedTitle:'목표 기간이 끝났어요.', endedText:'지금까지의 기록을 보관함에 저장했어요.', newGoal:'새 목표 정하기',
-  goalName:v=>`목표 ${v}`,
+  goalName:v=>`목표 ${v}`, goalNamePh:'예: 여름 전까지',
   change:'변화', archive:'보관함', graph:'그래프', table:'표',
   p7:'1주', p30:'1개월', p90:'3개월', p182:'6개월', p365:'1년',
   periodChange:'기간 변화', avg:'평균', min:'최저', notEnough:'이 기간에는 그래프를 그릴 기록이 부족해요.', noData:'이 기간에는 기록이 없어요.',
@@ -453,8 +454,8 @@ ko:{
   account:'계정', nameEmpty:'이름을 정해주세요', nameHint:'홈 화면에서 불러드릴 이름이에요.', nameTitle:'이름', avatarTitle:'프로필 아이콘', avatarNone:'아이콘 없음', nearGoal:r=>`거의 다 왔어요! 목표까지 ${r} 남았어요.`, nearGoalH:'거의 다 왔어요! 목표가 코앞이에요.', namePh:'이름', signIn:'계정 연동', 
   settings:'설정', security:'보안', appLock:'앱 잠금', changePin:'비밀번호 변경', faceId:'Face ID / 지문으로 열기',
   later:'아이폰 앱 버전에서 지원할 예정이에요.', notif:'알림', notifRow:'측정 알림',
-  display:'표시', language:'언어', unit:'단위', weekStart:'한 주 시작', sun:'일요일', mon:'월요일',
-  data:'데이터', exportB:'백업 파일 만들기', bkNagT:'백업할 때가 됐어요', bkNagB:'마지막 백업 후 30일이 지났어요.\n백업 파일은 ‘다운로드’ 폴더에 두고, 새로 백업하면 예전 파일은 지워 주세요.', bkLater:'나중에', bkNow:'지금 백업', importB:'백업 불러오기', clearAll:'모든 기록 지우기',
+  display:'표시', language:'언어', unit:'단위', weekStart:'한 주 시작', dateFmt:'날짜 형식', df_ymd:'연.월.일', df_mdy:'월/일/연', df_dmy:'일/월/연', sun:'일요일', mon:'월요일',
+  data:'데이터', exportB:'백업 파일 만들기', bkNagT:'백업할 때가 됐어요', bkNagB:'마지막 백업 후 30일이 지났어요.\n백업 파일은 ‘다운로드’ 폴더에 두고, 새로 백업하면 예전 파일은 지워 주세요.', bkLater:'30일 뒤 다시 알림', bkNow:'지금 백업', bkNagNote:'설정 → 데이터에서 백업 알림을 끄고 켤 수 있어요.', bkYearT:'1년 동안 백업하지 않았어요', bkYearB:'마지막 백업 후 1년이 지났어요.\n기록을 잃지 않도록 지금 백업 파일을 만들어 두세요.', bkRow:'백업 알림', bkRowSub:'마지막 백업 후 30일이 지나면 알려줘요.', importB:'백업 불러오기', clearAll:'모든 기록 지우기',
   clearAllQ:'모든 기록과 목표, 보관함을 지울까요?\n되돌릴 수 없어요.', clearSampleQ:'예시 데이터를 지우고 새로 시작할까요?', erase:'지우기',
   backupNote:'기록은 이 폰 안에만 저장돼요. 폰을 바꾸기 전에 꼭 백업 파일을 만들어 두세요.',
   pinNew:'새 비밀번호 4자리', pinAgain:'한 번 더 입력해 주세요', pinMismatch:'비밀번호가 달라요.\n처음부터 다시 입력해 주세요.',
@@ -486,7 +487,7 @@ en:{
   vsPrev:d=>`${d} from last entry`, noRecord:'No entries yet', recordToday:'Log today’s weight',
   hideNums:'Hide numbers', showNums:'Show numbers',
   goal:'Goal', start:'Start', remain:'To go', setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
-  paceNote:'A commonly recommended weight-loss pace is 0.5–1 kg per week.', paceSrc:'Sources: NHS (UK), CDC (US)',
+  paceNote:()=>`A commonly recommended weight-loss pace is ${PACE()} per week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
   cheerDown:'Consistency is the hardest part, and you’re doing it!', cheerSame:'Plateaus are part of the process. Keep going.',
   cheerUp:'Daily ups and downs are normal. Watch the trend.', cheerNone:'Ready to log today’s weight?',
   sampleBanner:'You’re looking at sample data.', clearSample:'Clear & start',
@@ -507,12 +508,12 @@ en:{
   startDate:'Start date', noDate:'Not set', noEnd:'No deadline', qNone:'No date', q1:'1 mo', q3:'3 mo', q6:'6 mo', q12:'1 yr', errStart:'Please check the start date.', startW:'Starting weight', useRecordQ:(d, v)=>`There’s an entry on ${d} (${v}).\nUse this weight?`, keepTyped:'Keep mine', useRecord:'Use entry', errStartW:'Please check the starting weight.',
   editCard:'Edit card', edit:'Edit', stStart:'Starting', stEnd:'Latest', stChange:'Total change',
   startFrom:(d, v)=>`Starting weight is ${v}, logged on ${d}.`,
-  paceWarn:v=>`That’s about ${v} per week. A commonly recommended pace is 0.5–1 kg per week.`,
+  paceWarn:v=>`That’s about ${v} per week. A commonly recommended pace is ${PACE()} per week.`,
   needRecord:'Log your weight once first.', removeGoal:'Remove goal', removeGoalQ:'Remove the current goal?',
   errTarget:'Please check the target weight.', errSame:'Target is the same as your current weight.', errEnd:'Pick a target date after today.',
   achievedTitle:'Goal reached!', achievedText:'Great work. This period was saved to your archive.',
   endedTitle:'Your goal period ended.', endedText:'Your entries for this period were saved to the archive.', newGoal:'Set a new goal',
-  goalName:v=>`Goal ${v}`,
+  goalName:v=>`Goal ${v}`, goalNamePh:'e.g. Before summer',
   change:'Trends', archive:'Archive', graph:'Chart', table:'Table',
   p7:'1W', p30:'1M', p90:'3M', p182:'6M', p365:'1Y',
   periodChange:'Change', avg:'Average', min:'Lowest', notEnough:'Not enough entries to draw a chart.', noData:'No entries in this period.',
@@ -523,10 +524,10 @@ en:{
   archiveEmpty:'No saved periods yet.', deleteArchive:'Delete this period', deleteArchiveQ:'Delete this period from the archive?',
   cardHint:'Tap a card to see its chart.', targetWas:v=>`Goal ${v}`,
   account:'Account', nameEmpty:'Add your name', nameHint:'What the Home screen will call you.', nameTitle:'Name', avatarTitle:'Profile icon', avatarNone:'No icon', nearGoal:r=>`Almost there! Just ${r} to go.`, nearGoalH:'Almost there! Your goal is within reach.', namePh:'Name', signIn:'Sign in & sync',
-  settings:'Settings', security:'Security', appLock:'App lock', changePin:'Change passcode', faceId:'Unlock with Face ID / Touch ID',
+  settings:'Settings', security:'Security', appLock:'App lock', changePin:'Change passcode', faceId:'Unlock with Face\u00a0ID\u00a0/ Touch\u00a0ID',
   later:'Coming in the iPhone app version.', notif:'Reminders', notifRow:'Weigh-in reminder',
-  display:'Display', language:'Language', unit:'Units', weekStart:'Week starts on', sun:'Sunday', mon:'Monday',
-  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up', bkNagB:'It’s been 30 days since your last backup.\nKeep the backup file in your Downloads folder, and delete the old one after each new backup.', bkLater:'Later', bkNow:'Back up now', importB:'Restore backup', clearAll:'Erase all data',
+  display:'Display', language:'Language', unit:'Units', weekStart:'Week starts on', dateFmt:'Date format', df_ymd:'Y.M.D', df_mdy:'M/D/Y', df_dmy:'D/M/Y', sun:'Sunday', mon:'Monday',
+  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up', bkNagB:'It’s been 30 days since your last backup.\nKeep the backup file in your Downloads folder, and delete the old one after each new backup.', bkLater:'Remind me in 30 days', bkNow:'Back up now', bkNagNote:'You can turn backup reminders on or off in Settings → Data.', bkYearT:'No backup for a year', bkYearB:'It’s been a year since your last backup.\nMake a backup file now so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after your last backup.', importB:'Restore backup', clearAll:'Erase all data',
   clearAllQ:'Erase all entries, goals and the archive?\nThis can’t be undone.', clearSampleQ:'Clear the sample data and start fresh?', erase:'Erase',
   backupNote:'Entries are stored only on this phone.<br>Make a backup before switching phones.',
   pinNew:'New 4-digit passcode', pinAgain:'Enter it again', pinMismatch:'Passcodes didn’t match.\nStart again.',
@@ -616,11 +617,13 @@ const U = () => S.settings.unit === 'lb' ? 'lb' : 'kg';
 const toU = kg => U() === 'lb' ? kg * 2.20462 : kg;
 const fromU = v => U() === 'lb' ? v / 2.20462 : v;
 const mask = '••.•';
+const PACE = () => U() === 'lb' ? (L() === 'en' ? '1–2 lb' : '1~2 lb') : (L() === 'en' ? '0.5–1 kg' : '0.5~1 kg');
 const fW = (kg, hide) => (hide && S.settings.hideNum) ? mask : toU(kg).toFixed(1);
-const fWU = (kg, hide) => fW(kg, hide) + U();
-const fDelta = kg => { const v = toU(kg); const s = Math.abs(v) < 0.05 ? '±0.0' : (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1); return s + U(); };
-const md = k => { const d = parseK(k); return pad(d.getMonth()+1) + '.' + pad(d.getDate()); };
-const ymd = k => k.replace(/-/g, '.');
+const fWU = (kg, hide) => fW(kg, hide) + ' ' + U();
+const fDelta = kg => { const v = toU(kg); const s = Math.abs(v) < 0.05 ? '±0.0' : (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1); return s + ' ' + U(); };
+const DF = () => S.settings.dateFmt || (() => { const l = (navigator.language || 'ko').toLowerCase(); return /^(ko|ja|zh|hu|lt|mn)/.test(l) ? 'ymd' : /^en-(us|ph)|^en$/.test(l) ? 'mdy' : 'dmy'; })();
+const md = k => { const [, m, d] = k.split('-'), f = DF(); return f === 'mdy' ? m + '/' + d : f === 'dmy' ? d + '/' + m : m + '.' + d; };
+const ymd = k => { const [y, m, d] = k.split('-'), f = DF(); return f === 'mdy' ? m + '/' + d + '/' + y : f === 'dmy' ? d + '/' + m + '/' + y : y + '.' + m + '.' + d; };
 const wdOf = k => WD[L()][parseK(k).getDay()];
 const isWE = k => { const g = parseK(k).getDay(); return g === 0 || g === 6; };
 const yearLabel = y => L() === 'en' ? String(y) : y + '년';
@@ -666,13 +669,13 @@ function toast(msg){ let el = document.getElementById('toast'); if (el) el.remov
 
 const layer = document.getElementById('layer');
 let dlgActs = [];
-function dialog(title, text, acts){
+function dialog(title, text, acts, note){
   dlgActs = acts;
   const prev = layer.innerHTML && !layer.hidden ? layer.querySelector('.sheet') : null;
   const box = document.createElement('div'); box.className = 'dlgwrap';
   box.innerHTML = `<div class="scrim" data-act="dlgCancel"></div><div class="dialog" role="alertdialog" aria-modal="true" aria-labelledby="dlgT">
     <h3 id="dlgT">${esc(title)}</h3>${text ? `<p>${esc(text)}</p>` : ''}
-    <div class="dacts">${acts.map((a,i) => `<button data-act="dlg" data-i="${i}" class="${a.kind||''}">${esc(a.label)}</button>`).join('')}</div></div>`;
+    <div class="dacts">${acts.map((a,i) => `<button data-act="dlg" data-i="${i}" class="${a.kind||''}">${esc(a.label)}</button>`).join('')}</div>${note ? `<p class="small dnote">${esc(note)}</p>` : ''}</div>`;
   box.style.cssText = 'position:fixed;inset:0;z-index:60';
   document.body.appendChild(box);
   const b = box.querySelector('.dacts button:last-child'); if (b) b.focus();
@@ -693,7 +696,7 @@ function archiveGoal(type, endK){
   const g = S.goal; if (!g) return;
   const pts = seriesBetween(g.start, endK);
   const endW = pts.length ? pts[pts.length-1][1] : g.startW;
-  S.archive.push({ id:'a'+Date.now(), auto:true, title:'',
+  S.archive.push({ id:'a'+Date.now(), auto:true, title:g.title || '',
     type, start:g.start, end:endK, startW:g.startW, endW, target:g.target, pts });
   S.goal = null; persist();
 }
@@ -724,7 +727,7 @@ function vHome(){
   let cheer = t('cheerNone');
   if (lw && lw.prev != null) { const d = lw.w - lw.prev; cheer = d < -0.05 ? t('cheerDown') : (d > 0.05 ? t('cheerUp') : t('cheerSame')); }
   if (g && lw && lw.k >= g.start) { const left = (g.startW > g.target) ? lw.w - g.target : g.target - lw.w, tot = Math.abs(g.startW - g.target);
-    if (left > 0.05 && (left <= 1 || (tot > 0 && 1 - left / tot >= 0.8))) cheer = hide ? t('nearGoalH') : t('nearGoal', toU(left).toFixed(1) + U()); }
+    if (left > 0.05 && (left <= 1 || (tot > 0 && 1 - left / tot >= 0.8))) cheer = hide ? t('nearGoalH') : t('nearGoal', toU(left).toFixed(1) + ' ' + U()); }
   if (L() === 'en') cheer = cheer.replace(/([.!?]) (?=\S)/g, '$1<br>');
   const nm = callName(); if (nm) cheer = L() === 'en' ? nm + ', ' + cheer.charAt(0).toLowerCase() + cheer.slice(1) : nm + '님, ' + cheer;
   let goalHtml;
@@ -736,7 +739,7 @@ function vHome(){
     goalHtml = `<button class="card goal" data-act="openGoal">
       <div class="row" style="width:100%"><span style="font-weight:600">${t('goal')} <span class="num">${fWU(g.target, true)}</span></span><span class="accent num" style="font-weight:700">${dd == null ? t('noEnd') : dd === 0 ? 'D-Day' : 'D-' + dd}</span></div>
       <div class="bar" style="width:100%" role="img" aria-label="${Math.round(p*100)}%"><i style="width:${(p*100).toFixed(1)}%"></i></div>
-      <div class="row sub" style="width:100%;font-size:13px"><span>${t('start')} <span class="num">${fWU(g.startW, true)}</span></span><span>${t('remain')} <b class="num" style="color:var(--fg)">${hide ? mask + U() : toU(Math.abs(cur - g.target)).toFixed(1) + U()}</b></span></div>
+      <div class="row sub" style="width:100%;font-size:13px"><span>${t('start')} <span class="num">${fWU(g.startW, true)}</span></span><span>${t('remain')} <b class="num" style="color:var(--fg)">${hide ? mask + ' ' + U() : toU(Math.abs(cur - g.target)).toFixed(1) + ' ' + U()}</b></span></div>
     </button>`;
   } else {
     goalHtml = `<div class="card" style="display:flex;flex-direction:column;gap:12px"><span class="sub">${t('noGoalText')}</span><button class="secondary" data-act="openGoal">${t('setGoal')}</button></div>`;
@@ -880,7 +883,7 @@ function tipAt(el, clientX){
   const rc = g.querySelector('.c-tipb'); rc.setAttribute('x', bx); rc.setAttribute('y', by);
   const t1 = g.querySelector('.c-tipt1'), t2 = g.querySelector('.c-tipt2');
   t1.setAttribute('x', bx + bw / 2); t1.setAttribute('y', by + 13); t1.textContent = fullDate(b.k);
-  t2.setAttribute('x', bx + bw / 2); t2.setAttribute('y', by + 26.5); t2.textContent = b.v.toFixed(1) + c.unit;
+  t2.setAttribute('x', bx + bw / 2); t2.setAttribute('y', by + 26.5); t2.textContent = b.v.toFixed(1) + ' ' + c.unit;
 }
 document.addEventListener('pointerdown', e => { const s = e.target.closest && e.target.closest('svg.chart'); if (!s) return; tipSvg = s; try { s.setPointerCapture(e.pointerId); } catch(_) {} tipAt(s, e.clientX); });
 document.addEventListener('pointermove', e => { if (tipSvg) tipAt(tipSvg, e.clientX); });
@@ -923,14 +926,14 @@ function vChart(){
   let stats = '';
   if (pts.length) {
     const vs = pts.map(p => p[1]), ch = vs[vs.length-1] - vs[0], avg = vs.reduce((a,b) => a+b, 0) / vs.length, mn = Math.min(...vs);
-    const fmt = x => x.toFixed(1) + unitLbl;
+    const fmt = x => x.toFixed(1) + ' ' + unitLbl;
     stats = `<div class="stats num">
-      <div class="stat"><span class="small">${t('periodChange')}</span><b>${Math.abs(ch) < 0.05 ? '±0.0' : (ch < 0 ? '−' : '+') + Math.abs(ch).toFixed(1)}${unitLbl}</b></div>
+      <div class="stat"><span class="small">${t('periodChange')}</span><b>${Math.abs(ch) < 0.05 ? '±0.0' : (ch < 0 ? '−' : '+') + Math.abs(ch).toFixed(1)} ${unitLbl}</b></div>
       <div class="stat"><span class="small">${t('avg')}</span><b>${fmt(avg)}</b></div>
       <div class="stat"><span class="small">${t('min')}</span><b>${fmt(mn)}</b></div></div>`;
   }
   const body = UI.chartMode === 'table'
-    ? (pts.length ? `<div class="tbl num">${pts.slice().reverse().map(p => `<div class="r"><span>${md(p[0])}&nbsp;&nbsp;<span class="${isWE(p[0]) ? 'we' : 'sub'}">${wdOf(p[0])}</span></span><b>${p[1].toFixed(1)}${unitLbl}</b></div>`).join('')}</div>` : `<p class="empty">${t('noData')}</p>`)
+    ? (pts.length ? `<div class="tbl num">${pts.slice().reverse().map(p => `<div class="r"><span>${md(p[0])}&nbsp;&nbsp;<span class="${isWE(p[0]) ? 'we' : 'sub'}">${wdOf(p[0])}</span></span><b>${p[1].toFixed(1)} ${unitLbl}</b></div>`).join('')}</div>` : `<p class="empty">${t('noData')}</p>`)
     : buildChart(pts, k0, k1, flags, unitLbl, S.settings.avgLine !== false, t(met === 'w' ? 'weight' : met === 'f' ? 'fat' : 'muscle'));
   const per = [7, 30, 90, 182, 365];
   return `
@@ -953,14 +956,14 @@ function spark(pts){
   const line = pts.map(p => (2 + diffDays(k0, p[0]) / span * 106).toFixed(1) + ',' + (4 + (mx - p[1]) / r * 28).toFixed(1)).join(' ');
   return `<svg class="spark" viewBox="0 0 110 36" aria-hidden="true"><polyline points="${line}"/></svg>`;
 }
-function archTitle(a){ return a.auto && a.target != null ? t('goalName', fWU(a.target)) : a.title; }
+function archTitle(a){ return a.title ? a.title : (a.target != null ? t('goalName', fWU(a.target)) : ''); }
 function vArchive(tabs){
   const g = S.goal, lw = latestW(), tk = todayK();
   let live = '';
   if (g) {
     const pts = seriesBetween(g.start, tk), cur = lw ? lw.w : g.startW;
     live = `<button class="acard live" data-act="openGoal">
-      <div class="row" style="width:100%;align-items:center"><span style="font-size:16px;font-weight:600">${t('goalName', fWU(g.target))}</span><span class="badge b-live">${t('inProgress')}</span></div>
+      <div class="row" style="width:100%;align-items:center"><span style="font-size:16px;font-weight:600">${g.title ? esc(g.title) : t('goalName', fWU(g.target))}</span><span class="badge b-live">${t('inProgress')}</span></div>
       <span class="sub num" style="font-size:13px;margin-top:-6px">${ymd(g.start)} – ${g.end ? ymd(g.end) + ' (' + dur(g.start, g.end) + ')' : t('noEnd')}</span>
       <div class="row" style="width:100%;align-items:flex-end"><span class="aval num">${fW(g.startW)} → ${fW(cur)}<small>${U()}</small></span>${spark(pts)}</div></button>`;
   }
@@ -1014,6 +1017,7 @@ function vSet(){
     <div class="srow"><span>${t('language')}</span><div class="seg eq">${segBtn('lang','ko',st.lang,'한국어')}${segBtn('lang','en',st.lang,'English')}</div></div>
     <div class="srow"><span>${t('items')}</span><div class="seg eq">${segBtn('items','all',st.items || 'all',t('itemsAll'))}${segBtn('items','w',st.items,t('itemsW'))}</div></div>
     <div class="srow"><span>${t('unit')}</span><div class="seg">${segBtn('unit','kg',st.unit,'kg')}${segBtn('unit','lb',st.unit,'lb')}</div></div>
+    <div class="srow"><span>${t('dateFmt')}</span><div class="seg eq">${['ymd','mdy','dmy'].map(f => `<button data-act="dfmt" data-v="${f}" aria-pressed="${DF() === f}">${t('df_' + f)}</button>`).join('')}</div></div>
     <div class="srow"><span>${t('weekStart')}</span><div class="seg eq"><button data-act="week" data-v="0" aria-pressed="${st.weekStart === 0}">${t('sun')}</button><button data-act="week" data-v="1" aria-pressed="${st.weekStart === 1}">${t('mon')}</button></div></div>
     <div class="srow"><span>${t('hideNums')}</span><button class="sw" data-act="toggleHide" aria-pressed="${!!st.hideNum}" aria-label="${t('hideNums')}"></button></div>
   </div>
@@ -1022,6 +1026,7 @@ function vSet(){
     <button class="srow" data-act="exportCSV"><span>${t('csvB')}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>
     <button class="srow" data-act="exportB"><span>${t('exportB')}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>
     <button class="srow" data-act="importB"><span>${t('importB')}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>
+    <div class="srow"><span class="lbl"><span>${t('bkRow')}</span><span class="small">${t('bkRowSub')}</span></span><button class="sw" data-act="toggleBkNag" aria-pressed="${st.bkNag !== false}" aria-label="${t('bkRow')}"></button></div>
     <button class="srow danger" data-act="clearAll"><span>${t('clearAll')}</span></button>
   </div>
   <p class="small" style="margin:0 4px">${t('backupNote')}</p>
@@ -1164,6 +1169,7 @@ function openGoal(){
   openSheet(`${sheetHead(t('goalTitle'))}
   <form id="goalForm" novalidate style="display:flex;flex-direction:column;gap:14px">
     <div class="fields">
+      <div class="frow"><label for="gN" style="flex:none">${t('rangeName')} <span class="opt">${t('optional')}</span></label><input class="tin" id="gN" maxlength="30" placeholder="${g ? esc(t('goalName', fWU(g.target))) : t('goalNamePh')}" value="${g && g.title ? esc(g.title) : ''}"></div>
       <div class="frow"><label for="gT">${t('targetW')}</label><div class="unitin"><input class="nin num" id="gT" maxlength="5" inputmode="decimal" autocomplete="off" placeholder="${toU(w0 - 3).toFixed(1)}" value="${g ? toU(g.target).toFixed(1) : ''}"><span>${U()}</span></div></div>
       <div class="frow"><label for="gS">${t('startDate')}</label>${dateField('gS', s0, `data-max="${tk}"`)}</div>
       <div class="frow"><label for="gW">${t('startW')}</label><div class="unitin"><input class="nin num" id="gW" maxlength="5" inputmode="decimal" autocomplete="off" value="${toU(w0).toFixed(1)}"><span>${U()}</span></div></div>
@@ -1174,7 +1180,7 @@ function openGoal(){
     <p class="small" style="margin:0">${t('paceNote')}<br>${t('paceSrc')}</p>
     <p class="err" id="gErr" hidden></p>
     <button class="primary" type="submit">${t('save')}</button>
-    ${g ? `<button type="button" class="textbtn danger" data-act="removeGoal">${t('removeGoal')}</button>` : ''}
+    ${g ? `<button type="button" class="textbtn danger" style="font-size:17px" data-act="removeGoal">${t('removeGoal')}</button>` : ''}
   </form>`, sh => {
     const gW = sh.querySelector('#gW');
     const upd = () => {
@@ -1182,7 +1188,7 @@ function openGoal(){
       wn.hidden = true;
       if (sw == null || isNaN(sw) || tv == null || isNaN(tv) || !e) return;
       const rate = (fromU(sw) - fromU(tv)) / (Math.max(diffDays(sk, e), 1) / 7);
-      if (rate > 1) { wn.textContent = t('paceWarn', toU(rate).toFixed(1) + U()); wn.hidden = false; }
+      if (rate > 1) { wn.textContent = t('paceWarn', toU(rate).toFixed(1) + ' ' + U()); wn.hidden = false; }
     };
     sh.querySelector('#gS').addEventListener('change', () => {
       const k = sh.querySelector('#gS').value, r = S.records[k];
@@ -1206,7 +1212,7 @@ function openGoal(){
       if (isNaN(sw)) return limDlg('w'); sw = fromU(sw); if (!inLim('w', sw)) return limDlg('w');
       if (Math.abs(tv - sw) < 0.05) return fail(t('errSame'));
       if (end && end <= tk) return fail(t('errEnd'));
-      S.goal = { start:sk, startW:Math.round(sw * 100) / 100, target:Math.round(tv * 100) / 100, end:end || null };
+      S.goal = { title:(sh.querySelector('#gN').value || '').trim(), start:sk, startW:Math.round(sw * 100) / 100, target:Math.round(tv * 100) / 100, end:end || null };
       persist(); closeSheet(); render(true); toast(t('saved')); checkGoal();
     });
   });
@@ -1261,8 +1267,8 @@ function openArch(id){
       <div class="stat" style="background:var(--bg)"><span class="small">${t('stChange')}</span><b>${fDelta(a.endW - a.startW)}</b></div>
     </div>
     <div style="display:flex;gap:10px">
-      <button class="secondary spaced" data-act="editArch" data-id="${esc(a.id)}">${t('edit')}</button>
-      <button class="secondary danger spaced" data-act="delArch" data-id="${esc(a.id)}">${t('del')}</button>
+      <button class="secondary" data-act="editArch" data-id="${esc(a.id)}">${t('edit')}</button>
+      <button class="secondary danger" data-act="delArch" data-id="${esc(a.id)}">${t('del')}</button>
     </div>`);
 }
 
@@ -1380,10 +1386,10 @@ function openPicker(ctx){
 
 /* ---------- backup ---------- */
 function exportBackup(){
-  S.settings.lastBackup = todayK(); S.settings.bkSnooze = null; persist();
+  S.settings.lastBackup = todayK(); S.settings.bkSnooze = null; S.settings.bkYearSnooze = null; persist();
   const data = JSON.stringify({ app:'weightlog', v:1, exported:new Date().toISOString(), records:S.records, goal:S.goal, archive:S.archive, settings:Object.assign({}, S.settings, { pin:null, lock:false }) });
   try { const blob = new Blob([data], { type:'application/json' }); const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'Weighly-backup.json'; document.body.appendChild(a); a.click(); a.remove();
+    a.href = URL.createObjectURL(blob); a.download = 'Weighly_backup_' + todayK().replace(/-/g, '.') + '.json'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000); } catch(e) {}
   openSheet(`${sheetHead(t('exportTitle'))}<p class="small" style="margin:0">${t('exportText')}</p>
     <textarea id="exTxt" readonly aria-label="${t('exportTitle')}">${esc(data)}</textarea>
@@ -1505,6 +1511,8 @@ document.addEventListener('click', e => {
     case 'lang': S.settings.lang = v; persist(); render(true); break;
     case 'unit': S.settings.unit = v; persist(); render(true); if (!document.getElementById('tut').hidden) showTut(tutI); break;
     case 'week': S.settings.weekStart = +v; persist(); render(true); break;
+    case 'toggleBkNag': S.settings.bkNag = S.settings.bkNag === false; persist(); render(true); break;
+    case 'dfmt': S.settings.dateFmt = v; persist(); render(true); break;
     case 'toggleLock':
       if (S.settings.lock) dialog(t('lockOffQ'), '', [{label:t('cancel')}, {label:t('turnOff'), kind:'bad', fn:() => { S.settings.lock = false; S.settings.pin = null; persist(); render(true); }}]);
       else showPin('set1', t('pinNew'), t('pinWarn'));
@@ -1557,7 +1565,7 @@ function nwText(root){
     if (hit) { out.append(tx.slice(last)); n.replaceWith(out); } });
   /* No lonely last word: the last two words (three in Korean) always travel to a new line together. */
   if (root.querySelectorAll) [root].concat([...root.querySelectorAll(ORPH)]).forEach(el => { if (!el.matches || !el.matches(ORPH) || el.dataset.orph) return; el.dataset.orph = '1';
-    const ko = /[가-힣]/.test(el.textContent), words = el.textContent.trim().split(/\s+/).length; let k = ko ? 2 : 1; if (words < k + 4) return;
+    const ko = /[가-힣]/.test(el.textContent), words = el.textContent.trim().split(/\s+/).length; let k = 2; if (words < k + 4) return;
     const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), ns = []; while (tw.nextNode()) ns.push(tw.currentNode);
     let end = true;
     for (let i = ns.length - 1; i >= 0 && k > 0; i--) { const n = ns[i]; let d = n.data; if (end) { if (!d.trim()) continue; d = d.replace(/\s+$/, ''); end = false; }
@@ -1585,8 +1593,10 @@ if (!S.settings.tutSeen) showTut(0); else checkBackupNag();
 function checkBackupNag(){
   const st = S.settings, tk = todayK(); if (S.sample || !Object.keys(S.records).length || document.querySelector('.dlgwrap')) return;
   if (!st.bkFrom) { st.bkFrom = tk; persist(); return; }
-  const ref = st.lastBackup || st.bkFrom; if (diffDays(ref, tk) < 30 || (st.bkSnooze && st.bkSnooze > tk)) return;
-  dialog(t('bkNagT'), t('bkNagB'), [{label:t('bkLater'), fn:() => { st.bkSnooze = addDays(tk, 7); persist(); }}, {label:t('bkNow'), kind:'go', fn:() => exportBackup()}]);
+  const ref = st.lastBackup || st.bkFrom, days = diffDays(ref, tk);
+  if (days >= 365 && !(st.bkYearSnooze && st.bkYearSnooze > tk)) { dialog(t('bkYearT'), t('bkYearB'), [{label:t('bkLater'), fn:() => { st.bkYearSnooze = addDays(tk, 30); persist(); }}, {label:t('bkNow'), kind:'go', fn:() => exportBackup()}]); return; }
+  if (st.bkNag === false || days < 30 || (st.bkSnooze && st.bkSnooze > tk)) return;
+  dialog(t('bkNagT'), t('bkNagB'), [{label:t('bkLater'), fn:() => { st.bkSnooze = addDays(tk, 30); persist(); }}, {label:t('bkNow'), kind:'go', fn:() => exportBackup()}], t('bkNagNote'));
 }
 if (S.settings.lock && S.settings.pin) showPin('unlock', t('pinEnter'));
 })();
