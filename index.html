@@ -420,7 +420,7 @@ ko:{
   today:'오늘', latest:'최근 기록', relToday:'오늘', relYest:'어제',
   vsPrev:d=>`지난 기록보다 ${d}`, noRecord:'아직 기록이 없어요.', recordToday:'오늘 몸무게 기록하기',
   hideNums:'몸무게 숫자 숨기기', showNums:'몸무게 숫자 보이기',
-  goal:'목표', start:'시작', remain:'남은', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 남은 무게를 보여드려요.',
+  goal:'목표', start:'시작', remain:'남음', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 남은 무게를 보여드려요.',
   paceNote:()=>`다이어트 시 일반적으로 권장되는 감량 속도는 주당 ${PACE()}이에요.`, paceSrc:'출처: 영국 국민보건서비스 (NHS), 미국 질병통제예방센터 (CDC)',
   cheerDown:'꾸준함이 제일 어려운 건데, 잘 해내고 있어요!', cheerSame:'정체기도 과정이에요. 흐름을 믿고 가봐요.',
   cheerUp:'하루 변동은 자연스러워요. 며칠 흐름을 봐요.', cheerNone:'오늘의 몸무게를 기록해볼까요?',
@@ -447,7 +447,7 @@ ko:{
   errTarget:'목표 몸무게를 다시 확인해 주세요.', errSame:'목표 몸무게가 지금 몸무게와 같아요.', errEnd:'목표 날짜는 내일 이후로 정해 주세요.',
   achievedTitle:'목표 달성!', achievedText:'정말 잘했어요. 이번 기간을 보관함에 저장했어요.',
   endedTitle:'목표 기간이 끝났어요.', endedText:'지금까지의 기록을 보관함에 저장했어요.', newGoal:'새 목표 정하기',
-  goalName:v=>`목표 ${v}`, goalNamePh:'예: 여름 전까지',
+  goalName:v=>`목표 ${v}`, goalNamePh:'예: 여름 전까지', loadRec:'불러오기', noRecToLoad:'불러올 기록이 없어요.', loadedRec:(d,w)=>`${d} 기록 ${w}을 불러왔어요.`,
   change:'변화', archive:'보관함', graph:'그래프', table:'표',
   p7:'1주', p30:'1개월', p90:'3개월', p182:'6개월', p365:'1년',
   periodChange:'기간 변화', avg:'평균', min:'최저', notEnough:'이 기간에는 그래프를 그릴 기록이 부족해요.', noData:'이 기간에는 기록이 없어요.',
@@ -492,7 +492,7 @@ en:{
   today:'Today', latest:'Latest', relToday:'today', relYest:'yesterday',
   vsPrev:d=>`${d} from last entry`, noRecord:'No entries yet.', recordToday:'Log today’s weight',
   hideNums:'Hide numbers', showNums:'Show numbers',
-  goal:'Goal', start:'Start', remain:'To go', setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
+  goal:'Goal', start:'Start', remain:'to go', setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
   paceNote:()=>`A commonly recommended weight-loss pace is ${PACE()} per week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
   cheerDown:'Consistency is the hardest part, and you’re doing it!', cheerSame:'Plateaus are part of the process. Keep going.',
   cheerUp:'Daily ups and downs are normal. Watch the trend.', cheerNone:'Ready to log today’s weight?',
@@ -519,7 +519,7 @@ en:{
   errTarget:'Please check the target weight.', errSame:'Target is the same as your current weight.', errEnd:'Pick a target date after today.',
   achievedTitle:'Goal reached!', achievedText:'Great work. This period was saved to your archive.',
   endedTitle:'Your goal period ended.', endedText:'Your entries for this period were saved to the archive.', newGoal:'Set a new goal',
-  goalName:v=>`Goal ${v}`, goalNamePh:'e.g. Before summer',
+  goalName:v=>`Goal ${v}`, goalNamePh:'e.g. Before summer', loadRec:'Load', noRecToLoad:'No entries to load.', loadedRec:(d,w)=>`Loaded ${w} from ${d}.`,
   change:'Trends', archive:'Archive', graph:'Chart', table:'Table',
   p7:'1W', p30:'1M', p90:'3M', p182:'6M', p365:'1Y',
   periodChange:'Change', avg:'Average', min:'Lowest', notEnough:'Not enough entries to draw a chart.', noData:'No entries in this period.',
@@ -745,7 +745,7 @@ function vHome(){
     goalHtml = `<button class="card goal" data-act="openGoal">
       <div class="row" style="width:100%"><span style="font-weight:600">${t('goal')} <span class="num">${fWU(g.target, true)}</span></span><span class="accent num" style="font-weight:700">${dd == null ? t('noEnd') : dd === 0 ? 'D-Day' : 'D-' + dd}</span></div>
       <div class="bar" style="width:100%" role="img" aria-label="${Math.round(p*100)}%"><i style="width:${(p*100).toFixed(1)}%"></i></div>
-      <div class="row sub" style="width:100%;font-size:13px"><span>${t('start')} <span class="num">${fWU(g.startW, true)}</span></span><span>${t('remain')} <b class="num" style="color:var(--fg)">${hide ? mask + U() : toU(Math.abs(cur - g.target)).toFixed(1) + U()}</b></span></div>
+      <div class="row sub" style="width:100%;font-size:13px"><span>${t('start')} <span class="num">${fWU(g.startW, true)}</span></span><span><b class="num" style="color:var(--fg)">${hide ? mask + U() : toU(Math.abs(cur - g.target)).toFixed(1) + U()}</b> ${t('remain')}</span></div>
     </button>`;
   } else {
     goalHtml = `<div class="card" style="display:flex;flex-direction:column;gap:12px"><span class="sub">${t('noGoalText')}</span><button class="secondary" data-act="openGoal">${t('setGoal')}</button></div>`;
@@ -1178,7 +1178,7 @@ function openGoal(){
       <div class="frow"><label for="gN" style="flex:none">${t('rangeName')} <span class="opt">${t('optional')}</span></label><input class="tin short" id="gN" maxlength="30" placeholder="${g ? esc(t('goalName', fWU(g.target))) : t('goalNamePh')}" value="${g && g.title ? esc(g.title) : ''}"></div>
       <div class="frow"><label for="gT">${t('targetW')}</label><div class="unitin"><input class="nin num" id="gT" maxlength="5" inputmode="decimal" autocomplete="off" placeholder="${toU(w0 - 3).toFixed(1)}" value="${g ? toU(g.target).toFixed(1) : ''}"><span>${U()}</span></div></div>
       <div class="frow"><label for="gS">${t('startDate')}</label>${dateField('gS', s0, `data-max="${tk}"`)}</div>
-      <div class="frow"><label for="gW">${t('startW')}</label><div class="unitin"><input class="nin num" id="gW" maxlength="5" inputmode="decimal" autocomplete="off" value="${toU(w0).toFixed(1)}"><span>${U()}</span></div></div>
+      <div class="frow"><label for="gW" style="white-space:nowrap">${t('startW')}</label><div style="display:flex;align-items:center;gap:8px"><button type="button" class="qchip" style="padding:0 12px" data-act="gLoadW">${t('loadRec')}</button><div class="unitin"><input class="nin num" id="gW" maxlength="5" inputmode="decimal" autocomplete="off" value="${toU(w0).toFixed(1)}"><span>${U()}</span></div></div></div>
       <div class="frow" style="border-bottom:0"><label for="gE">${t('endDate')} <span class="opt">${t('optional')}</span></label>${dateField('gE', g ? (g.end || '') : '', `data-min="${addDays(tk, 1)}"`)}</div>
       <div class="qchips">${quick}</div>
     </div>
@@ -1517,6 +1517,10 @@ document.addEventListener('click', e => {
     case 'lang': S.settings.lang = v; persist(); render(true); break;
     case 'unit': S.settings.unit = v; persist(); render(true); if (!document.getElementById('tut').hidden) showTut(tutI); break;
     case 'week': S.settings.weekStart = +v; persist(); render(true); break;
+    case 'gLoadW': { const k = (document.getElementById('gS') || {}).value, ks = weightKeys(), gW = document.getElementById('gW'); const note = m => { let n = document.getElementById('gLoadNote'); if (!n) { n = document.createElement('p'); n.id = 'gLoadNote'; n.className = 'small'; n.style.cssText = 'margin:-6px 0 6px;text-align:right'; gW.closest('.frow').after(n); } n.textContent = m; };
+      if (!ks.length || !k || !gW) { if (gW) note(t('noRecToLoad')); break; }
+      const near = ks.reduce((b, x) => Math.abs(diffDays(x, k)) < Math.abs(diffDays(b, k)) || (Math.abs(diffDays(x, k)) === Math.abs(diffDays(b, k)) && x < b) ? x : b, ks[0]);
+      gW.value = toU(S.records[near].w).toFixed(1); gW.dispatchEvent(new Event('input', { bubbles:true })); note(t('loadedRec', fullDate(near), fWU(S.records[near].w))); break; }
     case 'toggleBkNag': S.settings.bkNag = S.settings.bkNag === false; persist(); render(true); break;
     case 'dfmt': S.settings.dateFmt = v; persist(); render(true); break;
     case 'toggleLock':
