@@ -91,7 +91,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .top{display:flex;justify-content:space-between;align-items:center;min-height:52px}
 .top h1{margin:0;font-size:24px;font-weight:700;line-height:1.2}
 .hdate{height:34px;display:flex;align-items:center}
-.homebody{display:flex;flex-direction:column;gap:18px}
+.zw:has(.homebody){flex:1 0 auto}
+.homebody{display:flex;flex-direction:column;gap:18px;flex:1}
+.cheerwrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px;margin:-18px 0 -28px}
 .homebody .hero{padding-top:24px;padding-bottom:22px}
 .homebody .cheer{margin-top:0}
 .sub{color:var(--sub);font-size:14px}
@@ -116,6 +118,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .hero{display:flex;flex-direction:column;align-items:center;gap:6px;padding:28px 20px 20px;border-radius:24px}
 .big{font-size:64px;font-weight:700;line-height:1.05;letter-spacing:-1px}
 .big small{font-size:22px;font-weight:500;letter-spacing:0;margin-left:4px}
+.aval small{margin-left:.3em}
+.aval .delta{margin-left:8px}
 .primary{width:100%;height:56px;border-radius:16px;border:0;background:var(--btn);color:var(--btnFg);font-size:17px;font-weight:600}
 .secondary{width:100%;height:50px;border-radius:14px;border:1px solid var(--line);background:var(--card);font-size:15px;font-weight:600}
 .textbtn{border:0;background:none;color:var(--accent);text-decoration:none;font-weight:600;font-size:14px;padding:10px 4px;min-height:44px}
@@ -245,7 +249,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .row-fg.open{transform:translateX(-80px)}
 .row-fg.tdy{background:var(--accentSoft)}
 .row-fg .d{font-size:14px;position:relative;display:flex;justify-content:center;align-items:center}
-.row-fg .d > span:first-child > span{margin-left:8px}
+.row-fg .d > span:first-child{display:inline-grid;grid-template-columns:auto var(--wdw,1.2em);column-gap:6px;align-items:center;white-space:nowrap}
+.row-fg .d > span:first-child > span{text-align:left}
 .row-fg .d .dstar{position:absolute;left:calc(50% + 36px);top:50%;transform:translateY(-50%);display:flex}
 .lgrid.wo{grid-template-columns:84px minmax(0,1fr)}
 .rangebtn{border:0;background:none;padding:0;display:flex;align-items:center;gap:4px;font-size:13px;min-height:36px;color:var(--sub)}
@@ -351,6 +356,7 @@ svg.chart{touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:cr
 .avpick button[aria-pressed="true"] .avnone{color:var(--accent)}
 .avpick button[aria-pressed="true"]{background:var(--accentSoft);box-shadow:inset 0 0 0 2px var(--accent)}
 .flabel{font-size:13px;color:var(--sub);margin:4px 0 -4px}
+.frow .tin.short{flex:0 1 210px;margin-left:16px}
 .tin{flex:1;min-width:0;height:44px;box-sizing:border-box;border:1px solid var(--line);border-radius:10px;padding:0 12px;font-size:15px;background:var(--card)}
 input::placeholder,textarea::placeholder{color:var(--faint)}
 .flagbtn{width:44px;height:44px;flex:none;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--sub);display:flex;align-items:center;justify-content:center;padding:0}
@@ -412,7 +418,7 @@ const T = {
 ko:{
   tabHome:'홈', tabCal:'캘린더', tabList:'목록', tabChart:'그래프', tabSet:'설정',
   today:'오늘', latest:'최근 기록', relToday:'오늘', relYest:'어제',
-  vsPrev:d=>`지난 기록보다 ${d}`, noRecord:'아직 기록이 없어요', recordToday:'오늘 몸무게 기록하기',
+  vsPrev:d=>`지난 기록보다 ${d}`, noRecord:'아직 기록이 없어요.', recordToday:'오늘 몸무게 기록하기',
   hideNums:'몸무게 숫자 숨기기', showNums:'몸무게 숫자 보이기',
   goal:'목표', start:'시작', remain:'남은', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 남은 무게를 보여드려요.',
   paceNote:()=>`다이어트 시 일반적으로 권장되는 감량 속도는 주당 ${PACE()}이에요.`, paceSrc:'출처: 영국 국민보건서비스 (NHS), 미국 질병통제예방센터 (CDC)',
@@ -451,15 +457,15 @@ ko:{
   errRange:'기간을 다시 확인해 주세요.', errNoData:'이 기간에는 몸무게 기록이 없어요.', errName:'이름을 적어 주세요.',
   archiveEmpty:'아직 저장된 기간이 없어요.', deleteArchive:'이 기간 삭제', deleteArchiveQ:'이 기간을 보관함에서 삭제할까요?',
   cardHint:'카드를 누르면 그 기간의 그래프를 볼 수 있어요.', targetWas:v=>`목표 ${v}`,
-  account:'계정', nameEmpty:'이름을 정해주세요', nameHint:'홈 화면에서 불러드릴 이름이에요.', nameTitle:'이름', avatarTitle:'프로필 아이콘', avatarNone:'아이콘 없음', nearGoal:r=>`거의 다 왔어요! 목표까지 ${r} 남았어요.`, nearGoalH:'거의 다 왔어요! 목표가 코앞이에요.', namePh:'이름', signIn:'계정 연동', 
+  account:'계정', nameEmpty:'이름을 정해주세요.', nameHint:'홈 화면에서 불러드릴 이름이에요.', nameTitle:'이름', avatarTitle:'프로필 아이콘', avatarNone:'아이콘 없음', nearGoal:r=>`거의 다 왔어요! 목표까지 ${r} 남았어요.`, nearGoalH:'거의 다 왔어요! 목표가 코앞이에요.', namePh:'이름', signIn:'계정 연동', 
   settings:'설정', security:'보안', appLock:'앱 잠금', changePin:'비밀번호 변경', faceId:'Face ID / 지문으로 열기',
   later:'아이폰 앱 버전에서 지원할 예정이에요.', notif:'알림', notifRow:'측정 알림',
   display:'표시', language:'언어', unit:'단위', weekStart:'한 주 시작', dateFmt:'날짜 형식', df_ymd:'연.월.일', df_mdy:'월/일/연', df_dmy:'일/월/연', sun:'일요일', mon:'월요일',
-  data:'데이터', exportB:'백업 파일 만들기', bkNagT:'백업할 때가 됐어요', bkNagB:'마지막 백업 후 30일이 지났어요.\n백업 파일은 ‘다운로드’ 폴더에 두고, 새로 백업하면 예전 파일은 지워 주세요.', bkLater:'30일 뒤 다시 알림', bkNow:'지금 백업', bkNagNote:'설정 → 데이터에서 백업 알림을 끄고 켤 수 있어요.', bkYearT:'1년 동안 백업하지 않았어요', bkYearB:'마지막 백업 후 1년이 지났어요.\n기록을 잃지 않도록 지금 백업 파일을 만들어 두세요.', bkRow:'백업 알림', bkRowSub:'마지막 백업 후 30일이 지나면 알려줘요.', importB:'백업 불러오기', clearAll:'모든 기록 지우기',
+  data:'데이터', exportB:'백업 파일 만들기', bkNagT:'백업할 때가 됐어요.', bkNagB:'마지막 백업 후 30일이 지났어요.\n백업 파일은 ‘다운로드’ 폴더에 두고, 새로 백업하면 예전 파일은 지워 주세요.', bkLater:'30일 뒤 다시 알림', bkNow:'지금 백업', bkNagNote:'설정 → 데이터에서 백업 알림을 끄고 켤 수 있어요.', bkYearT:'1년 동안 백업하지 않았어요.', bkYearB:'마지막 백업 후 1년이 지났어요.\n기록을 잃지 않도록 지금 백업 파일을 만들어 두세요.', bkRow:'백업 알림', bkRowSub:'마지막 백업 후 30일이 지나면 알려줘요.', importB:'백업 불러오기', clearAll:'모든 기록 지우기',
   clearAllQ:'모든 기록과 목표, 보관함을 지울까요?\n되돌릴 수 없어요.', clearSampleQ:'예시 데이터를 지우고 새로 시작할까요?', erase:'지우기',
   backupNote:'기록은 이 폰 안에만 저장돼요. 폰을 바꾸기 전에 꼭 백업 파일을 만들어 두세요.',
-  pinNew:'새 비밀번호 4자리', pinAgain:'한 번 더 입력해 주세요', pinMismatch:'비밀번호가 달라요.\n처음부터 다시 입력해 주세요.',
-  pinEnter:'비밀번호를 입력해 주세요', pinWrong:'비밀번호가 맞지 않아요.',
+  pinNew:'새 비밀번호 4자리', pinAgain:'한 번 더 입력해 주세요.', pinMismatch:'비밀번호가 달라요.\n처음부터 다시 입력해 주세요.',
+  pinEnter:'비밀번호를 입력해 주세요.', pinWrong:'비밀번호가 맞지 않아요.',
   pinWarn:'비밀번호를 잊으면 앱을 열 수 없어요.\n백업 파일을 미리 만들어 두세요.', lockOffQ:'앱 잠금을 끌까요?', turnOff:'끄기', lockOn:'앱 잠금을 켰어요.',
   exportTitle:'백업 파일', exportText:'파일이 자동으로 저장되지 않으면 아래 내용을 복사해서 메모 앱 등에 보관하세요.',
   copy:'복사', copied:'복사했어요.', copyFail:'복사하지 못했어요. 내용을 길게 눌러 직접 복사해 주세요.',
@@ -467,7 +473,7 @@ ko:{
   importDo:'불러오기', importQ:'지금 기록을 백업 내용으로 바꿀까요?', importErr:'백업 내용을 읽을 수 없어요.', imported:'불러왔어요.',
   pickTitle:'연도와 달', ver:'Weighly ver 0.1', flagDefault:'표시한 날',
   avg7:'7일 평균', csvB:'엑셀로 내보내기', csvTitle:'엑셀 파일', csvText:'파일이 자동으로 저장되지 않으면 아래 내용을 복사해서 엑셀에 붙여넣으세요.', starCol:'별',
-  pinCur:'현재 비밀번호를 입력해 주세요', prevMonth:m=>`${m} 기록도 보기`,
+  pinCur:'현재 비밀번호를 입력해 주세요.', prevMonth:m=>`${m} 기록도 보기`,
   tut1T:'Weighly <span class="pron">(웨일리)</span>에 오신 걸 환영해요!', tut1B:'하루 한 번, 몸무게를 기록하고\n흐름을 보는 앱이에요.\n\n주요 기능을 빠르게 알려드릴게요.',
   tut2T:'단위 설정하기', tut2B:'먼저 무게 단위를 골라주세요.\n\n설정에서 언제든 바꿀 수 있어요.',
   tut3T:'오늘 기록하기', tut3B:'홈 화면의 ‘오늘 몸무게 기록하기’를 눌러\n오늘의 기록을 남겨요.\n\n매일 같은 시간, 같은 조건에서 재면\n변화를 더 정확히 볼 수 있어요.',
@@ -484,7 +490,7 @@ ko:{
 en:{
   tabHome:'Home', tabCal:'Calendar', tabList:'List', tabChart:'Charts', tabSet:'Settings',
   today:'Today', latest:'Latest', relToday:'today', relYest:'yesterday',
-  vsPrev:d=>`${d} from last entry`, noRecord:'No entries yet', recordToday:'Log today’s weight',
+  vsPrev:d=>`${d} from last entry`, noRecord:'No entries yet.', recordToday:'Log today’s weight',
   hideNums:'Hide numbers', showNums:'Show numbers',
   goal:'Goal', start:'Start', remain:'To go', setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
   paceNote:()=>`A commonly recommended weight-loss pace is ${PACE()} per week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
@@ -523,15 +529,15 @@ en:{
   errRange:'Please check the dates.', errNoData:'No weight entries in this period.', errName:'Add a name.',
   archiveEmpty:'No saved periods yet.', deleteArchive:'Delete this period', deleteArchiveQ:'Delete this period from the archive?',
   cardHint:'Tap a card to see its chart.', targetWas:v=>`Goal ${v}`,
-  account:'Account', nameEmpty:'Add your name', nameHint:'What the Home screen will call you.', nameTitle:'Name', avatarTitle:'Profile icon', avatarNone:'No icon', nearGoal:r=>`Almost there! Just ${r} to go.`, nearGoalH:'Almost there! Your goal is within reach.', namePh:'Name', signIn:'Sign in & sync',
+  account:'Account', nameEmpty:'Add your name.', nameHint:'What the Home screen will call you.', nameTitle:'Name', avatarTitle:'Profile icon', avatarNone:'No icon', nearGoal:r=>`Almost there! Just ${r} to go.`, nearGoalH:'Almost there! Your goal is within reach.', namePh:'Name', signIn:'Sign in & sync',
   settings:'Settings', security:'Security', appLock:'App lock', changePin:'Change passcode', faceId:'Unlock with Face\u00a0ID\u00a0/ Touch\u00a0ID',
   later:'Coming in the iPhone app version.', notif:'Reminders', notifRow:'Weigh-in reminder',
   display:'Display', language:'Language', unit:'Units', weekStart:'Week starts on', dateFmt:'Date format', df_ymd:'Y.M.D', df_mdy:'M/D/Y', df_dmy:'D/M/Y', sun:'Sunday', mon:'Monday',
-  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up', bkNagB:'It’s been 30 days since your last backup.\nKeep the backup file in your Downloads folder, and delete the old one after each new backup.', bkLater:'Remind me in 30 days', bkNow:'Back up now', bkNagNote:'You can turn backup reminders on or off in Settings → Data.', bkYearT:'No backup for a year', bkYearB:'It’s been a year since your last backup.\nMake a backup file now so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after your last backup.', importB:'Restore backup', clearAll:'Erase all data',
+  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up.', bkNagB:'It’s been 30 days since your last backup.\nKeep the backup file in your Downloads folder, and delete the old one after each new backup.', bkLater:'Remind me in 30 days', bkNow:'Back up now', bkNagNote:'You can turn backup reminders on or off in Settings → Data.', bkYearT:'You haven’t backed up in a year.', bkYearB:'It’s been a year since your last backup.\nMake a backup file now so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after your last backup.', importB:'Restore backup', clearAll:'Erase all data',
   clearAllQ:'Erase all entries, goals and the archive?\nThis can’t be undone.', clearSampleQ:'Clear the sample data and start fresh?', erase:'Erase',
   backupNote:'Entries are stored only on this phone.<br>Make a backup before switching phones.',
-  pinNew:'New 4-digit passcode', pinAgain:'Enter it again', pinMismatch:'Passcodes didn’t match.\nStart again.',
-  pinEnter:'Enter passcode', pinWrong:'Wrong passcode.',
+  pinNew:'New 4-digit passcode', pinAgain:'Enter it again.', pinMismatch:'Passcodes didn’t match.\nStart again.',
+  pinEnter:'Enter your passcode.', pinWrong:'Wrong passcode.',
   pinWarn:'If you forget the passcode you can’t open the app.\nPlease make a backup first.', lockOffQ:'Turn off app lock?', turnOff:'Turn off', lockOn:'App lock is on.',
   exportTitle:'Backup file', exportText:'If the file doesn’t save, copy the text below and keep it somewhere safe.',
   copy:'Copy', copied:'Copied.', copyFail:'Couldn’t copy. Press and hold the text to copy it.',
@@ -539,7 +545,7 @@ en:{
   importDo:'Restore', importQ:'Replace current data with this backup?', importErr:'Couldn’t read this backup.', imported:'Restored.',
   pickTitle:'Year and month', ver:'Weighly ver 0.1', flagDefault:'Marked',
   avg7:'7-day avg', csvB:'Export to Excel', csvTitle:'Excel file', csvText:'If the file doesn’t save, copy the text below and paste it into Excel.', starCol:'Star',
-  pinCur:'Enter your current passcode', prevMonth:m=>`Show ${m}`,
+  pinCur:'Enter your current passcode.', prevMonth:m=>`Show ${m}`,
   tut1T:'Welcome to Weighly!', tut1B:'Log your weight once a day\nand see the trend.\n\nHere’s a quick tour of the main features.',
   tut2T:'Choose your unit', tut2B:'First, pick a weight unit.\n\nYou can change it anytime in Settings.',
   tut3T:'Log today', tut3B:'Tap ‘Log today’s weight’ on Home\nto add today’s entry.\n\nWeigh in at the same time and\nunder the same conditions each day.',
@@ -617,10 +623,10 @@ const U = () => S.settings.unit === 'lb' ? 'lb' : 'kg';
 const toU = kg => U() === 'lb' ? kg * 2.20462 : kg;
 const fromU = v => U() === 'lb' ? v / 2.20462 : v;
 const mask = '••.•';
-const PACE = () => U() === 'lb' ? (L() === 'en' ? '1–2 lb' : '1~2 lb') : (L() === 'en' ? '0.5–1 kg' : '0.5~1 kg');
+const PACE = () => U() === 'lb' ? (L() === 'en' ? '1–2 lb' : '1~2lb') : (L() === 'en' ? '0.5–1 kg' : '0.5~1kg');
 const fW = (kg, hide) => (hide && S.settings.hideNum) ? mask : toU(kg).toFixed(1);
-const fWU = (kg, hide) => fW(kg, hide) + ' ' + U();
-const fDelta = kg => { const v = toU(kg); const s = Math.abs(v) < 0.05 ? '±0.0' : (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1); return s + ' ' + U(); };
+const fWU = (kg, hide) => fW(kg, hide) + U();
+const fDelta = kg => { const v = toU(kg); const s = Math.abs(v) < 0.05 ? '±0.0' : (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1); return s + U(); };
 const DF = () => S.settings.dateFmt || (() => { const l = (navigator.language || 'ko').toLowerCase(); return /^(ko|ja|zh|hu|lt|mn)/.test(l) ? 'ymd' : /^en-(us|ph)|^en$/.test(l) ? 'mdy' : 'dmy'; })();
 const md = k => { const [, m, d] = k.split('-'), f = DF(); return f === 'mdy' ? m + '/' + d : f === 'dmy' ? d + '/' + m : m + '.' + d; };
 const ymd = k => { const [y, m, d] = k.split('-'), f = DF(); return f === 'mdy' ? m + '/' + d + '/' + y : f === 'dmy' ? d + '/' + m + '/' + y : y + '.' + m + '.' + d; };
@@ -727,7 +733,7 @@ function vHome(){
   let cheer = t('cheerNone');
   if (lw && lw.prev != null) { const d = lw.w - lw.prev; cheer = d < -0.05 ? t('cheerDown') : (d > 0.05 ? t('cheerUp') : t('cheerSame')); }
   if (g && lw && lw.k >= g.start) { const left = (g.startW > g.target) ? lw.w - g.target : g.target - lw.w, tot = Math.abs(g.startW - g.target);
-    if (left > 0.05 && (left <= 1 || (tot > 0 && 1 - left / tot >= 0.8))) cheer = hide ? t('nearGoalH') : t('nearGoal', toU(left).toFixed(1) + ' ' + U()); }
+    if (left > 0.05 && (left <= 1 || (tot > 0 && 1 - left / tot >= 0.8))) cheer = hide ? t('nearGoalH') : t('nearGoal', toU(left).toFixed(1) + U()); }
   if (L() === 'en') cheer = cheer.replace(/([.!?]) (?=\S)/g, '$1<br>');
   const nm = callName(); if (nm) cheer = L() === 'en' ? nm + ', ' + cheer.charAt(0).toLowerCase() + cheer.slice(1) : nm + '님, ' + cheer;
   let goalHtml;
@@ -739,7 +745,7 @@ function vHome(){
     goalHtml = `<button class="card goal" data-act="openGoal">
       <div class="row" style="width:100%"><span style="font-weight:600">${t('goal')} <span class="num">${fWU(g.target, true)}</span></span><span class="accent num" style="font-weight:700">${dd == null ? t('noEnd') : dd === 0 ? 'D-Day' : 'D-' + dd}</span></div>
       <div class="bar" style="width:100%" role="img" aria-label="${Math.round(p*100)}%"><i style="width:${(p*100).toFixed(1)}%"></i></div>
-      <div class="row sub" style="width:100%;font-size:13px"><span>${t('start')} <span class="num">${fWU(g.startW, true)}</span></span><span>${t('remain')} <b class="num" style="color:var(--fg)">${hide ? mask + ' ' + U() : toU(Math.abs(cur - g.target)).toFixed(1) + ' ' + U()}</b></span></div>
+      <div class="row sub" style="width:100%;font-size:13px"><span>${t('start')} <span class="num">${fWU(g.startW, true)}</span></span><span>${t('remain')} <b class="num" style="color:var(--fg)">${hide ? mask + U() : toU(Math.abs(cur - g.target)).toFixed(1) + U()}</b></span></div>
     </button>`;
   } else {
     goalHtml = `<div class="card" style="display:flex;flex-direction:column;gap:12px"><span class="sub">${t('noGoalText')}</span><button class="secondary" data-act="openGoal">${t('setGoal')}</button></div>`;
@@ -758,7 +764,7 @@ function vHome(){
   </section>
   ${goalHtml}
   <p class="small" style="margin:-6px 4px 0">${t('paceNote')}<br>${t('paceSrc')}</p>
-  <p class="cheer">${cheer}</p></div>`;
+  <div class="cheerwrap"><p class="cheer" style="margin:0">${cheer}</p></div></div>`;
 }
 
 function ymBar(ctx, y, m, right){
@@ -883,7 +889,7 @@ function tipAt(el, clientX){
   const rc = g.querySelector('.c-tipb'); rc.setAttribute('x', bx); rc.setAttribute('y', by);
   const t1 = g.querySelector('.c-tipt1'), t2 = g.querySelector('.c-tipt2');
   t1.setAttribute('x', bx + bw / 2); t1.setAttribute('y', by + 13); t1.textContent = fullDate(b.k);
-  t2.setAttribute('x', bx + bw / 2); t2.setAttribute('y', by + 26.5); t2.textContent = b.v.toFixed(1) + ' ' + c.unit;
+  t2.setAttribute('x', bx + bw / 2); t2.setAttribute('y', by + 26.5); t2.textContent = b.v.toFixed(1) + c.unit;
 }
 document.addEventListener('pointerdown', e => { const s = e.target.closest && e.target.closest('svg.chart'); if (!s) return; tipSvg = s; try { s.setPointerCapture(e.pointerId); } catch(_) {} tipAt(s, e.clientX); });
 document.addEventListener('pointermove', e => { if (tipSvg) tipAt(tipSvg, e.clientX); });
@@ -926,14 +932,14 @@ function vChart(){
   let stats = '';
   if (pts.length) {
     const vs = pts.map(p => p[1]), ch = vs[vs.length-1] - vs[0], avg = vs.reduce((a,b) => a+b, 0) / vs.length, mn = Math.min(...vs);
-    const fmt = x => x.toFixed(1) + ' ' + unitLbl;
+    const fmt = x => x.toFixed(1) + unitLbl;
     stats = `<div class="stats num">
-      <div class="stat"><span class="small">${t('periodChange')}</span><b>${Math.abs(ch) < 0.05 ? '±0.0' : (ch < 0 ? '−' : '+') + Math.abs(ch).toFixed(1)} ${unitLbl}</b></div>
+      <div class="stat"><span class="small">${t('periodChange')}</span><b>${Math.abs(ch) < 0.05 ? '±0.0' : (ch < 0 ? '−' : '+') + Math.abs(ch).toFixed(1)}${unitLbl}</b></div>
       <div class="stat"><span class="small">${t('avg')}</span><b>${fmt(avg)}</b></div>
       <div class="stat"><span class="small">${t('min')}</span><b>${fmt(mn)}</b></div></div>`;
   }
   const body = UI.chartMode === 'table'
-    ? (pts.length ? `<div class="tbl num">${pts.slice().reverse().map(p => `<div class="r"><span>${md(p[0])}&nbsp;&nbsp;<span class="${isWE(p[0]) ? 'we' : 'sub'}">${wdOf(p[0])}</span></span><b>${p[1].toFixed(1)} ${unitLbl}</b></div>`).join('')}</div>` : `<p class="empty">${t('noData')}</p>`)
+    ? (pts.length ? `<div class="tbl num">${pts.slice().reverse().map(p => `<div class="r"><span>${md(p[0])}&nbsp;&nbsp;<span class="${isWE(p[0]) ? 'we' : 'sub'}">${wdOf(p[0])}</span></span><b>${p[1].toFixed(1)}${unitLbl}</b></div>`).join('')}</div>` : `<p class="empty">${t('noData')}</p>`)
     : buildChart(pts, k0, k1, flags, unitLbl, S.settings.avgLine !== false, t(met === 'w' ? 'weight' : met === 'f' ? 'fat' : 'muscle'));
   const per = [7, 30, 90, 182, 365];
   return `
@@ -972,7 +978,7 @@ function vArchive(tabs){
     return `<button class="acard" data-act="openArch" data-id="${esc(a.id)}">
       <div class="row" style="width:100%;align-items:center"><span style="font-size:16px;font-weight:600">${esc(archTitle(a))}</span>${badge}</div>
       <span class="sub num" style="font-size:13px;margin-top:-6px">${ymd(a.start)} – ${ymd(a.end)} (${dur(a.start, a.end)})${a.target != null ? ' · ' + t('targetWas', fWU(a.target)) : ''}</span>
-      <div class="row" style="width:100%;align-items:flex-end"><span class="aval num">${fW(a.startW)} → ${fW(a.endW)}<small>${U()}</small> <small class="sub" style="margin-left:8px">${fDelta(a.endW - a.startW)}</small></span>${spark(a.pts)}</div></button>`;
+      <div class="row" style="width:100%;align-items:flex-end"><span class="aval num">${fW(a.startW)} → ${fW(a.endW)}<small>${U()}</small> <small class="sub" style="margin-left:8px">${fDelta(a.endW - a.startW).replace(/(kg|lb)$/, ' $1')}</small></span>${spark(a.pts)}</div></button>`;
   };
   const goals = S.archive.filter(a => a.type !== 'manual').reverse().map(card).join('');
   const periods = S.archive.filter(a => a.type === 'manual').reverse().map(card).join('');
@@ -1007,6 +1013,7 @@ function vSet(){
   <span class="stitle">${t('notif')}</span>
   <div class="group">
     <div class="srow"><span class="lbl"><span>${t('notifRow')}</span><span class="small">${t('later')}</span></span><button class="sw" disabled aria-pressed="false" aria-label="${t('notifRow')}"></button></div>
+    <div class="srow"><span class="lbl"><span>${t('bkRow')}</span><span class="small">${t('bkRowSub')}</span></span><button class="sw" data-act="toggleBkNag" aria-pressed="${st.bkNag !== false}" aria-label="${t('bkRow')}"></button></div>
   </div>
   <span class="stitle">${t('display')}</span>
   <div class="group">
@@ -1026,7 +1033,6 @@ function vSet(){
     <button class="srow" data-act="exportCSV"><span>${t('csvB')}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>
     <button class="srow" data-act="exportB"><span>${t('exportB')}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>
     <button class="srow" data-act="importB"><span>${t('importB')}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>
-    <div class="srow"><span class="lbl"><span>${t('bkRow')}</span><span class="small">${t('bkRowSub')}</span></span><button class="sw" data-act="toggleBkNag" aria-pressed="${st.bkNag !== false}" aria-label="${t('bkRow')}"></button></div>
     <button class="srow danger" data-act="clearAll"><span>${t('clearAll')}</span></button>
   </div>
   <p class="small" style="margin:0 4px">${t('backupNote')}</p>
@@ -1066,7 +1072,7 @@ function applyTheme(){
   r.setAttribute('data-dark', S.settings.darkStyle === 'a' ? 'a' : 'b');
   r.setAttribute('data-light', S.settings.lightStyle === 'b' ? 'b' : 'a');
   setAppIcon();
-  r.setAttribute('data-fs', S.settings.fs || 'm'); r.style.setProperty('--z', ({ s:0.9, m:1, l:1.12 })[S.settings.fs || 'm'] || 1);
+  r.setAttribute('data-fs', S.settings.fs || 'm'); r.style.setProperty('--wdw', L() === 'en' ? '2.3em' : '1.1em'); r.style.setProperty('--z', ({ s:0.9, m:1, l:1.12 })[S.settings.fs || 'm'] || 1);
 }
 function render(keepScroll){
   const y = view.scrollTop;
@@ -1169,7 +1175,7 @@ function openGoal(){
   openSheet(`${sheetHead(t('goalTitle'))}
   <form id="goalForm" novalidate style="display:flex;flex-direction:column;gap:14px">
     <div class="fields">
-      <div class="frow"><label for="gN" style="flex:none">${t('rangeName')} <span class="opt">${t('optional')}</span></label><input class="tin" id="gN" maxlength="30" placeholder="${g ? esc(t('goalName', fWU(g.target))) : t('goalNamePh')}" value="${g && g.title ? esc(g.title) : ''}"></div>
+      <div class="frow"><label for="gN" style="flex:none">${t('rangeName')} <span class="opt">${t('optional')}</span></label><input class="tin short" id="gN" maxlength="30" placeholder="${g ? esc(t('goalName', fWU(g.target))) : t('goalNamePh')}" value="${g && g.title ? esc(g.title) : ''}"></div>
       <div class="frow"><label for="gT">${t('targetW')}</label><div class="unitin"><input class="nin num" id="gT" maxlength="5" inputmode="decimal" autocomplete="off" placeholder="${toU(w0 - 3).toFixed(1)}" value="${g ? toU(g.target).toFixed(1) : ''}"><span>${U()}</span></div></div>
       <div class="frow"><label for="gS">${t('startDate')}</label>${dateField('gS', s0, `data-max="${tk}"`)}</div>
       <div class="frow"><label for="gW">${t('startW')}</label><div class="unitin"><input class="nin num" id="gW" maxlength="5" inputmode="decimal" autocomplete="off" value="${toU(w0).toFixed(1)}"><span>${U()}</span></div></div>
@@ -1188,7 +1194,7 @@ function openGoal(){
       wn.hidden = true;
       if (sw == null || isNaN(sw) || tv == null || isNaN(tv) || !e) return;
       const rate = (fromU(sw) - fromU(tv)) / (Math.max(diffDays(sk, e), 1) / 7);
-      if (rate > 1) { wn.textContent = t('paceWarn', toU(rate).toFixed(1) + ' ' + U()); wn.hidden = false; }
+      if (rate > 1) { wn.textContent = t('paceWarn', toU(rate).toFixed(1) + U()); wn.hidden = false; }
     };
     sh.querySelector('#gS').addEventListener('change', () => {
       const k = sh.querySelector('#gS').value, r = S.records[k];
@@ -1232,7 +1238,7 @@ function openRange(id){
   openSheet(`${sheetHead(a ? t('editCard') : t('saveRange'))}
   <form id="rangeForm" novalidate style="display:flex;flex-direction:column;gap:14px">
     <div class="fields">
-      <div class="frow"><label for="aN" style="flex:none">${t('rangeName')}</label><input class="tin" id="aN" maxlength="30" placeholder="${t('rangeNamePh')}" value="${a ? esc(archTitle(a)) : ''}"></div>
+      <div class="frow"><label for="aN" style="flex:none">${t('rangeName')}</label><input class="tin short" id="aN" maxlength="30" placeholder="${t('rangeNamePh')}" value="${a ? esc(archTitle(a)) : ''}"></div>
       <div class="frow"><label for="aS">${t('from')}</label>${dateField('aS', a ? a.start : addDays(tk, -29), `data-max="${tk}"`)}</div>
       <div class="frow"><label for="aE">${t('to')}</label>${dateField('aE', a ? a.end : tk, `data-max="${tk}"`)}</div>
     </div>
