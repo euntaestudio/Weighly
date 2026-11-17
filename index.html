@@ -75,7 +75,7 @@
 .view[data-fit]{padding-block:12px 14px}
 .view[data-fit] .zw{gap:10px}
 .view[data-fit] .homebody{gap:12px}
-.view[data-fit] .cheerwrap{margin:-12px 0 -14px;min-height:44px}
+.view[data-fit] .cheerwrap{margin:-12px 0 calc(-14px / var(--z,1));min-height:44px}
 .view[data-fit] .homebody .hero{padding:16px 20px 16px;gap:4px}
 .view[data-fit] .homebody .hero .primary{margin-top:10px!important;height:50px}
 .view[data-fit] .day{height:54px;padding-top:4px;gap:2px}
@@ -88,7 +88,14 @@
 .view[data-fit="2"] .day{height:48px}
 .view[data-fit="2"] .card{padding:14px 18px}
 .view[data-fit="2"] .homebody .hero .primary{height:46px}
-.zw{zoom:calc(var(--z,1) * var(--fitz,1))}
+.zw{zoom:var(--z,1)}
+.view[data-fit="3"] .day{height:44px}
+.view[data-fit="3"] .homebody{gap:8px}
+.view[data-fit="3"] .cheerwrap{min-height:32px;margin:-8px 0 calc(-14px / var(--z,1))}
+.view[data-fit="3"] .homebody .hero{padding:12px 18px 12px}
+.view[data-fit="3"] .chartcard{gap:6px}
+.view[data-fit="3"] .chartcard svg.chart{margin:-6px 0}
+.view[data-fit="3"] .calcard{padding:6px 6px 4px}
 
 .zw.sz{gap:16px}
 [hidden]{display:none!important}
@@ -112,7 +119,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .hdate{height:34px;display:flex;align-items:center}
 .zw:has(.homebody){flex:1 0 auto}
 .homebody{display:flex;flex-direction:column;gap:18px;flex:1}
-.cheerwrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px;margin:-18px 0 -28px}
+.cheerwrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px;margin:-18px 0 calc(-28px / var(--z,1))}
 .homebody .hero{padding-top:24px;padding-bottom:22px}
 .homebody .cheer{margin-top:0}
 .sub{color:var(--sub);font-size:14px}
@@ -137,6 +144,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .hero{display:flex;flex-direction:column;align-items:center;gap:6px;padding:28px 20px 20px;border-radius:24px}
 .big{font-size:64px;font-weight:700;line-height:1.05;letter-spacing:-1px}
 .big small{font-size:22px;font-weight:500;letter-spacing:0;margin-left:4px}
+.aval{white-space:nowrap}
 .aval small{margin-left:.3em}
 .aval .delta{margin-left:8px}
 .primary{width:100%;height:56px;border-radius:16px;border:0;background:var(--btn);color:var(--btnFg);font-size:17px;font-weight:600}
@@ -439,8 +447,8 @@ ko:{
   today:'오늘', latest:'최근 기록', relToday:'오늘', relYest:'어제',
   vsPrev:d=>`지난 기록보다 ${d}`, noRecord:'아직 기록이 없어요.', recordToday:'오늘 몸무게 기록하기',
   hideNums:'몸무게 숫자 숨기기', showNums:'몸무게 숫자 보이기',
-  goal:'목표', start:'시작', remain:'남음', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 남은 무게를 보여드려요.',
-  paceNote:()=>`다이어트 시 일반적으로 권장되는 감량 속도는 주당 ${PACE()}이에요.`, paceSrc:'출처: 영국 국민보건서비스 (NHS), 미국 질병통제예방센터 (CDC)',
+  goal:'목표', start:'시작', remain:'남음', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 무게를 알려드려요.',
+  paceNote:()=>`다이어트 시 일반적으로 권장되는 감량 속도는 주당 ${PACE()}이에요.`, paceSrc:'출처: 영국 국민보건서비스 (NHS), 미국 CDC',
   cheerDown:'꾸준함이 제일 어려운 건데, 잘 해내고 있어요!', cheerSame:'정체기도 과정이에요. 흐름을 믿고 가봐요.',
   cheerUp:'하루 변동은 자연스러워요. 며칠 흐름을 봐요.', cheerNone:'오늘의 몸무게를 기록해볼까요?',
   sampleBanner:'예시 데이터로 보여주는 중이에요.', clearSample:'예시 지우고 시작',
@@ -486,12 +494,12 @@ ko:{
   pinNew:'새 비밀번호 4자리', pinAgain:'한 번 더 입력해 주세요.', pinMismatch:'비밀번호가 달라요.\n처음부터 다시 입력해 주세요.',
   pinEnter:'비밀번호를 입력해 주세요.', pinWrong:'비밀번호가 맞지 않아요.',
   pinWarn:'비밀번호를 잊으면 앱을 열 수 없어요.\n백업 파일을 미리 만들어 두세요.', lockOffQ:'앱 잠금을 끌까요?', turnOff:'끄기', lockOn:'앱 잠금을 켰어요.',
-  exportTitle:'백업 파일', exportText:'파일이 자동으로 저장되지 않으면 아래 내용을 복사해서 메모 앱 등에 보관하세요.',
+  exportTitle:'백업 파일', exportText:'파일이 저장되지 않으면 아래 내용을 복사해 보관해 주세요.',
   copy:'복사', copied:'복사했어요.', copyFail:'복사하지 못했어요. 내용을 길게 눌러 직접 복사해 주세요.',
   importTitle:'백업 불러오기', importText:'백업 파일을 고르거나, 복사해 둔 내용을 붙여넣으세요.', chooseFile:'파일 고르기',
   importDo:'불러오기', importQ:'지금 기록을 백업 내용으로 바꿀까요?', importErr:'백업 내용을 읽을 수 없어요.', imported:'불러왔어요.',
   pickTitle:'연도와 달', ver:'Weighly ver 0.1', flagDefault:'표시한 날',
-  avg7:'7일 평균', csvB:'엑셀로 내보내기', csvTitle:'엑셀 파일', csvText:'파일이 자동으로 저장되지 않으면 아래 내용을 복사해서 엑셀에 붙여넣으세요.', starCol:'별',
+  avg7:'7일 평균', csvB:'엑셀로 내보내기', csvTitle:'엑셀 파일', csvText:'파일이 저장되지 않으면 아래 내용을 엑셀에 붙여넣어 주세요.', starCol:'별',
   pinCur:'현재 비밀번호를 입력해 주세요.', prevMonth:m=>`${m} 기록도 보기`,
   tut1T:'Weighly <span class="pron">(웨일리)</span>에 오신 걸 환영해요!', tut1B:'하루 한 번, 몸무게를 기록하고\n흐름을 보는 앱이에요.\n\n주요 기능을 빠르게 알려드릴게요.',
   tut2T:'단위 설정하기', tut2B:'먼저 무게 단위를 골라주세요.\n\n설정에서 언제든 바꿀 수 있어요.',
@@ -503,8 +511,8 @@ ko:{
   prev:'이전', listLong:'긴\u00a0기간은 그래프 탭의 <span class="nw">‘표’에서</span> 한\u00a0번에 볼 수 있어요.',
   skip:'건너뛰기', next:'다음', startApp:'시작하기', tutAgain:'튜토리얼 다시 보기',
   appSec:'앱', appVer:'버전', rate:'평가하기', theme:'테마', thAuto:'자동', thLight:'라이트', thDark:'다크', darkStyle:'다크 스타일', lightStyle:'라이트 스타일', lsA:'세이지', lsB:'스톤', dsA:'그래파이트', dsB:'앰버', fontSize:'글씨 크기', fsS:'작게', fsM:'보통', fsL:'크게', items:'기록 항목', itemsAll:'전체', itemsW:'몸무게만', rangeTitle:'그래프 기간', apply:'적용', resetRange:'최근 기간으로 돌아가기', rateLater:'앱스토어에 출시하면 열려요.', privacy:'개인정보 처리 방침', contact:'문의하기', privFull:'개인정보 처리방침 전문 보기',
-  privacyBody:['입력한 몸무게, 체지방, 골격근량, 메모, 목표는 이 기기 안에만 저장돼요.', '이 앱은 기록을 다른 곳으로 보내거나 모으지 않아요.', '백업 파일은 직접 만들 때만 생기고, 보관은 사용하는 분이 직접 해요.', '화면 글꼴을 불러올 때 Google Fonts에 연결돼요.', '계정 연동 같은 기능이 생기면 이 내용을 고쳐서 알려드릴게요.'],
-  contactBody:'쓰면서 불편했던 점, 있었으면 하는 기능, 궁금한 점 무엇이든 편하게 보내주세요. 보내주신 메일은 모두 꼼꼼히 읽어볼게요.', contactAddr:'taestudio.support@gmail.com'
+  privacyBody:['입력한 기록과 목표는 이 기기 안에만 저장돼요.', '이 앱은 기록을 다른 곳으로 보내거나 모으지 않아요.', '백업 파일은 직접 만들 때만 생기며, 보관도 직접 해요.', '화면 글꼴을 불러올 때 Google Fonts에 연결돼요.', '계정 연동 같은 기능이 생기면 먼저 알려드릴게요.'],
+  contactBody:'문의, 오류 제보, 기능 제안을 보내주세요.', contactAddr:'taestudio.support@gmail.com'
 },
 en:{
   tabHome:'Home', tabCal:'Calendar', tabList:'List', tabChart:'Charts', tabSet:'Settings',
@@ -512,17 +520,17 @@ en:{
   vsPrev:d=>`${d} from last entry`, noRecord:'No entries yet.', recordToday:'Log today’s weight',
   hideNums:'Hide numbers', showNums:'Show numbers',
   goal:'Goal', start:'Start', remain:'to go', setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
-  paceNote:()=>`A commonly recommended weight-loss pace is ${PACE()} per week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
+  paceNote:()=>`Experts recommend losing ${PACE()} a week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
   cheerDown:'Consistency is the hardest part, and you’re doing it!', cheerSame:'Plateaus are part of the process. Keep going.',
   cheerUp:'Daily ups and downs are normal. Watch the trend.', cheerNone:'Ready to log today’s weight?',
   sampleBanner:'You’re looking at sample data.', clearSample:'Clear & start',
   num:'Numbers', dot:'Dots', monthCount:n=>`${n} days logged`,
-  calHint:'Tap a date to add or edit that day. Future dates can’t be logged.',
+  calHint:'Tap a date to log or edit. Future dates are locked.',
   date:'Date', weight:'Weight', fat:'Body fat', muscleS:'Muscle', muscle:'Muscle mass',
   listHint:'Tap a row to edit. Swipe left to delete.', listEmpty:'Tap + to add an entry.', del:'Delete',
   addTitle:'New entry', editTitle:'Edit entry', memo:'Note', memoPh:'e.g. Started working out', optional:'(optional)',
   sameTime:'Weigh in at the same time and under the same conditions each day for more accurate tracking <span class="nw">(e.g. after waking up, before eating).</span>',
-  flagHint:'Turn on the star to mark this day on the calendar and charts.', flagLabel:'Star on calendar',
+  flagHint:'Stars show on the calendar and charts.', flagLabel:'Star on calendar',
   ruleHint:'You can save with just a weight or just a note.',
   save:'Save', cancel:'Cancel', close:'Close', ok:'OK', deleteRecord:'Delete this entry',
   errEmpty:'Enter a weight or a note.', errW:'Please check the weight.', errF:'Please check the body fat.',
@@ -552,18 +560,18 @@ en:{
   settings:'Settings', security:'Security', appLock:'App lock', changePin:'Change passcode', faceId:'Unlock with Face\u00a0ID\u00a0/ Touch\u00a0ID',
   later:'Coming in the iPhone app version.', notif:'Reminders', notifRow:'Weigh-in reminder',
   display:'Display', language:'Language', unit:'Units', weekStart:'Week starts\u00a0on', dateFmt:'Date format', df_ymd:'Y.M.D', df_mdy:'M/D/Y', df_dmy:'D/M/Y', sun:'Sunday', mon:'Monday',
-  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up.', bkNagB:'It’s been 30 days since your last backup.\nKeep the backup file in your Downloads folder, and delete the old one after each new backup.', bkLater:'Remind me in 30 days', bkNow:'Back up now', bkNagNote:'You can turn backup reminders on or off in Settings → Data.', bkYearT:'You haven’t backed up in a year.', bkYearB:'It’s been a year since your last backup.\nMake a backup file now so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after your last backup.', importB:'Restore backup', clearAll:'Erase all data',
+  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up.', bkNagB:'It’s been 30 days since your last backup.\nKeep the backup file in your Downloads folder, and delete the old one after each new backup.', bkLater:'Remind me in 30 days', bkNow:'Back up now', bkNagNote:'You can turn backup reminders on or off in Settings → Data.', bkYearT:'You haven’t backed up in a year.', bkYearB:'It’s been a year since your last backup.\nMake a backup file now so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after a backup.', importB:'Restore backup', clearAll:'Erase all data',
   clearAllQ:'Erase all entries, goals and the archive?\nThis can’t be undone.', clearSampleQ:'Clear the sample data and start fresh?', erase:'Erase',
   backupNote:'Entries are stored only on this phone.<br>Make a backup before switching phones.',
   pinNew:'New 4-digit passcode', pinAgain:'Enter it again.', pinMismatch:'Passcodes didn’t match.\nStart again.',
   pinEnter:'Enter your passcode.', pinWrong:'Wrong passcode.',
   pinWarn:'If you forget the passcode you can’t open the app.\nPlease make a backup first.', lockOffQ:'Turn off app lock?', turnOff:'Turn off', lockOn:'App lock is on.',
-  exportTitle:'Backup file', exportText:'If the file doesn’t save, copy the text below and keep it somewhere safe.',
+  exportTitle:'Backup file', exportText:'If the file doesn’t save, copy the text below.',
   copy:'Copy', copied:'Copied.', copyFail:'Couldn’t copy. Press and hold the text to copy it.',
   importTitle:'Restore backup', importText:'Choose a backup file, or paste the backup text.', chooseFile:'Choose file',
   importDo:'Restore', importQ:'Replace current data with this backup?', importErr:'Couldn’t read this backup.', imported:'Restored.',
   pickTitle:'Year and month', ver:'Weighly ver 0.1', flagDefault:'Marked',
-  avg7:'7-day avg', csvB:'Export to Excel', csvTitle:'Excel file', csvText:'If the file doesn’t save, copy the text below and paste it into Excel.', starCol:'Star',
+  avg7:'7-day avg', csvB:'Export to Excel', csvTitle:'Excel file', csvText:'If the file doesn’t save, copy the text below into Excel.', starCol:'Star',
   pinCur:'Enter your current passcode.', prevMonth:m=>`Show ${m}`,
   tut1T:'Welcome to Weighly!', tut1B:'Log your weight once a day\nand see the trend.\n\nHere’s a quick tour of the main features.',
   tut2T:'Choose your unit', tut2B:'First, pick a weight unit.\n\nYou can change it anytime in Settings.',
@@ -575,8 +583,8 @@ en:{
   prev:'Back', listLong:'For long periods, use ‘Table’ in Charts.',
   skip:'Skip', next:'Next', startApp:'Get started', tutAgain:'Replay tutorial',
   appSec:'App', appVer:'Version', rate:'Rate', theme:'Theme', thAuto:'Auto', thLight:'Light', thDark:'Dark', darkStyle:'Dark style', lightStyle:'Light style', lsA:'Sage', lsB:'Stone', dsA:'Graphite', dsB:'Amber', fontSize:'Text size', fsS:'Small', fsM:'Default', fsL:'Large', items:'Entries', itemsAll:'All', itemsW:'Weight only', rangeTitle:'Chart period', apply:'Apply', resetRange:'Back to recent period', rateLater:'Available once the app is on the App Store.', privacy:'Privacy policy', contact:'Contact us', privFull:'Read the full privacy policy',
-  privacyBody:['Your weight, body fat, muscle, notes and goals are stored only on this device.', 'This app doesn’t send your entries anywhere or collect them.', 'Backup files exist only when you create one, and you keep them yourself.', 'The app connects to Google Fonts to load its typeface.', 'If features like account sync are added, this policy will be updated.'],
-  contactBody:'Found a bug, missing a feature, or just have a question? Send us a note anytime. We read every message.', contactAddr:'taestudio.support@gmail.com'
+  privacyBody:['Your weight, body fat, muscle, notes and goals are stored only on this device.', 'This app never sends or collects your entries.', 'You create and keep your own backup files.', 'Fonts are loaded from Google Fonts.', 'We’ll update this policy before adding sync.'],
+  contactBody:'Send us questions, bug reports, or ideas.', contactAddr:'taestudio.support@gmail.com'
 }};
 
 /* ---------- storage ---------- */
@@ -1110,8 +1118,8 @@ function fitScreen(){
   view.removeAttribute('data-fit'); view.style.removeProperty('--fitz');
   if (!['home','cal','chart'].includes(UI.tab)) return;
   const over = () => view.scrollHeight - view.clientHeight > 0;
-  for (let lv = 1; lv <= 2 && over(); lv++) view.setAttribute('data-fit', lv);
-  let z = 1; for (let i = 0; i < 6 && over() && z > .7; i++) { z = Math.max(.7, z * Math.min(.985, view.clientHeight / view.scrollHeight)); view.style.setProperty('--fitz', z.toFixed(3)); }
+  for (let lv = 1; lv <= 3 && over(); lv++) view.setAttribute('data-fit', lv);
+
 }
 addEventListener('resize', () => { try { fitScreen(); } catch(_) {} });
 /* If one style label needs two lines, break both the same way so the rows match. */
@@ -1144,7 +1152,7 @@ function openRecord(k, mode){
       </div>
       ${S.settings.items === 'w' ? '' : `<div class="frow"><label for="rF">${t('fat')} <span class="opt">${t('optional')}</span></label>
         <div class="unitin"><input class="nin num" id="rF" maxlength="4" inputmode="decimal" autocomplete="off" placeholder="–" value="${r.f == null ? '' : r.f.toFixed(1)}"><span>%</span></div></div>
-      <div class="frow"><label for="rM">${t('muscle')} <span class="opt">${t('optional')}</span></label>
+      <div class="frow"><label for="rM" style="white-space:nowrap">${t('muscle')} <span class="opt">${t('optional')}</span></label>
         <div class="unitin"><input class="nin num" id="rM" maxlength="5" inputmode="decimal" autocomplete="off" placeholder="–" value="${val(r.m)}"><span>${U()}</span></div></div>`}
       <div style="display:flex;flex-direction:column;gap:6px;padding-top:12px">
         <div style="display:flex;align-items:center;gap:10px"><label for="rMemo" class="flabel" style="flex:none;width:64px">${t('memo')}</label>
@@ -1601,20 +1609,18 @@ function nwText(root){
       if (!/\d/.test(m[0]) || m[0].replace(/[^\S]/g, '').length < 3) continue;
       hit = true; out.append(tx.slice(last, m.index)); const sp = document.createElement('span'); sp.className = 'nw'; sp.textContent = m[0]; out.append(sp); last = m.index + m[0].length; }
     if (hit) { out.append(tx.slice(last)); n.replaceWith(out); } });
-  /* No lonely last word: the last two words (three in Korean) always travel to a new line together. */
-  if (root.querySelectorAll) [root].concat([...root.querySelectorAll(ORPH)]).forEach(el => { if (!el.matches || !el.matches(ORPH) || el.dataset.orph) return; el.dataset.orph = '1';
-    /* Each line segment (split at <br>) keeps its last three words together. */
-    const tw = document.createTreeWalker(el, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT), segs = [[]];
-    while (tw.nextNode()) { const n = tw.currentNode; if (n.nodeType === 1) { if (n.tagName === 'BR') segs.push([]); } else segs[segs.length - 1].push(n); }
-    segs.forEach(ns => { const txt = ns.map(n => n.data).join(''); if (txt.trim().split(/\s+/).length < 6) return;
-      let k = 2, end = true;
-      for (let i = ns.length - 1; i >= 0 && k > 0; i--) { const n = ns[i]; let d = n.data, tail = '';
-        if (end) { if (!d.trim()) continue; tail = d.match(/\s*$/)[0]; d = d.slice(0, d.length - tail.length); end = false; }
-        let j = d.length; while (k > 0 && (j = d.lastIndexOf(' ', j - 1)) >= 0) { d = d.slice(0, j) + '\u00a0' + d.slice(j + 1); k--; }
-        if (d + tail !== n.data) n.data = d + tail; } }); });
 }
 const ORPH = 'p, .small, .cheer, .warn, .err, .dialog h3';
-try { new MutationObserver(ms => { for (const m of ms) m.addedNodes.forEach(n => { if (n.nodeType === 1) nwText(n); else if (n.nodeType === 3 && n.parentElement) nwText(n.parentElement); }); }).observe(document.body, { childList:true, subtree:true }); nwText(document.body); } catch(_) {}
+/* Copy is written to avoid a lonely last line on common phones. If one still happens on this phone,
+   tighten letter spacing a hair (never the font size) so the last word moves up. */
+function lastLineShort(el){ const r = document.createRange(); r.selectNodeContents(el); const rs = [...r.getClientRects()].filter(x => x.width > 0.5);
+  if (!rs.length) return false; const tops = [...new Set(rs.map(x => Math.round(x.top)))]; if (tops.length < 2) return false;
+  const lt = Math.max(...tops), last = rs.filter(x => Math.abs(Math.round(x.top) - lt) <= 2), w = Math.max(...last.map(x => x.right)) - Math.min(...last.map(x => x.left));
+  return w < el.getBoundingClientRect().width * 0.22; }
+function fixShortLines(root){ const els = root.matches && root.matches(ORPH) ? [root] : []; if (root.querySelectorAll) els.push(...root.querySelectorAll(ORPH));
+  els.forEach(el => { if (!el.offsetParent || el.closest('.cheer') || el.style.letterSpacing) return; if (!lastLineShort(el)) return;
+    for (const ls of ['-0.01em', '-0.02em', '-0.03em']) { el.style.letterSpacing = ls; if (!lastLineShort(el)) return; } el.style.letterSpacing = ''; }); }
+try { new MutationObserver(ms => { for (const m of ms) m.addedNodes.forEach(n => { if (n.nodeType === 1) { nwText(n); requestAnimationFrame(() => fixShortLines(n)); } else if (n.nodeType === 3 && n.parentElement) nwText(n.parentElement); }); }).observe(document.body, { childList:true, subtree:true }); nwText(document.body); } catch(_) {}
 /* Swipe left/right on the Calendar tab or in a date picker to change month (left = next, right = previous). */
 let swp = null;
 document.addEventListener('touchstart', e => { if (e.touches.length !== 1) { swp = null; return; } const tg = e.target, inDp = tg.closest && tg.closest('.dpinline'), inCal = UI.tab === 'cal' && tg.closest && tg.closest('#view') && !document.querySelector('.sheet.open, .sheetwrap.open');
