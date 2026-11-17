@@ -889,7 +889,7 @@ function tipAt(el, clientX){
   const rc = g.querySelector('.c-tipb'); rc.setAttribute('x', bx); rc.setAttribute('y', by);
   const t1 = g.querySelector('.c-tipt1'), t2 = g.querySelector('.c-tipt2');
   t1.setAttribute('x', bx + bw / 2); t1.setAttribute('y', by + 13); t1.textContent = fullDate(b.k);
-  t2.setAttribute('x', bx + bw / 2); t2.setAttribute('y', by + 26.5); t2.textContent = b.v.toFixed(1) + c.unit;
+  t2.setAttribute('x', bx + bw / 2); t2.setAttribute('y', by + 26.5); t2.textContent = b.v.toFixed(1) + ' ' + c.unit;
 }
 document.addEventListener('pointerdown', e => { const s = e.target.closest && e.target.closest('svg.chart'); if (!s) return; tipSvg = s; try { s.setPointerCapture(e.pointerId); } catch(_) {} tipAt(s, e.clientX); });
 document.addEventListener('pointermove', e => { if (tipSvg) tipAt(tipSvg, e.clientX); });
@@ -932,14 +932,14 @@ function vChart(){
   let stats = '';
   if (pts.length) {
     const vs = pts.map(p => p[1]), ch = vs[vs.length-1] - vs[0], avg = vs.reduce((a,b) => a+b, 0) / vs.length, mn = Math.min(...vs);
-    const fmt = x => x.toFixed(1) + unitLbl;
+    const fmt = x => x.toFixed(1) + ' ' + unitLbl;
     stats = `<div class="stats num">
-      <div class="stat"><span class="small">${t('periodChange')}</span><b>${Math.abs(ch) < 0.05 ? '±0.0' : (ch < 0 ? '−' : '+') + Math.abs(ch).toFixed(1)}${unitLbl}</b></div>
+      <div class="stat"><span class="small">${t('periodChange')}</span><b>${Math.abs(ch) < 0.05 ? '±0.0' : (ch < 0 ? '−' : '+') + Math.abs(ch).toFixed(1)} ${unitLbl}</b></div>
       <div class="stat"><span class="small">${t('avg')}</span><b>${fmt(avg)}</b></div>
       <div class="stat"><span class="small">${t('min')}</span><b>${fmt(mn)}</b></div></div>`;
   }
   const body = UI.chartMode === 'table'
-    ? (pts.length ? `<div class="tbl num">${pts.slice().reverse().map(p => `<div class="r"><span>${md(p[0])}&nbsp;&nbsp;<span class="${isWE(p[0]) ? 'we' : 'sub'}">${wdOf(p[0])}</span></span><b>${p[1].toFixed(1)}${unitLbl}</b></div>`).join('')}</div>` : `<p class="empty">${t('noData')}</p>`)
+    ? (pts.length ? `<div class="tbl num">${pts.slice().reverse().map(p => `<div class="r"><span>${md(p[0])}&nbsp;&nbsp;<span class="${isWE(p[0]) ? 'we' : 'sub'}">${wdOf(p[0])}</span></span><b>${p[1].toFixed(1)} ${unitLbl}</b></div>`).join('')}</div>` : `<p class="empty">${t('noData')}</p>`)
     : buildChart(pts, k0, k1, flags, unitLbl, S.settings.avgLine !== false, t(met === 'w' ? 'weight' : met === 'f' ? 'fat' : 'muscle'));
   const per = [7, 30, 90, 182, 365];
   return `
