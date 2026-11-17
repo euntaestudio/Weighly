@@ -1,6 +1,6 @@
 // © 2026 Euntae Studio. All rights reserved.
 // Weighly 오프라인 저장소. 앱을 고친 뒤에는 아래 버전 숫자를 올려주세요.
-const CACHE = 'weighly-v11';
+const CACHE = 'weighly-v12';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
@@ -18,7 +18,7 @@ self.addEventListener('fetch', e => {
   if (req.method !== 'GET') return;
   // 앱 화면: 인터넷이 되면 최신 버전, 안 되면 저장해 둔 버전
   if (req.mode === 'navigate') {
-    e.respondWith(fetch(req).then(res => { const cp = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', cp)); return res; })
+    e.respondWith(fetch(req, { cache:'no-store' }).then(res => { const cp = res.clone(); caches.open(CACHE).then(c => c.put('./index.html', cp)); return res; })
       .catch(() => caches.match('./index.html')));
     return;
   }
