@@ -72,10 +72,10 @@
 }
 .zw{display:flex;flex-direction:column;gap:14px}
 /* Fit-to-screen: Home, Calendar and Charts never scroll. Each level tightens spacing; the last resort scales slightly. */
-.view[data-fit]{padding-block:12px 14px}
+.view[data-fit]{padding-bottom:20px}
 .view[data-fit] .zw{gap:10px}
 .view[data-fit] .homebody{gap:12px}
-.view[data-fit] .cheerwrap{margin:-12px 0 calc(-14px / var(--z,1));min-height:44px}
+.view[data-fit] .cheerwrap{margin:-12px 0 calc(-20px / var(--z,1));min-height:44px}
 .view[data-fit] .homebody .hero{padding:16px 20px 16px;gap:4px}
 .view[data-fit] .homebody .hero .primary{margin-top:10px!important;height:50px}
 .view[data-fit] .day{height:54px;padding-top:4px;gap:2px}
@@ -91,7 +91,7 @@
 .zw{zoom:var(--z,1)}
 .view[data-fit="3"] .day{height:44px}
 .view[data-fit="3"] .homebody{gap:8px}
-.view[data-fit="3"] .cheerwrap{min-height:32px;margin:-8px 0 calc(-14px / var(--z,1))}
+.view[data-fit="3"] .cheerwrap{min-height:32px;margin:-8px 0 calc(-20px / var(--z,1))}
 .view[data-fit="3"] .homebody .hero{padding:12px 18px 12px}
 .view[data-fit="3"] .chartcard{gap:6px}
 .view[data-fit="3"] .chartcard svg.chart{margin:-6px 0}
@@ -106,7 +106,7 @@ button{cursor:pointer}
 button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .num{font-variant-numeric:tabular-nums}
 #app{height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column}
-.view{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-block:20px 28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
+.view{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:14px}
 .tabbar{display:flex;background:var(--card);border-top:1px solid var(--line);padding-block:8px 6px;padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
 .tab{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0;color:var(--sub);font-size:11px;min-height:48px;justify-content:center}
 .tab[aria-current="page"]{color:var(--fg);font-weight:600}
@@ -119,7 +119,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .hdate{height:34px;display:flex;align-items:center}
 .zw:has(.homebody){flex:1 0 auto}
 .homebody{display:flex;flex-direction:column;gap:18px;flex:1}
-.cheerwrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px;margin:-18px 0 calc(-28px / var(--z,1))}
+.cheerwrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px;margin:-18px 0 calc(-40px / var(--z,1))}
 .homebody .hero{padding-top:24px;padding-bottom:22px}
 .homebody .cheer{margin-top:0}
 .sub{color:var(--sub);font-size:14px}
@@ -520,7 +520,7 @@ en:{
   vsPrev:d=>`${d} from last entry`, noRecord:'No entries yet.', recordToday:'Log today’s weight',
   hideNums:'Hide numbers', showNums:'Show numbers',
   goal:'Goal', start:'Start', remain:'to go', setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
-  paceNote:()=>`Experts recommend losing ${PACE()} a week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
+  paceNote:()=>`Experts recommend losing ${PACE().replace(' ', '')} a week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
   cheerDown:'Consistency is the hardest part, and you’re doing it!', cheerSame:'Plateaus are part of the process. Keep going.',
   cheerUp:'Daily ups and downs are normal. Watch the trend.', cheerNone:'Ready to log today’s weight?',
   sampleBanner:'You’re looking at sample data.', clearSample:'Clear & start',
@@ -541,7 +541,7 @@ en:{
   startDate:'Start date', noDate:'Not set', noEnd:'No deadline', qNone:'No date', q1:'1 mo', q3:'3 mo', q6:'6 mo', q12:'1 yr', errStart:'Please check the start date.', startW:'Starting weight', useRecordQ:(d, v)=>`There’s an entry on ${d} (${v}).\nUse this weight?`, keepTyped:'Keep mine', useRecord:'Use entry', errStartW:'Please check the starting weight.',
   editCard:'Edit card', edit:'Edit', stStart:'Starting', stEnd:'Latest', stChange:'Total change',
   startFrom:(d, v)=>`Starting weight is ${v}, logged on ${d}.`,
-  paceWarn:v=>`That’s about ${v} per week. A commonly recommended pace is ${PACE()} per week.`,
+  paceWarn:v=>`That’s about ${v} per week. A commonly recommended pace is ${PACE().replace(" ", "")} per week.`,
   needRecord:'Log your weight once first.', removeGoal:'Remove goal', removeGoalQ:'Remove the current goal?',
   errTarget:'Please check the target weight.', errSame:'Target is the same as your current weight.', errEnd:'Pick a target date after today.',
   achievedTitle:'Goal reached!', achievedText:'Great work. This period was saved to your archive.',
@@ -1116,7 +1116,7 @@ function render(keepScroll){
 }
 function fitScreen(){
   view.removeAttribute('data-fit'); view.style.removeProperty('--fitz');
-  if (!['home','cal','chart'].includes(UI.tab)) return;
+  if (!['home','cal','chart'].includes(UI.tab) || (UI.tab === 'chart' && UI.chartSub === 'archive')) return;
   const over = () => view.scrollHeight - view.clientHeight > 0;
   for (let lv = 1; lv <= 3 && over(); lv++) view.setAttribute('data-fit', lv);
 
