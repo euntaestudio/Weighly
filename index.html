@@ -475,7 +475,7 @@ ko:{
   editCard:'카드 수정', edit:'수정', stStart:'시작 체중', stEnd:'마지막 체중', stChange:'총 변화',
   startFrom:(d, v)=>`시작 몸무게는 ${d} 기록인 ${v}이에요.`,
   paceWarn:v=>`주당 약 ${v} 감량하는 목표예요. 일반적으로 권장되는 속도는 주당 ${PACE()}이에요.`,
-  needRecord:'먼저 몸무게를 한 번 기록해 주세요.', removeGoal:'목표 삭제', removeGoalQ:'지금 목표를 삭제할까요?',
+  needRecord:'먼저 몸무게를 한 번 기록해 주세요.', removeGoal:'목표 삭제', removeGoalQ:'진행 중인 목표를 삭제할까요?',
   errTarget:'목표 몸무게를 다시 확인해 주세요.', errSame:'목표 몸무게가 지금 몸무게와 같아요.', errEnd:'목표 날짜는 내일 이후로 정해 주세요.',
   achievedTitle:'목표 달성!', achievedText:'정말 잘했어요. 이번 기록을 보관함에 저장했어요.',
   endedTitle:'목표 기간이 끝났어요.', endedText:'지금까지의 기록을 보관함에 저장했어요.', newGoal:'새 목표 정하기',
@@ -502,7 +502,7 @@ ko:{
   exportTitle:'백업 파일', exportText:'파일이 저장되지 않으면 아래 내용을 복사해 보관해 주세요.',
   copy:'복사', copied:'복사했어요.', copyFail:'복사하지 못했어요. 내용을 길게 눌러 직접 복사해 주세요.',
   importTitle:'백업 불러오기', importText:'백업 파일을 고르거나, 복사해 둔 내용을 붙여넣으세요.', chooseFile:'파일 고르기',
-  importDo:'불러오기', importQ:'앱에 있는 기록을 모두 지우고\n백업 파일 내용으로 바꿀까요?', importErr:'백업 내용을 읽을 수 없어요.', imported:'불러왔어요.',
+  importDo:'불러오기', importQ:'앱에 저장된 기록을 모두 지우고\n백업 파일 내용을 덮어쓸까요?', importErr:'백업 내용을 읽을 수 없어요.', imported:'불러왔어요.',
   pickTitle:'연도와 달', ver:'Weighly ver 0.1', flagDefault:'표시한 날',
   avg7:'7일 평균', csvB:'엑셀로 내보내기', csvTitle:'엑셀 파일', csvText:'파일이 저장되지 않으면 아래 내용을 엑셀에 붙여넣어 주세요.', starCol:'별',
   pinCur:'현재 비밀번호를 입력해 주세요.', prevMonth:m=>`${m} 기록도 보기`,
@@ -547,7 +547,7 @@ en:{
   editCard:'Edit card', edit:'Edit', stStart:'Starting', stEnd:'Latest', stChange:'Total change',
   startFrom:(d, v)=>`Starting weight is ${v}, logged on ${d}.`,
   paceWarn:v=>`That’s about ${v} per week. A commonly recommended pace is ${PACE().replace(" ", "")} per week.`,
-  needRecord:'Log your weight once first.', removeGoal:'Remove goal', removeGoalQ:'Remove the current goal?',
+  needRecord:'Log your weight once first.', removeGoal:'Remove goal', removeGoalQ:'Delete your current goal?',
   errTarget:'Please check the target weight.', errSame:'Target is the same as your current weight.', errEnd:'Pick a target date after today.',
   achievedTitle:'Goal reached!', achievedText:'Great work. Your entries were saved to the archive.',
   endedTitle:'Your goal period ended.', endedText:'Your entries for this period were saved to the archive.', newGoal:'Set a new goal',
@@ -574,7 +574,7 @@ en:{
   exportTitle:'Backup file', exportText:'If the file doesn’t save, copy the text below.',
   copy:'Copy', copied:'Copied.', copyFail:'Couldn’t copy. Press and hold the text to copy it.',
   importTitle:'Restore backup', importText:'Choose a backup file, or paste the backup text.', chooseFile:'Choose file',
-  importDo:'Restore', importQ:'Erase all entries in the app\nand replace them with this backup?', importErr:'Couldn’t read this backup.', imported:'Restored.',
+  importDo:'Restore', importQ:'Erase all entries saved in the app\nand overwrite them with this backup?', importErr:'Couldn’t read this backup.', imported:'Restored.',
   pickTitle:'Year and month', ver:'Weighly ver 0.1', flagDefault:'Marked',
   avg7:'7-day avg', csvB:'Export to Excel', csvTitle:'Excel file', csvText:'If the file doesn’t save, copy the text below into Excel.', starCol:'Star',
   pinCur:'Enter your current passcode.', prevMonth:m=>`Show ${m}`,
@@ -660,6 +660,8 @@ const fW = (kg, hide) => (hide && S.settings.hideNum) ? mask : toU(kg).toFixed(1
 const fWU = (kg, hide) => fW(kg, hide) + U();
 const fDelta = kg => { const v = toU(kg); const s = Math.abs(v) < 0.05 ? '±0.0' : (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1); return s + U(); };
 const DF = () => S.settings.dateFmt || (() => { const l = (navigator.language || 'ko').toLowerCase(); return /^(ko|ja|zh|hu|lt|mn)/.test(l) ? 'ymd' : /^en-(us|ph)|^en$/.test(l) ? 'mdy' : 'dmy'; })();
+/* File names follow the chosen date format too; '/' isn't allowed in file names, so dots are used. */
+const fileDate = () => ymd(todayK()).replace(/\//g, '.');
 const md = k => { const [, m, d] = k.split('-'), f = DF(); return f === 'mdy' ? m + '/' + d : f === 'dmy' ? d + '/' + m : m + '.' + d; };
 const ymd = k => { const [y, m, d] = k.split('-'), f = DF(); return f === 'mdy' ? m + '/' + d + '/' + y : f === 'dmy' ? d + '/' + m + '/' + y : y + '.' + m + '.' + d; };
 const wdOf = k => WD[L()][parseK(k).getDay()];
@@ -1336,7 +1338,7 @@ function exportCSV(){
   const rows = sortedKeys().map(k => { const r = S.records[k]; return [ymd(k), r.w != null ? toU(r.w).toFixed(1) : '', r.f != null ? r.f.toFixed(1) : '', r.m != null ? toU(r.m).toFixed(1) : '', r.memo || '', r.flag ? '★' : ''].map(q).join(','); });
   const csv = [head.map(q).join(',')].concat(rows).join('\r\n');
   try { const blob = new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8' }); const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'Weighly_' + todayK().replace(/-/g, '.') + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    a.href = URL.createObjectURL(blob); a.download = 'Weighly_' + fileDate() + '.csv'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000); } catch(e) {}
   openSheet(`${sheetHead(t('csvTitle'))}<p class="small" style="margin:0">${t('csvText')}</p>
     <textarea id="exTxt" readonly aria-label="${t('csvTitle')}">${esc(csv)}</textarea>
@@ -1446,7 +1448,7 @@ function exportBackup(){
   S.settings.lastBackup = todayK(); S.settings.bkSnooze = null; S.settings.bkYearSnooze = null; persist();
   const data = JSON.stringify({ app:'weightlog', v:1, exported:new Date().toISOString(), records:S.records, goal:S.goal, archive:S.archive, settings:Object.assign({}, S.settings, { pin:null, lock:false }) });
   try { const blob = new Blob([data], { type:'application/json' }); const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'Weighly_backup_' + todayK().replace(/-/g, '.') + '.json'; document.body.appendChild(a); a.click(); a.remove();
+    a.href = URL.createObjectURL(blob); a.download = 'Weighly_backup_' + fileDate() + '.json'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000); } catch(e) {}
   openSheet(`${sheetHead(t('exportTitle'))}<p class="small" style="margin:0">${t('exportText')}</p>
     <textarea id="exTxt" readonly aria-label="${t('exportTitle')}">${esc(data)}</textarea>
