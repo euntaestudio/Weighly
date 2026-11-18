@@ -475,7 +475,7 @@ ko:{
   editCard:'카드 수정', edit:'수정', stStart:'시작 체중', stEnd:'마지막 체중', stChange:'총 변화',
   startFrom:(d, v)=>`시작 몸무게는 ${d} 기록인 ${v}이에요.`,
   paceWarn:v=>`주당 약 ${v} 감량하는 목표예요. 일반적으로 권장되는 속도는 주당 ${PACE()}이에요.`,
-  needRecord:'먼저 몸무게를 한 번 기록해 주세요.', removeGoal:'목표 삭제', removeGoalQ:'진행 중인 목표를 삭제할까요?',
+  needRecord:'먼저 몸무게를 한 번 기록해 주세요.', removeGoal:'목표 삭제', removeGoalQ:'진행 중인 목표를 삭제할까요?', keepEntriesB:'', clearSampleB:'', clearAllB:'', importB:'', delOk:'확인', clearBtn:'지우기',
   errTarget:'목표 몸무게를 다시 확인해 주세요.', errSame:'목표 몸무게가 지금 몸무게와 같아요.', errEnd:'목표 날짜는 내일 이후로 정해 주세요.',
   achievedTitle:'목표 달성!', achievedText:'정말 잘했어요. 이번 기록을 보관함에 저장했어요.',
   endedTitle:'목표 기간이 끝났어요.', endedText:'지금까지의 기록을 보관함에 저장했어요.', newGoal:'새 목표 정하기',
@@ -540,17 +540,17 @@ en:{
   save:'Save', cancel:'Cancel', close:'Close', ok:'OK', deleteRecord:'Delete this entry',
   errEmpty:'Enter a weight or a note.', errW:'Please check the weight.', errF:'Please check the body fat.',
   errM:'Please check the muscle mass.', errFlag:'Add a note to flag this day.', errDate:'Future dates can’t be logged.',
-  overwriteQ:v=>`This day already has an entry (${v}).\nReplace it?`, replace:'Replace',
+  overwriteQ:v=>`You already logged ${v} for this day.\nReplace it?`, replace:'Replace',
   deleteQ:d=>'Delete this entry?', saved:'Saved.', deleted:'Deleted.',
   goalTitle:'Goal', targetW:'Target weight', endDate:'Target date',
-  startDate:'Start date', noDate:'Not set', noEnd:'No deadline', qNone:'No date', q1:'1 mo', q3:'3 mo', q6:'6 mo', q12:'1 yr', errStart:'Please check the start date.', startW:'Starting weight', useRecordQ:(d, v)=>`There’s an entry on ${d} (${v}).\nUse this weight?`, keepTyped:'Keep mine', useRecord:'Use entry', errStartW:'Please check the starting weight.',
+  startDate:'Start date', noDate:'Not set', noEnd:'No deadline', qNone:'No date', q1:'1 mo', q3:'3 mo', q6:'6 mo', q12:'1 yr', errStart:'Please check the start date.', startW:'Starting weight', useRecordQ:(d, v)=>`You logged ${v} on ${d}.\nUse it as your starting weight?`, keepTyped:'Keep mine', useRecord:'Use entry', errStartW:'Please check the starting weight.',
   editCard:'Edit card', edit:'Edit', stStart:'Starting', stEnd:'Latest', stChange:'Total change',
   startFrom:(d, v)=>`Starting weight is ${v}, logged on ${d}.`,
   paceWarn:v=>`That’s about ${v} per week. A commonly recommended pace is ${PACE().replace(" ", "")} per week.`,
-  needRecord:'Log your weight once first.', removeGoal:'Remove goal', removeGoalQ:'Delete your current goal?',
-  errTarget:'Please check the target weight.', errSame:'Target is the same as your current weight.', errEnd:'Pick a target date after today.',
-  achievedTitle:'Goal reached!', achievedText:'Great work. Your entries were saved to the archive.',
-  endedTitle:'Your goal period ended.', endedText:'Your entries for this period were saved to the archive.', newGoal:'Set a new goal',
+  needRecord:'Log your weight first to set a goal.', removeGoal:'Remove goal', removeGoalQ:'Delete this goal?', keepEntriesB:'Your entries won’t be affected.', clearSampleB:'You’ll start with an empty log.', clearAllB:'All entries, goals and archive cards will be deleted. This can’t be undone.', importB:'Everything currently in the app will be replaced.', delOk:'Delete', clearBtn:'Clear',
+  errTarget:'Please check the target weight.', errSame:'Your target matches your current weight.', errEnd:'Choose a target date after today.',
+  achievedTitle:'Goal reached!', achievedText:'Great job! This goal has been saved to your archive.',
+  endedTitle:'Your goal period ended.', endedText:'This goal has been saved to your archive.', newGoal:'Set a new goal',
   goalName:v=>`Goal ${v}`, goalNamePh:'e.g. Before summer', loadRec:'Load', noRecToLoad:'No entries to load.', loadedRec:(d,w)=>`Loaded ${w} from ${d}.`,
   change:'Trends', archive:'Archive', graph:'Chart', table:'Table',
   p7:'1W', p30:'1M', p90:'3M', p182:'6M', p365:'1Y',
@@ -558,23 +558,23 @@ en:{
   saveRange:'Add card', archiveHint:'Goals are saved here when they end. You can also save any period yourself.',
   inProgress:'In progress', achieved:'Reached', ended:'Ended', manual:'Saved period', secLive:'Current goal', secGoals:'Past goals', secPeriods:'Saved periods', rangeQ:(w, lo, hi, u)=>`Please check the ${w.toLowerCase()} value.\nEnter a number from ${lo} to ${hi}${u}.`,
   rangeName:'Name', rangeNamePh:'e.g. First 3 months of training', from:'From', to:'To',
-  errRange:'Please check the dates.', errNoData:'No weight entries in this period.', errName:'Add a name.',
-  archiveEmpty:'No saved periods yet.', deleteArchive:'Delete this period', deleteArchiveQ:'Delete this card from the archive?',
+  errRange:'Please check the dates.', errNoData:'No weight entries in this period.', errName:'Enter a name.',
+  archiveEmpty:'No saved periods yet.', deleteArchive:'Delete this period', deleteArchiveQ:'Delete this card?',
   cardHint:'Tap a card to see its chart.', targetWas:v=>`Goal ${v}`,
   account:'Account', nameEmpty:'Add your name.', nameHint:'What the Home screen will call you.', nameTitle:'Name', avatarTitle:'Profile icon', avatarNone:'No icon', nearGoal:r=>`Almost there! Just ${r} to go.`, nearGoalH:'Almost there! Your goal is within reach.', namePh:'Name', signIn:'Sign in & sync',
   settings:'Settings', security:'Security', appLock:'App lock', changePin:'Change passcode', faceId:'Unlock with Face\u00a0ID\u00a0/ Touch\u00a0ID',
   later:'Coming in the iPhone app version.', notif:'Reminders', notifRow:'Weigh-in reminder',
   display:'Display', secEntries:'Logging', secRegion:'Language & Region', language:'Language', unit:'Units', weekStart:'Week starts\u00a0on', dateFmt:'Date format', df_ymd:'Y.M.D', df_mdy:'M/D/Y', df_dmy:'D/M/Y', sun:'Sunday', mon:'Monday',
-  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up.', bkNagB:'It’s been 30 days since your last backup.\nKeep the backup file in your Downloads folder, and delete the old one after each new backup.', bkLater:'Remind me in 30 days', bkNow:'Back up now', bkNagNote:'You can turn backup reminders on or off in Settings > Reminders.', bkYearT:'You haven’t backed up in a year.', bkYearB:'It’s been a year since your last backup.\nMake a backup file so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after a backup.', importB:'Restore backup', clearAll:'Erase all data',
-  clearAllQ:'Erase all entries, goals and the archive?\nThis can’t be undone.', clearSampleQ:'Clear the sample data and start fresh?', erase:'Erase',
+  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up.', bkNagB:'It’s been 30 days since your last backup.\nSave the new file to Downloads and delete the old one.', bkLater:'Remind me in 30 days', bkNow:'Back up now', bkNagNote:'You can turn backup reminders on or off in Settings > Reminders.', bkYearT:'You haven’t backed up in a year.', bkYearB:'It’s been a year since your last backup.\nMake a backup file so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after a backup.', importB:'Restore backup', clearAll:'Erase all data',
+  clearAllQ:'Erase all data?', clearSampleQ:'Clear sample data?', erase:'Erase',
   backupNote:'Entries are stored only on this phone.<br>Make a backup before switching phones.',
-  pinNew:'New 4-digit passcode', pinAgain:'Enter it again.', pinMismatch:'Passcodes didn’t match.\nStart again.',
+  pinNew:'New 4-digit passcode', pinAgain:'Enter it again.', pinMismatch:'Passcodes don’t match.\nTry again.',
   pinEnter:'Enter your passcode.', pinWrong:'Wrong passcode.',
-  pinWarn:'If you forget the passcode you can’t open the app.\nPlease make a backup first.', lockOffQ:'Turn off app lock?', turnOff:'Turn off', lockOn:'App lock is on.',
+  pinWarn:'If you forget your passcode, you won’t be able to open the app.\nMake a backup first.', lockOffQ:'Turn off app lock?', turnOff:'Turn off', lockOn:'App lock is on.',
   exportTitle:'Backup file', exportText:'If the file doesn’t save, copy the text below.',
-  copy:'Copy', copied:'Copied.', copyFail:'Couldn’t copy. Press and hold the text to copy it.',
+  copy:'Copy', copied:'Copied.', copyFail:'Couldn’t copy. Press and hold the text to copy it manually.',
   importTitle:'Restore backup', importText:'Choose a backup file, or paste the backup text.', chooseFile:'Choose file',
-  importDo:'Restore', importQ:'Erase all entries saved in the app\nand overwrite them with this backup?', importErr:'Couldn’t read this backup.', imported:'Restored.',
+  importDo:'Restore', importQ:'Restore this backup?', importErr:'Couldn’t read this backup.', imported:'Restored.',
   pickTitle:'Year and month', ver:'Weighly ver 0.1', flagDefault:'Marked',
   avg7:'7-day avg', csvB:'Export to Excel', csvTitle:'Excel file', csvText:'If the file doesn’t save, copy the text below into Excel.', starCol:'Star',
   pinCur:'Enter your current passcode.', prevMonth:m=>`Show ${m}`,
@@ -1215,7 +1215,7 @@ function submitRecord(k0, ed){
   } else write();
 }
 function askDelete(k){
-  dialog(t('deleteQ', md(k)), '', [{label:t('cancel'), fn:() => { closeSwipes(); }}, {label:t('ok'), kind:'bad', fn:() => { delete S.records[k]; persist(); closeSheet(); render(true); toast(t('deleted')); }}]);
+  dialog(t('deleteQ', md(k)), '', [{label:t('cancel'), fn:() => { closeSwipes(); }}, {label:t('delOk'), kind:'bad', fn:() => { delete S.records[k]; persist(); closeSheet(); render(true); toast(t('deleted')); }}]);
 }
 
 /* ---------- goal sheet ---------- */
@@ -1469,7 +1469,7 @@ function doImport(){
   const err = document.getElementById('imErr');
   let d; try { d = JSON.parse(document.getElementById('imTxt').value); } catch(e) { d = null; }
   if (!d || typeof d.records !== 'object') { err.textContent = t('importErr'); err.hidden = false; return; }
-  dialog(t('importQ'), '', [{label:t('cancel')}, {label:t('importDo'), kind:'go', fn:() => {
+  dialog(t('importQ'), t('importB'), [{label:t('cancel')}, {label:t('importDo'), kind:'go', fn:() => {
     const keep = { lock:S.settings.lock, pin:S.settings.pin };
     S = normalize(d); S.sample = false; Object.assign(S.settings, keep); persist(); closeSheet(); render(); toast(t('imported')); }}]);
 }
@@ -1552,7 +1552,7 @@ document.addEventListener('click', e => {
     case 'privacy': openPrivacy(); break;
     case 'contact': openContact(); break;
     case 'copyAddr': { const tx = document.getElementById('ctAddr').textContent; try { navigator.clipboard.writeText(tx).then(() => toast(t('copied')), () => toast(t('copyFail'))); } catch(err) { toast(t('copyFail')); } break; }
-    case 'removeGoal': dialog(t('removeGoalQ'), '', [{label:t('cancel')}, {label:t('del'), kind:'bad', fn:() => { S.goal = null; persist(); closeSheet(); render(true); }}]); break;
+    case 'removeGoal': dialog(t('removeGoalQ'), t('keepEntriesB'), [{label:t('cancel')}, {label:t('del'), kind:'bad', fn:() => { S.goal = null; persist(); closeSheet(); render(true); }}]); break;
     case 'chartSub': UI.chartSub = v; render(); break;
     case 'chartMode': UI.chartMode = v; render(true); break;
     case 'metric': UI.metric = v; render(true); break;
@@ -1566,7 +1566,7 @@ document.addEventListener('click', e => {
     case 'fs': S.settings.fs = v; persist(); render(true); break;
     case 'newRange': openRange(); break;
     case 'openArch': openArch(el.dataset.id); break;
-    case 'delArch': { const id = el.dataset.id; dialog(t('deleteArchiveQ'), '', [{label:t('cancel')}, {label:t('del'), kind:'bad', fn:() => { S.archive = S.archive.filter(x => x.id !== id); persist(); closeSheet(); render(true); }}]); break; }
+    case 'delArch': { const id = el.dataset.id; dialog(t('deleteArchiveQ'), t('keepEntriesB'), [{label:t('cancel')}, {label:t('del'), kind:'bad', fn:() => { S.archive = S.archive.filter(x => x.id !== id); persist(); closeSheet(); render(true); }}]); break; }
     case 'lang': S.settings.lang = v; persist(); render(true); break;
     case 'unit': S.settings.unit = v; persist(); render(true); if (!document.getElementById('tut').hidden) showTut(tutI); break;
     case 'week': S.settings.weekStart = +v; persist(); render(true); break;
@@ -1597,8 +1597,8 @@ document.addEventListener('click', e => {
       try { navigator.clipboard.writeText(ta.value).then(() => toast(t('copied')), fallback); } catch(err) { fallback(); } break; }
     case 'importB': importBackup(); break;
     case 'doImport': doImport(); break;
-    case 'clearSample': dialog(t('clearSampleQ'), '', [{label:t('cancel')}, {label:t('erase'), kind:'bad', fn:() => { const st = S.settings; S = defaults(); S.settings = st; persist(); render(); }}]); break;
-    case 'clearAll': dialog(t('clearAllQ'), '', [{label:t('cancel')}, {label:t('erase'), kind:'bad', fn:() => { const st = S.settings; S = defaults(); S.settings = st; persist(); render(); }}]); break;
+    case 'clearSample': dialog(t('clearSampleQ'), t('clearSampleB'), [{label:t('cancel')}, {label:t('clearBtn'), kind:'bad', fn:() => { const st = S.settings; S = defaults(); S.settings = st; persist(); render(); }}]); break;
+    case 'clearAll': dialog(t('clearAllQ'), t('clearAllB'), [{label:t('cancel')}, {label:t('erase'), kind:'bad', fn:() => { const st = S.settings; S = defaults(); S.settings = st; persist(); render(); }}]); break;
   }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { if (document.querySelector('.dpinline')) dpClose(); else if (document.querySelector('.dlgwrap')) closeDialog(); else if (!layer.hidden) closeSheet(); } });
