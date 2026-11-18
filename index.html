@@ -157,6 +157,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .accent{color:var(--accent)}
 .goal{display:flex;flex-direction:column;gap:12px;border:0;text-align:left;width:100%}
 .nw{white-space:nowrap}
+/* Bottom hints on Calendar and List sit at the same height when the page doesn't scroll. */
+.zw:has(> .foothint){flex:1 0 auto}
+.foothint{display:block;padding:0 4px;margin-top:auto;min-height:3em}
+.view[data-fit] .foothint{min-height:0}
 .cheer,.dialog h3,.dialog p,#toast,.tbody p,.tutbox h3,.empty{text-wrap:balance}
 .cheer{margin:6px 4px 0;font-size:14px;line-height:1.5;text-align:center;color:var(--accent)}
 .banner{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--accentSoft);color:var(--accentInk);border-radius:14px;padding:10px 14px;font-size:13px}
@@ -278,7 +282,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .row-fg .d{font-size:14px;position:relative;display:flex;justify-content:center;align-items:center}
 .row-fg .d > span:first-child{display:inline-grid;grid-template-columns:auto var(--wdw,1.2em);column-gap:6px;align-items:center;white-space:nowrap}
 .row-fg .d > span:first-child > span{text-align:left}
-.row-fg .d .dstar{position:absolute;left:calc(50% + 36px);top:50%;transform:translateY(-50%);display:flex}
+.row-fg .d > span:first-child > span{position:relative}
+.row-fg .d .dstar{position:absolute;left:calc(100% + 2px);top:50%;transform:translateY(-50%);display:flex}
 .lgrid.wo{grid-template-columns:84px minmax(0,1fr)}
 .rangebtn{border:0;background:none;padding:0;display:flex;align-items:center;gap:4px;font-size:13px;min-height:36px;color:var(--sub)}
 .chartcard .rangebtn svg{width:14px;height:14px;display:inline;flex:none}
@@ -830,8 +835,8 @@ function vCal(){
   <div style="display:flex;flex-direction:column;gap:6px;padding:0 4px">
     <span style="font-size:14px;font-weight:600">${t('monthCount', cnt)}</span>
     ${flags.length ? `<div class="flaglist">${flags.map(k => `<button class="flagitem" data-act="dayTap" data-k="${k}">${flagMark()}<span class="num">${fullDate(k)}</span> · ${esc(S.records[k].memo || t('flagDefault'))}</button>`).join('')}</div>` : ''}
-    <span class="small"${flags.length ? ' style="margin-top:8px"' : ''}>${t('calHint')}</span>
-  </div>`;
+  </div>
+  <span class="small foothint">${t('calHint')}</span>`;
 }
 
 function vList(){
@@ -840,7 +845,7 @@ function vList(){
   const row = k => { const r = S.records[k];
     return `<div class="swipe"><button class="delbtn" data-act="askDelete" data-k="${k}" tabindex="-1">${t('del')}</button>
       <button class="row-fg lgrid num${wo ? ' wo' : ''}${k === todayK() ? ' tdy' : ''}" data-act="editRow" data-k="${k}" aria-label="${esc(longDate(k))}">
-        <span class="d"><span>${md(k)}<span class="${isWE(k) ? 'we' : 'dw'}">${wdOf(k)}</span></span>${r.flag ? `<span class="dstar">${flagMark()}</span>` : ''}</span>
+        <span class="d"><span>${md(k)}<span class="${isWE(k) ? 'we' : 'dw'}">${wdOf(k)}${r.flag ? `<span class="dstar">${flagMark()}</span>` : ''}</span></span></span>
         <span class="w">${v(r.w, x => fW(x))}</span>${wo ? '' : `<span>${v(r.f, x => x.toFixed(1))}</span><span>${v(r.m, x => fW(x))}</span>`}
       </button></div>`; };
   let body = '', yy = UI.listY, mm = UI.listM, any = false;
@@ -859,7 +864,7 @@ function vList(){
     ${any || n > 1 ? body : `<p class="empty">${t('listEmpty')}</p>`}
   </div>
   ${hasOlder ? `<button class="textbtn" data-act="moreMonth">${t('prevMonth', monthName(mm))}</button>` : ''}
-  ${any ? `<span class="small" style="display:block;padding:0 4px">${t('listHint')}${n >= 3 ? ' ' + t('listLong') : ''}</span>` : ''}`;
+  ${any ? `<span class="small foothint">${t('listHint')}${n >= 3 ? ' ' + t('listLong') : ''}</span>` : ''}`;
 }
 
 function metricVal(r, met){ const x = r[met]; if (x == null) return null; return met === 'f' ? x : toU(x); }
@@ -880,7 +885,7 @@ function buildChart(pts, k0, k1, flags, unitLbl, avg, yName){
   ticks.forEach(v => { const yy = Y(v).toFixed(1); s += `<line class="c-grid" x1="${Lm}" y1="${yy}" x2="${W - Rm}" y2="${yy}"/><text class="c-lab" x="${Lm - 10}" y="${(+yy + 3.5).toFixed(1)}" text-anchor="end">${v.toFixed(1)}</text>`; });
   (flags || []).forEach(f => { if (f[0] < k0 || f[0] > k1) return; const xx = X(f[0]);
     if (span <= 31) {
-      const txt = String(f[1]).slice(0, 7), bw = Math.max(40, txt.length * 10.5 + 16);
+      const txt = String(f[1]).slice(0, 7), bw = Math.max(36, [...txt].reduce((w, ch) => w + (/[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af\u4e00-\u9fff]/.test(ch) ? 10.5 : /[A-Z]/.test(ch) ? 7 : ch === ' ' ? 3 : 5.8), 0) + 16);
       const bx = Math.max(Lm, Math.min(xx - bw / 2, W - Rm - bw));
       s += `<line class="c-flag" x1="${xx.toFixed(1)}" y1="27" x2="${xx.toFixed(1)}" y2="${H - Bm}"/><rect class="c-flagbox" x="${bx.toFixed(1)}" y="4" width="${bw.toFixed(1)}" height="18" rx="4"/><text class="c-flagtxt" x="${(bx + bw / 2).toFixed(1)}" y="16" text-anchor="middle">${esc(txt)}</text>`;
     } else {
