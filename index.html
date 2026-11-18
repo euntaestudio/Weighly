@@ -869,6 +869,10 @@ function vList(){
 
 function metricVal(r, met){ const x = r[met]; if (x == null) return null; return met === 'f' ? x : toU(x); }
 let CHARTS = {}, chartSeq = 0;
+/* Chart star labels stay short: whole words up to ~7 Korean or ~12 Latin characters, else cut with an ellipsis. */
+function shortLabel(x){ const ko = /[\uac00-\ud7af]/.test(x), lim = ko ? 7 : 12; if (x.length <= lim) return x;
+  const ws = x.split(/\s+/); let o = ''; for (const w of ws) { if ((o ? o.length + 1 : 0) + w.length > lim) break; o = o ? o + ' ' + w : w; }
+  return o || x.slice(0, lim - 1) + '…'; }
 function buildChart(pts, k0, k1, flags, unitLbl, avg, yName){
   if (pts.length < 2) return `<p class="empty">${t('notEnough')}</p>`;
   const cid = 'ch' + (++chartSeq);
@@ -885,7 +889,7 @@ function buildChart(pts, k0, k1, flags, unitLbl, avg, yName){
   ticks.forEach(v => { const yy = Y(v).toFixed(1); s += `<line class="c-grid" x1="${Lm}" y1="${yy}" x2="${W - Rm}" y2="${yy}"/><text class="c-lab" x="${Lm - 10}" y="${(+yy + 3.5).toFixed(1)}" text-anchor="end">${v.toFixed(1)}</text>`; });
   (flags || []).forEach(f => { if (f[0] < k0 || f[0] > k1) return; const xx = X(f[0]);
     if (span <= 31) {
-      const txt = String(f[1]).slice(0, 7), bw = Math.max(36, [...txt].reduce((w, ch) => w + (/[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af\u4e00-\u9fff]/.test(ch) ? 10.5 : /[A-Z]/.test(ch) ? 7 : ch === ' ' ? 3 : 5.8), 0) + 16);
+      const txt = shortLabel(String(f[1])), bw = Math.max(36, [...txt].reduce((w, ch) => w + (/[\u1100-\u11ff\u3130-\u318f\uac00-\ud7af\u4e00-\u9fff]/.test(ch) ? 10.5 : /[A-Z]/.test(ch) ? 7 : ch === ' ' ? 3 : 5.8), 0) + 16);
       const bx = Math.max(Lm, Math.min(xx - bw / 2, W - Rm - bw));
       s += `<line class="c-flag" x1="${xx.toFixed(1)}" y1="27" x2="${xx.toFixed(1)}" y2="${H - Bm}"/><rect class="c-flagbox" x="${bx.toFixed(1)}" y="4" width="${bw.toFixed(1)}" height="18" rx="4"/><text class="c-flagtxt" x="${(bx + bw / 2).toFixed(1)}" y="16" text-anchor="middle">${esc(txt)}</text>`;
     } else {
@@ -1036,11 +1040,10 @@ function vSet(){
     <button class="srow" data-act="editName"><span style="display:flex;align-items:center;gap:12px;min-width:0"><span class="avatar${st.avatar ? ' emo' : ''}">${avatarInner()}</span><span class="lbl"><span>${st.name ? esc(st.name) : t('nameEmpty')}</span><span class="small">${t('nameHint')}</span></span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>
     <div class="srow"><span class="lbl"><span>${t('signIn')}</span><span class="small">${t('later')}</span></span></div>
   </div>
-  <span class="stitle">${t('security')}</span>
+  <span class="stitle">${t('secEntries')}</span>
   <div class="group">
-    <div class="srow"><span>${t('appLock')}</span><button class="sw" data-act="toggleLock" aria-pressed="${!!st.lock}" aria-label="${t('appLock')}"></button></div>
-    ${st.lock ? `<button class="srow" data-act="changePin"><span>${t('changePin')}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>` : ''}
-    <div class="srow"><span class="lbl"><span>${t('faceId')}</span><span class="small">${t('later')}</span></span><button class="sw" disabled aria-pressed="false" aria-label="${t('faceId')}"></button></div>
+    <div class="srow"><span>${t('items')}</span><div class="seg eq">${segBtn('items','all',st.items || 'all',t('itemsAll'))}${segBtn('items','w',st.items,t('itemsW'))}</div></div>
+    <div class="srow"><span>${t('unit')}</span><div class="seg">${segBtn('unit','kg',st.unit,'kg')}${segBtn('unit','lb',st.unit,'lb')}</div></div>
   </div>
   <span class="stitle">${t('notif')}</span>
   <div class="group">
@@ -1055,16 +1058,17 @@ function vSet(){
     <div class="srow"><span>${t('fontSize')}</span><div class="seg eq" style="width:200px">${segBtn('fs','s',st.fs,t('fsS'))}${segBtn('fs','m',st.fs || 'm',t('fsM'))}${segBtn('fs','l',st.fs,t('fsL'))}</div></div>
     <div class="srow"><span>${t('hideNums')}</span><button class="sw" data-act="toggleHide" aria-pressed="${!!st.hideNum}" aria-label="${t('hideNums')}"></button></div>
   </div>
-  <span class="stitle">${t('secEntries')}</span>
-  <div class="group">
-    <div class="srow"><span>${t('items')}</span><div class="seg eq">${segBtn('items','all',st.items || 'all',t('itemsAll'))}${segBtn('items','w',st.items,t('itemsW'))}</div></div>
-    <div class="srow"><span>${t('unit')}</span><div class="seg">${segBtn('unit','kg',st.unit,'kg')}${segBtn('unit','lb',st.unit,'lb')}</div></div>
-  </div>
   <span class="stitle">${t('secRegion')}</span>
   <div class="group">
     <div class="srow"><span>${t('language')}</span><div class="seg eq">${segBtn('lang','ko',st.lang,'한국어')}${segBtn('lang','en',st.lang,'English')}</div></div>
     <div class="srow"><span>${t('dateFmt')}</span><div class="seg eq">${['ymd','mdy','dmy'].map(f => `<button data-act="dfmt" data-v="${f}" aria-pressed="${DF() === f}">${t('df_' + f)}</button>`).join('')}</div></div>
     <div class="srow"><span>${t('weekStart')}</span><div class="seg eq"><button data-act="week" data-v="0" aria-pressed="${st.weekStart === 0}">${t('sun')}</button><button data-act="week" data-v="1" aria-pressed="${st.weekStart === 1}">${t('mon')}</button></div></div>
+  </div>
+  <span class="stitle">${t('security')}</span>
+  <div class="group">
+    <div class="srow"><span>${t('appLock')}</span><button class="sw" data-act="toggleLock" aria-pressed="${!!st.lock}" aria-label="${t('appLock')}"></button></div>
+    ${st.lock ? `<button class="srow" data-act="changePin"><span>${t('changePin')}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true">${IC.chev}</svg></button>` : ''}
+    <div class="srow"><span class="lbl"><span>${t('faceId')}</span><span class="small">${t('later')}</span></span><button class="sw" disabled aria-pressed="false" aria-label="${t('faceId')}"></button></div>
   </div>
   <span class="stitle">${t('data')}</span>
   <div class="group">
@@ -1332,7 +1336,7 @@ function exportCSV(){
   const rows = sortedKeys().map(k => { const r = S.records[k]; return [ymd(k), r.w != null ? toU(r.w).toFixed(1) : '', r.f != null ? r.f.toFixed(1) : '', r.m != null ? toU(r.m).toFixed(1) : '', r.memo || '', r.flag ? '★' : ''].map(q).join(','); });
   const csv = [head.map(q).join(',')].concat(rows).join('\r\n');
   try { const blob = new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8' }); const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'weighly-' + todayK() + '.csv'; document.body.appendChild(a); a.click(); a.remove();
+    a.href = URL.createObjectURL(blob); a.download = 'Weighly_' + todayK().replace(/-/g, '.') + '.csv'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000); } catch(e) {}
   openSheet(`${sheetHead(t('csvTitle'))}<p class="small" style="margin:0">${t('csvText')}</p>
     <textarea id="exTxt" readonly aria-label="${t('csvTitle')}">${esc(csv)}</textarea>
