@@ -1215,7 +1215,7 @@ function submitRecord(k0, ed){
   } else write();
 }
 function askDelete(k){
-  dialog(t('deleteQ', md(k)), '', [{label:t('cancel'), fn:() => { closeSwipes(); }}, {label:t('delOk'), kind:'bad', fn:() => { delete S.records[k]; persist(); closeSheet(); render(true); toast(t('deleted')); }}]);
+  dialog(t('deleteQ', md(k)), '', [{label:t('cancel'), fn:() => { closeSwipes(); }}, {label:t('delOk'), kind:'bad', fn:() => { delete S.records[k]; persist(); closeSheet(); render(true); }}]);
 }
 
 /* ---------- goal sheet ---------- */
@@ -1272,7 +1272,7 @@ function openGoal(){
       if (Math.abs(tv - sw) < 0.05) return fail(t('errSame'));
       if (end && end <= tk) return fail(t('errEnd'));
       S.goal = { title:(sh.querySelector('#gN').value || '').trim(), start:sk, startW:Math.round(sw * 100) / 100, target:Math.round(tv * 100) / 100, end:end || null };
-      persist(); closeSheet(); render(true); toast(t('saved')); checkGoal();
+      persist(); closeSheet(); render(true); checkGoal();
     });
   });
 }
@@ -1309,7 +1309,7 @@ function openRange(id){
       const data = { title:n, auto:false, start:s, end:f, startW:pts[0][1], endW:pts[pts.length - 1][1], pts };
       if (a) Object.assign(a, data);
       else S.archive.push(Object.assign({ id:'a' + Date.now(), type:'manual', target:null }, data));
-      persist(); closeSheet(); render(true); toast(t('saved'));
+      persist(); closeSheet(); render(true);
     });
   });
 }
@@ -1372,7 +1372,7 @@ function openName(){
     <button class="primary" type="submit">${t('save')}</button></form>`, sh => {
     const nm = sh.querySelector('#nm');
     sh.querySelectorAll('[data-av]').forEach(b => b.addEventListener('click', () => { av = b.dataset.av; sh.querySelectorAll('[data-av]').forEach(x => x.setAttribute('aria-pressed', x === b)); }));
-    sh.querySelector('#nameForm').addEventListener('submit', e => { e.preventDefault(); S.settings.name = nm.value.trim(); S.settings.avatar = av; persist(); closeSheet(); render(true); toast(t('saved')); });
+    sh.querySelector('#nameForm').addEventListener('submit', e => { e.preventDefault(); S.settings.name = nm.value.trim(); S.settings.avatar = av; persist(); closeSheet(); render(true); });
   });
 }
 const AVATARS = ['🐋','🐢','🐇','🐕','🐈','🍀','🌻','✨','⚡️','🔥','🌈'];
