@@ -475,7 +475,7 @@ ko:{
   editCard:'카드 수정', edit:'수정', stStart:'시작 체중', stEnd:'마지막 체중', stChange:'총 변화',
   startFrom:(d, v)=>`시작 몸무게는 ${d} 기록인 ${v}이에요.`,
   paceWarn:v=>`주당 약 ${v} 감량하는 목표예요. 일반적으로 권장되는 속도는 주당 ${PACE()}이에요.`,
-  needRecord:'먼저 몸무게를 한 번 기록해 주세요.', removeGoal:'목표 삭제', removeGoalQ:'진행 중인 목표를 삭제할까요?', keepEntriesB:'', clearSampleB:'', clearAllB:'', importB:'', delOk:'확인', clearBtn:'지우기',
+  needRecord:'먼저 몸무게를 한 번 기록해 주세요.', removeGoal:'목표 삭제', removeGoalQ:'진행 중인 목표를 삭제할까요?', keepEntriesB:'', clearSampleB:'', clearAllB:'', importB:'', delOk:'삭제', clearBtn:'지우기',
   errTarget:'목표 몸무게를 다시 확인해 주세요.', errSame:'목표 몸무게가 지금 몸무게와 같아요.', errEnd:'목표 날짜는 내일 이후로 정해 주세요.',
   achievedTitle:'목표 달성!', achievedText:'정말 잘했어요. 이번 기록을 보관함에 저장했어요.',
   endedTitle:'목표 기간이 끝났어요.', endedText:'지금까지의 기록을 보관함에 저장했어요.', newGoal:'새 목표 정하기',
@@ -540,17 +540,17 @@ en:{
   save:'Save', cancel:'Cancel', close:'Close', ok:'OK', deleteRecord:'Delete this entry',
   errEmpty:'Enter a weight or a note.', errW:'Please check the weight.', errF:'Please check the body fat.',
   errM:'Please check the muscle mass.', errFlag:'Add a note to flag this day.', errDate:'Future dates can’t be logged.',
-  overwriteQ:v=>`You already logged ${v} for this day.\nReplace it?`, replace:'Replace',
+  overwriteQ:v=>`This day already has an entry (${v}).\nReplace it?`, replace:'Replace',
   deleteQ:d=>'Delete this entry?', saved:'Saved.', deleted:'Deleted.',
   goalTitle:'Goal', targetW:'Target weight', endDate:'Target date',
-  startDate:'Start date', noDate:'Not set', noEnd:'No deadline', qNone:'No date', q1:'1 mo', q3:'3 mo', q6:'6 mo', q12:'1 yr', errStart:'Please check the start date.', startW:'Starting weight', useRecordQ:(d, v)=>`You logged ${v} on ${d}.\nUse it as your starting weight?`, keepTyped:'Keep mine', useRecord:'Use entry', errStartW:'Please check the starting weight.',
+  startDate:'Start date', noDate:'Not set', noEnd:'No deadline', qNone:'No date', q1:'1 mo', q3:'3 mo', q6:'6 mo', q12:'1 yr', errStart:'Please check the start date.', startW:'Starting weight', useRecordQ:(d, v)=>`There’s an entry on ${d} (${v}).\nUse it as your starting weight?`, keepTyped:'Keep Mine', useRecord:'Use Entry', errStartW:'Please check the starting weight.',
   editCard:'Edit card', edit:'Edit', stStart:'Starting', stEnd:'Latest', stChange:'Total change',
   startFrom:(d, v)=>`Starting weight is ${v}, logged on ${d}.`,
   paceWarn:v=>`That’s about ${v} per week. A commonly recommended pace is ${PACE().replace(" ", "")} per week.`,
   needRecord:'Log your weight first to set a goal.', removeGoal:'Remove goal', removeGoalQ:'Delete this goal?', keepEntriesB:'Your entries won’t be affected.', clearSampleB:'You’ll start with an empty log.', clearAllB:'All entries, goals and archive cards will be deleted. This can’t be undone.', importB:'Everything currently in the app will be replaced.', delOk:'Delete', clearBtn:'Clear',
   errTarget:'Please check the target weight.', errSame:'Your target matches your current weight.', errEnd:'Choose a target date after today.',
   achievedTitle:'Goal reached!', achievedText:'Great job! This goal has been saved to your archive.',
-  endedTitle:'Your goal period ended.', endedText:'This goal has been saved to your archive.', newGoal:'Set a new goal',
+  endedTitle:'Your goal period ended.', endedText:'This goal has been saved to your archive.', newGoal:'Set a New Goal',
   goalName:v=>`Goal ${v}`, goalNamePh:'e.g. Before summer', loadRec:'Load', noRecToLoad:'No entries to load.', loadedRec:(d,w)=>`Loaded ${w} from ${d}.`,
   change:'Trends', archive:'Archive', graph:'Chart', table:'Table',
   p7:'1W', p30:'1M', p90:'3M', p182:'6M', p365:'1Y',
@@ -565,12 +565,12 @@ en:{
   settings:'Settings', security:'Security', appLock:'App lock', changePin:'Change passcode', faceId:'Unlock with Face\u00a0ID\u00a0/ Touch\u00a0ID',
   later:'Coming in the iPhone app version.', notif:'Reminders', notifRow:'Weigh-in reminder',
   display:'Display', secEntries:'Logging', secRegion:'Language & Region', language:'Language', unit:'Units', weekStart:'Week starts\u00a0on', dateFmt:'Date format', df_ymd:'Y.M.D', df_mdy:'M/D/Y', df_dmy:'D/M/Y', sun:'Sunday', mon:'Monday',
-  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up.', bkNagB:'It’s been 30 days since your last backup.\nSave the new file to Downloads and delete the old one.', bkLater:'Remind me in 30 days', bkNow:'Back up now', bkNagNote:'You can turn backup reminders on or off in Settings > Reminders.', bkYearT:'You haven’t backed up in a year.', bkYearB:'It’s been a year since your last backup.\nMake a backup file so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after a backup.', importB:'Restore backup', clearAll:'Erase all data',
+  data:'Data', exportB:'Create backup file', bkNagT:'Time to back up.', bkNagB:'It’s been 30 days since your last backup.\nSave the new file to Downloads and delete the old one.', bkLater:'Remind Me in 30 Days', bkNow:'Back Up Now', bkNagNote:'You can turn backup reminders on or off in Settings > Reminders.', bkYearT:'You haven’t backed up in a year.', bkYearB:'It’s been a year since your last backup.\nMake a backup file so you don’t lose your entries.', bkRow:'Backup reminder', bkRowSub:'Reminds you 30 days after a backup.', importB:'Restore backup', clearAll:'Erase all data',
   clearAllQ:'Erase all data?', clearSampleQ:'Clear sample data?', erase:'Erase',
   backupNote:'Entries are stored only on this phone.<br>Make a backup before switching phones.',
   pinNew:'New 4-digit passcode', pinAgain:'Enter it again.', pinMismatch:'Passcodes don’t match.\nTry again.',
   pinEnter:'Enter your passcode.', pinWrong:'Wrong passcode.',
-  pinWarn:'If you forget your passcode, you won’t be able to open the app.\nMake a backup first.', lockOffQ:'Turn off app lock?', turnOff:'Turn off', lockOn:'App lock is on.',
+  pinWarn:'If you forget your passcode, you won’t be able to open the app.\nPlease make a backup first.', lockOffQ:'Turn off app lock?', turnOff:'Turn Off', lockOn:'App lock is on.',
   exportTitle:'Backup file', exportText:'If the file doesn’t save, copy the text below.',
   copy:'Copy', copied:'Copied.', copyFail:'Couldn’t copy. Press and hold the text to copy it manually.',
   importTitle:'Restore backup', importText:'Choose a backup file, or paste the backup text.', chooseFile:'Choose file',
@@ -1207,7 +1207,7 @@ function submitRecord(k0, ed){
   const rec = {}; if (w != null) rec.w = w; if (f != null) rec.f = Math.round(f * 10) / 10; if (m != null) rec.m = m;
   if (memo) rec.memo = memo; if (flag) rec.flag = true;
   if (S.settings.items === 'w') { const ex0 = S.records[k] || {}; if (ex0.f != null) rec.f = ex0.f; if (ex0.m != null) rec.m = ex0.m; }
-  const write = () => { S.records[k] = rec; persist(); closeSheet(); render(true); toast(t('saved')); checkGoal(); };
+  const write = () => { S.records[k] = rec; persist(); closeSheet(); render(true); checkGoal(); };
   const ex = S.records[k];
   if (!ed && ex) {
     const v = ex.w != null ? fWU(ex.w) : (ex.memo || t('memo'));
