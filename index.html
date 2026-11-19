@@ -515,7 +515,7 @@ ko:{
   tut7T:'흐름 보기', tut7B:'<b>그래프</b> 탭에서 기간별 변화와\n7일 평균을 볼 수 있어요.\n\n<b>보관함</b>에서는 지난 목표와\n저장한 기간을 다시 볼 수 있어요.',
   prev:'이전', listLong:'긴\u00a0기간은 그래프 탭의 <span class="nw">‘표’에서</span> 한\u00a0번에 볼 수 있어요.',
   skip:'건너뛰기', next:'다음', startApp:'시작하기', tutAgain:'튜토리얼 다시 보기',
-  appSec:'앱', appVer:'버전', rate:'평가하기', theme:'테마', thAuto:'자동', thLight:'라이트', thDark:'다크', darkStyle:'다크 스타일', lightStyle:'라이트 스타일', lsA:'세이지', lsB:'스톤', dsA:'그래파이트', dsB:'앰버', fontSize:'글씨 크기', fsS:'작게', fsM:'보통', fsL:'크게', items:'기록 항목', itemsAll:'전체', itemsW:'몸무게만', rangeTitle:'그래프 기간', apply:'적용', resetRange:'최근 기간으로 돌아가기', rateLater:'앱스토어에 출시하면 열려요.', privacy:'개인정보 처리 방침', contact:'문의하기', privFull:'개인정보 처리방침 전문 보기',
+  appSec:'앱', appVer:'버전', rate:'평가하기', theme:'테마', thAuto:'자동', thLight:'라이트', thDark:'다크', darkStyle:'다크 스타일', lightStyle:'라이트 스타일', lsA:'세이지', lsB:'스톤', dsA:'그래파이트', dsB:'앰버', fontSize:'글씨 크기', fsS:'작게', fsM:'보통', fsL:'크게', items:'기록 항목', itemsAll:'전체', itemsW:'몸무게만', rangeTitle:'그래프 기간', apply:'적용', resetRange:'최근 기간으로 돌아가기', rateLater:'앱스토어에 출시하면 열려요.', privacy:'개인정보 처리 방침', contact:'문의하기', sendMail:'메일 보내기', privFull:'개인정보 처리방침 전문 보기',
   privacyBody:['입력한 기록과 목표는 이 기기 안에만 저장돼요.', '이 앱은 기록을 다른 곳으로 보내거나 모으지 않아요.', '백업 파일은 직접 만들 때만 생기며, 보관도 직접 해요.', '화면 글꼴을 불러올 때 Google Fonts에 연결돼요.', '계정 연동 같은 기능이 생기면 먼저 알려드릴게요.'],
   contactBody:'문의, 오류 제보, 기능 제안을 보내주세요.', contactAddr:'taestudio.support@gmail.com'
 },
@@ -587,7 +587,7 @@ en:{
   tut7T:'See the trend', tut7B:'See changes and the 7-day average\nin <b>Charts</b>.\n\nThe <b>Archive</b> keeps past goals\nand saved periods.',
   prev:'Back', listLong:'For long periods, use ‘Table’ in Charts.',
   skip:'Skip', next:'Next', startApp:'Get started', tutAgain:'Replay tutorial',
-  appSec:'App', appVer:'Version', rate:'Rate', theme:'Theme', thAuto:'Auto', thLight:'Light', thDark:'Dark', darkStyle:'Dark style', lightStyle:'Light style', lsA:'Sage', lsB:'Stone', dsA:'Graphite', dsB:'Amber', fontSize:'Text size', fsS:'Small', fsM:'Default', fsL:'Large', items:'Entries', itemsAll:'All', itemsW:'Weight only', rangeTitle:'Chart period', apply:'Apply', resetRange:'Back to recent period', rateLater:'Available once the app is on the App Store.', privacy:'Privacy policy', contact:'Contact us', privFull:'Read the full privacy policy',
+  appSec:'App', appVer:'Version', rate:'Rate', theme:'Theme', thAuto:'Auto', thLight:'Light', thDark:'Dark', darkStyle:'Dark style', lightStyle:'Light style', lsA:'Sage', lsB:'Stone', dsA:'Graphite', dsB:'Amber', fontSize:'Text size', fsS:'Small', fsM:'Default', fsL:'Large', items:'Entries', itemsAll:'All', itemsW:'Weight only', rangeTitle:'Chart period', apply:'Apply', resetRange:'Back to recent period', rateLater:'Available once the app is on the App Store.', privacy:'Privacy policy', contact:'Contact us', sendMail:'Send Email', privFull:'Read the full privacy policy',
   privacyBody:['Your weight, body fat, muscle, notes and goals are stored only on this device.', 'This app never sends or collects your entries.', 'You create and keep your own backup files.', 'Fonts are loaded from Google Fonts.', 'We’ll update this policy before adding sync.'],
   contactBody:'Send us questions, bug reports, or ideas.', contactAddr:'taestudio.support@gmail.com'
 }};
@@ -1419,7 +1419,8 @@ function dpClose(){ document.querySelectorAll('.dpinline').forEach(x => x.remove
 /* ---------- privacy / contact ---------- */
 function openPrivacy(){ openSheet(`${sheetHead(t('privacy'))}<div style="display:flex;flex-direction:column;gap:10px">${t('privacyBody').map(p => `<p style="margin:0;font-size:14px;line-height:1.65">${esc(p)}</p>`).join('')}<a class="textbtn" style="align-self:flex-start;padding-left:0" href="https://euntaestudio.github.io/Weighly/privacy.html" target="_blank" rel="noopener">${t('privFull')}</a></div>`); }
 function openContact(){ openSheet(`${sheetHead(t('contact'))}<p class="sub" style="margin:0">${t('contactBody')}</p>
-  <div class="card" style="background:var(--bg);display:flex;justify-content:space-between;align-items:center;gap:10px"><span id="ctAddr" style="user-select:all;-webkit-user-select:all;word-break:break-all;min-width:0">${esc(t('contactAddr'))}</span><button class="pill" data-act="copyAddr">${t('copy')}</button></div>`); }
+  <div class="card" style="background:var(--bg);display:flex;justify-content:space-between;align-items:center;gap:10px"><span id="ctAddr" style="user-select:all;-webkit-user-select:all;word-break:break-all;min-width:0">${esc(t('contactAddr'))}</span><button class="pill" data-act="copyAddr">${t('copy')}</button></div>
+  <a class="primary" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="mailto:${t('contactAddr')}?subject=${encodeURIComponent('[Weighly] ' + t('contact'))}&body=${encodeURIComponent('\n\n—\nWeighly ver 0.1 · ' + (navigator.userAgent.match(/(iPhone|iPad|Android)[^;)]*/) || [''])[0])}">${t('sendMail')}</a>`); }
 
 /* ---------- month picker ---------- */
 function openPicker(ctx){
