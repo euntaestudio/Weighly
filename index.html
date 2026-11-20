@@ -411,6 +411,10 @@ input::placeholder,textarea::placeholder{color:var(--faint)}
 .picky button[aria-pressed="true"],.pickm button[aria-pressed="true"]{background:var(--btn);color:var(--btnFg);border-color:var(--btn);font-weight:600}
 .pickm button:disabled{color:var(--disabled)}
 textarea{width:100%;box-sizing:border-box;min-height:120px;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:12px;background:var(--bg);resize:vertical}
+#tip{position:fixed;z-index:65;background:var(--btn);color:var(--btnFg);padding:10px 14px;border-radius:12px;font-size:calc(14px * var(--z,1));line-height:1.45;white-space:pre-line;width:max-content;max-width:calc(100vw - 32px);box-shadow:0 6px 20px rgba(0,0,0,.18);animation:fade .2s}
+#tip i{position:absolute;width:12px;height:12px;background:var(--btn);transform:rotate(45deg);border-radius:2px}
+#tip.below i{top:-5px}
+#tip.above i{bottom:-5px}
 #toast{position:fixed;left:50%;top:40%;transform:translateX(-50%);background:var(--btn);color:var(--btnFg);padding:10px 18px;border-radius:20px;font-size:14px;z-index:70;pointer-events:none;animation:fade .2s}
 
 /* lock */
@@ -446,7 +450,7 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;border:1px solid var(
 /* ---------- strings ---------- */
 const WD = {ko:['일','월','화','수','목','금','토'], en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat']};
 const MON_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const APP_VER = '0.11';  // GitHub에 올릴 때마다 0.01씩 올려요
+const APP_VER = '0.12';  // GitHub에 올릴 때마다 0.01씩 올려요
 const T = {
 ko:{
   tabHome:'홈', tabCal:'캘린더', tabList:'목록', tabChart:'그래프', tabSet:'설정',
@@ -515,7 +519,7 @@ ko:{
   tut6T:'다른 날 기록하기', tut6B:'캘린더에서 날짜를 누르거나\n목록에서 +를 누르면\n다른 날의 기록도 남길 수 있어요.',
   tut7T:'흐름 보기', tut7B:'<b>그래프</b> 탭에서 기간별 변화와\n7일 평균을 볼 수 있어요.\n\n<b>보관함</b>에서는 지난 목표와\n저장한 기간을 다시 볼 수 있어요.',
   prev:'이전', listLong:'긴\u00a0기간은 그래프 탭의 <span class="nw">‘표’에서</span> 한\u00a0번에 볼 수 있어요.',
-  skip:'건너뛰기', next:'다음', startApp:'시작하기', tutAgain:'튜토리얼 다시 보기',
+  skip:'건너뛰기', next:'다음', startApp:'시작하기', tutAgain:'튜토리얼 다시 보기', tipEye:'숫자를 가리거나 다시 보여줘요.', tipChart:'그래프를 길게 누르면 그날 값을 볼 수 있어요.',
   appSec:'앱', appVer:'버전', rate:'평가하기', theme:'테마', thAuto:'자동', thLight:'라이트', thDark:'다크', darkStyle:'다크 스타일', lightStyle:'라이트 스타일', lsA:'세이지', lsB:'스톤', dsA:'그래파이트', dsB:'앰버', fontSize:'글씨 크기', fsS:'작게', fsM:'보통', fsL:'크게', items:'기록 항목', itemsAll:'전체', itemsW:'몸무게만', rangeTitle:'그래프 기간', apply:'적용', resetRange:'최근 기간으로 돌아가기', rateLater:'앱스토어에 출시하면 열려요.', privacy:'개인정보 처리 방침', contact:'문의하기', sendMail:'메일 보내기', privFull:'개인정보 처리방침 전문 보기',
   privacyBody:['입력한 기록과 목표는 이 기기 안에만 저장돼요.', '이 앱은 기록을 다른 곳으로 보내거나 모으지 않아요.', '백업 파일은 직접 만들 때만 생기며, 보관도 직접 해요.', '화면 글꼴을 불러올 때 Google Fonts에 연결돼요.', '계정 연동 같은 기능이 생기면 먼저 알려드릴게요.'],
   contactBody:'문의, 오류 제보, 기능 제안을 보내주세요.', contactAddr:'euntaestudio@gmail.com'
@@ -587,7 +591,7 @@ en:{
   tut6T:'Log other days', tut6B:'Tap a date on the calendar\nor + in the list\nto add entries for other days.',
   tut7T:'See the trend', tut7B:'See changes and the 7-day average\nin <b>Charts</b>.\n\nThe <b>Archive</b> keeps past goals\nand saved periods.',
   prev:'Back', listLong:'For long periods, use ‘Table’ in Charts.',
-  skip:'Skip', next:'Next', startApp:'Get started', tutAgain:'Replay tutorial',
+  skip:'Skip', next:'Next', startApp:'Get started', tutAgain:'Replay tutorial', tipEye:'Hide or show your numbers.', tipChart:'Press and hold the chart to see each day’s value.',
   appSec:'App', appVer:'Version', rate:'Rate', theme:'Theme', thAuto:'Auto', thLight:'Light', thDark:'Dark', darkStyle:'Dark style', lightStyle:'Light style', lsA:'Sage', lsB:'Stone', dsA:'Graphite', dsB:'Amber', fontSize:'Text size', fsS:'Small', fsM:'Default', fsL:'Large', items:'Entries', itemsAll:'All', itemsW:'Weight only', rangeTitle:'Chart period', apply:'Apply', resetRange:'Back to recent period', rateLater:'Available once the app is on the App Store.', privacy:'Privacy policy', contact:'Contact us', sendMail:'Send Email', privFull:'Read the full privacy policy',
   privacyBody:['Your weight, body fat, muscle, notes and goals are stored only on this device.', 'This app never sends or collects your entries.', 'You create and keep your own backup files.', 'Fonts are loaded from Google Fonts.', 'We’ll update this policy before adding sync.'],
   contactBody:'Send us questions, bug reports, or ideas.', contactAddr:'euntaestudio@gmail.com'
@@ -708,6 +712,31 @@ function toast(msg){ let el = document.getElementById('toast'); if (el) el.remov
   el = document.createElement('div'); el.id = 'toast'; el.setAttribute('role','status'); el.textContent = msg; document.body.appendChild(el);
   clearTimeout(toastTimer); toastTimer = setTimeout(() => el.remove(), 1800); }
 
+/* ---------- one-time tips (shown once per icon, reset by Replay tutorial) ---------- */
+let tipTimer;
+function closeTip(seen){ const el = document.getElementById('tip'); if (!el) return; if (seen) { (S.settings.tips = S.settings.tips || {})[el.dataset.k] = 1; persist(); } el.remove(); }
+function maybeTip(){
+  clearTimeout(tipTimer); closeTip(false);
+  tipTimer = setTimeout(() => {
+    const st = S.settings, seen = st.tips || {};
+    if (!st.tutSeen || S.sample || !document.getElementById('tut').hidden || !layer.hidden || document.querySelector('.dlgwrap')) return;
+    const lk = document.getElementById('lock'); if (lk && !lk.hidden) return;
+    let k = null, tg = null;
+    if (!seen.eye && (UI.tab === 'home' || UI.tab === 'cal')) { k = 'eye'; tg = view.querySelector('[data-act="toggleHide"]'); }
+    else if (!seen.chart && UI.tab === 'chart' && UI.chartSub !== 'archive') { k = 'chart'; tg = view.querySelector('svg.chart'); }
+    if (!tg) return;
+    const el = document.createElement('div'); el.id = 'tip'; el.dataset.k = k; el.setAttribute('role', 'status');
+    el.innerHTML = esc(t(k === 'eye' ? 'tipEye' : 'tipChart')) + '<i></i>'; document.body.appendChild(el);
+    const tr = tg.getBoundingClientRect(), br = el.getBoundingClientRect(), vw = innerWidth, cx = tr.left + tr.width / 2;
+    const left = Math.min(Math.max(16, cx - br.width / 2), vw - 16 - br.width);
+    const top = k === 'chart' ? tr.top + tr.height / 2 - br.height - 10 : tr.bottom + 10;
+    el.className = k === 'chart' ? 'above' : 'below';
+    el.style.left = left + 'px'; el.style.top = top + 'px';
+    const ar = el.querySelector('i'); ar.style.left = Math.min(Math.max(12, cx - left - 6), br.width - 24) + 'px';
+  }, 350);
+}
+document.addEventListener('pointerdown', () => closeTip(true), true);
+
 const layer = document.getElementById('layer');
 let dlgActs = [];
 function dialog(title, text, acts, note){
@@ -728,7 +757,7 @@ function openSheet(html, onMount){
   layer.hidden = false;
   if (onMount) onMount(layer.querySelector('.sheet'));
 }
-function closeSheet(){ layer.hidden = true; layer.innerHTML = ''; }
+function closeSheet(){ layer.hidden = true; layer.innerHTML = ''; maybeTip(); }
 const sheetHead = title => `<div class="handle"></div><div class="shead"><h2>${esc(title)}</h2><button class="xbtn" data-act="closeSheet" aria-label="${t('close')}">${svg('x')}</button></div>`;
 
 /* ---------- goal checks ---------- */
@@ -1131,6 +1160,7 @@ function render(keepScroll){
   if (keepScroll) view.scrollTop = y; else view.scrollTop = 0;
   fitSubLabels();
   fitScreen();
+  maybeTip();
 }
 function fitScreen(){
   view.removeAttribute('data-fit'); view.style.removeProperty('--fitz');
@@ -1360,7 +1390,7 @@ function showTut(i){
     <div class="dacts"><button data-act="tutPrev" ${i === 0 ? 'disabled' : ''}>${t('prev')}</button><button class="go" data-act="tutNext">${last ? t('startApp') : t('next')}</button></div></div>`;
   el.hidden = false;
 }
-function endTut(){ document.getElementById('tut').hidden = true; S.settings.tutSeen = true; persist(); }
+function endTut(){ document.getElementById('tut').hidden = true; S.settings.tutSeen = true; persist(); maybeTip(); }
 
 /* ---------- name ---------- */
 function openName(){
@@ -1494,7 +1524,7 @@ function pinKey(v){
   const code = pinBuf;
   setTimeout(() => {
     if (pinMode === 'unlock') {
-      if (code === S.settings.pin) { lockEl.hidden = true; UI.unlocked = true; }
+      if (code === S.settings.pin) { lockEl.hidden = true; UI.unlocked = true; maybeTip(); }
       else { lockEl.dataset.sub = t('pinWrong'); pinBuf = ''; lockEl.innerHTML = padHtml(lockEl.dataset.msg, lockEl.dataset.sub); const d = document.getElementById('pinDots'); if (d) d.classList.add('shake'); }
     } else if (pinMode === 'verify') {
       if (code === S.settings.pin) showPin('set1', t('pinNew'), t('pinWarn'));
@@ -1593,7 +1623,7 @@ document.addEventListener('click', e => {
     case 'tutPrev': if (tutI > 0) showTut(tutI - 1); break;
     case 'tutNext': if (tutI < TUT.length - 1) showTut(tutI + 1); else endTut(); break;
     case 'tutSkip': endTut(); break;
-    case 'tutAgain': showTut(0); break;
+    case 'tutAgain': S.settings.tips = {}; persist(); showTut(0); break;
     case 'copyEx': { const ta = document.getElementById('exTxt');
       const fallback = () => { ta.focus(); ta.select(); toast(t('copyFail')); };
       try { navigator.clipboard.writeText(ta.value).then(() => toast(t('copied')), fallback); } catch(err) { fallback(); } break; }
