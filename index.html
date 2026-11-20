@@ -446,6 +446,7 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;border:1px solid var(
 /* ---------- strings ---------- */
 const WD = {ko:['일','월','화','수','목','금','토'], en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat']};
 const MON_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const APP_VER = '0.11';  // GitHub에 올릴 때마다 0.01씩 올려요
 const T = {
 ko:{
   tabHome:'홈', tabCal:'캘린더', tabList:'목록', tabChart:'그래프', tabSet:'설정',
@@ -503,7 +504,7 @@ ko:{
   copy:'복사', copied:'복사했어요.', copyFail:'복사하지 못했어요. 내용을 길게 눌러 직접 복사해 주세요.',
   importTitle:'백업 불러오기', importText:'백업 파일을 고르거나, 복사해 둔 내용을 붙여넣으세요.', chooseFile:'파일 고르기',
   importDo:'불러오기', importQ:'앱에 저장된 기록을 모두 지우고\n백업 파일 내용을 덮어쓸까요?', importErr:'백업 내용을 읽을 수 없어요.', imported:'불러왔어요.',
-  pickTitle:'연도와 달', ver:'Weighly ver 0.1', flagDefault:'표시한 날',
+  pickTitle:'연도와 달', ver:'Weighly ver ' + APP_VER, flagDefault:'표시한 날',
   avg7:'7일 평균', csvB:'엑셀로 내보내기', csvTitle:'엑셀 파일', csvText:'파일이 저장되지 않으면 아래 내용을 엑셀에 붙여넣어 주세요.', starCol:'별',
   pinCur:'현재 비밀번호를 입력해 주세요.', prevMonth:m=>`${m} 기록도 보기`,
   tut1T:'Weighly <span class="pron">(웨일리)</span>에 오신 걸 환영해요!', tut1B:'하루 한 번, 몸무게를 기록하고\n흐름을 보는 앱이에요.\n\n주요 기능을 빠르게 알려드릴게요.',
@@ -517,7 +518,7 @@ ko:{
   skip:'건너뛰기', next:'다음', startApp:'시작하기', tutAgain:'튜토리얼 다시 보기',
   appSec:'앱', appVer:'버전', rate:'평가하기', theme:'테마', thAuto:'자동', thLight:'라이트', thDark:'다크', darkStyle:'다크 스타일', lightStyle:'라이트 스타일', lsA:'세이지', lsB:'스톤', dsA:'그래파이트', dsB:'앰버', fontSize:'글씨 크기', fsS:'작게', fsM:'보통', fsL:'크게', items:'기록 항목', itemsAll:'전체', itemsW:'몸무게만', rangeTitle:'그래프 기간', apply:'적용', resetRange:'최근 기간으로 돌아가기', rateLater:'앱스토어에 출시하면 열려요.', privacy:'개인정보 처리 방침', contact:'문의하기', sendMail:'메일 보내기', privFull:'개인정보 처리방침 전문 보기',
   privacyBody:['입력한 기록과 목표는 이 기기 안에만 저장돼요.', '이 앱은 기록을 다른 곳으로 보내거나 모으지 않아요.', '백업 파일은 직접 만들 때만 생기며, 보관도 직접 해요.', '화면 글꼴을 불러올 때 Google Fonts에 연결돼요.', '계정 연동 같은 기능이 생기면 먼저 알려드릴게요.'],
-  contactBody:'문의, 오류 제보, 기능 제안을 보내주세요.', contactAddr:'taestudio.support@gmail.com'
+  contactBody:'문의, 오류 제보, 기능 제안을 보내주세요.', contactAddr:'euntaestudio@gmail.com'
 },
 en:{
   tabHome:'Home', tabCal:'Calendar', tabList:'List', tabChart:'Charts', tabSet:'Settings',
@@ -575,7 +576,7 @@ en:{
   copy:'Copy', copied:'Copied.', copyFail:'Couldn’t copy. Press and hold the text to copy it manually.',
   importTitle:'Restore backup', importText:'Choose a backup file, or paste the backup text.', chooseFile:'Choose file',
   importDo:'Restore', importQ:'Restore this backup?', importErr:'Couldn’t read this backup.', imported:'Restored.',
-  pickTitle:'Year and month', ver:'Weighly ver 0.1', flagDefault:'Marked',
+  pickTitle:'Year and month', ver:'Weighly ver ' + APP_VER, flagDefault:'Marked',
   avg7:'7-day avg', csvB:'Export to Excel', csvTitle:'Excel file', csvText:'If the file doesn’t save, copy the text below into Excel.', starCol:'Star',
   pinCur:'Enter your current passcode.', prevMonth:m=>`Show ${m}`,
   tut1T:'Welcome to Weighly!', tut1B:'Log your weight once a day\nand see the trend.\n\nHere’s a quick tour of the main features.',
@@ -589,7 +590,7 @@ en:{
   skip:'Skip', next:'Next', startApp:'Get started', tutAgain:'Replay tutorial',
   appSec:'App', appVer:'Version', rate:'Rate', theme:'Theme', thAuto:'Auto', thLight:'Light', thDark:'Dark', darkStyle:'Dark style', lightStyle:'Light style', lsA:'Sage', lsB:'Stone', dsA:'Graphite', dsB:'Amber', fontSize:'Text size', fsS:'Small', fsM:'Default', fsL:'Large', items:'Entries', itemsAll:'All', itemsW:'Weight only', rangeTitle:'Chart period', apply:'Apply', resetRange:'Back to recent period', rateLater:'Available once the app is on the App Store.', privacy:'Privacy policy', contact:'Contact us', sendMail:'Send Email', privFull:'Read the full privacy policy',
   privacyBody:['Your weight, body fat, muscle, notes and goals are stored only on this device.', 'This app never sends or collects your entries.', 'You create and keep your own backup files.', 'Fonts are loaded from Google Fonts.', 'We’ll update this policy before adding sync.'],
-  contactBody:'Send us questions, bug reports, or ideas.', contactAddr:'taestudio.support@gmail.com'
+  contactBody:'Send us questions, bug reports, or ideas.', contactAddr:'euntaestudio@gmail.com'
 }};
 
 /* ---------- storage ---------- */
@@ -1420,7 +1421,7 @@ function dpClose(){ document.querySelectorAll('.dpinline').forEach(x => x.remove
 function openPrivacy(){ openSheet(`${sheetHead(t('privacy'))}<div style="display:flex;flex-direction:column;gap:10px">${t('privacyBody').map(p => `<p style="margin:0;font-size:14px;line-height:1.65">${esc(p)}</p>`).join('')}<a class="textbtn" style="align-self:flex-start;padding-left:0" href="https://euntaestudio.github.io/Weighly/privacy.html" target="_blank" rel="noopener">${t('privFull')}</a></div>`); }
 function openContact(){ openSheet(`${sheetHead(t('contact'))}<p class="sub" style="margin:0">${t('contactBody')}</p>
   <div class="card" style="background:var(--bg);display:flex;justify-content:space-between;align-items:center;gap:10px"><span id="ctAddr" style="user-select:all;-webkit-user-select:all;word-break:break-all;min-width:0">${esc(t('contactAddr'))}</span><button class="pill" data-act="copyAddr">${t('copy')}</button></div>
-  <a class="primary" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="mailto:${t('contactAddr')}?subject=${encodeURIComponent('[Weighly] ' + t('contact'))}&body=${encodeURIComponent('\n\n—\nWeighly ver 0.1 · ' + (navigator.userAgent.match(/(iPhone|iPad|Android)[^;)]*/) || [''])[0])}">${t('sendMail')}</a>`); }
+  <a class="primary" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="mailto:${t('contactAddr')}?subject=${encodeURIComponent('[Weighly] ' + t('contact'))}&body=${encodeURIComponent('\n\n—\nWeighly ver ' + APP_VER + ' · ' + (navigator.userAgent.match(/(iPhone|iPad|Android)[^;)]*/) || [''])[0])}">${t('sendMail')}</a>`); }
 
 /* ---------- month picker ---------- */
 function openPicker(ctx){
