@@ -453,14 +453,14 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;border:1px solid var(
 /* ---------- strings ---------- */
 const WD = {ko:['일','월','화','수','목','금','토'], en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat']};
 const MON_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const APP_VER = '0.14';  // GitHub에 올릴 때마다 0.01씩 올려요
+const APP_VER = '0.15';  // GitHub에 올릴 때마다 0.01씩 올려요
 const T = {
 ko:{
   tabHome:'홈', tabCal:'캘린더', tabList:'목록', tabChart:'그래프', tabSet:'설정',
   today:'오늘', latest:'최근 기록', relToday:'오늘', relYest:'어제',
   vsPrev:d=>`지난 기록보다 ${d}`, noRecord:'아직 기록이 없어요.', recordToday:'오늘 몸무게 기록하기',
   hideNums:'몸무게 숫자 숨기기', showNums:'몸무게 숫자 보이기',
-  goal:'목표', start:'시작', remain:'남음', lost:'감량', gained:'증량', goalLost:(d, w) => d + ' 동안 ' + w + ' 감량', goalGained:(d, w) => d + ' 동안 ' + w + ' 증량', goalSoFar:d => d + ' 동안 변화 없음', since:d => d + '부터', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 무게를 알려드려요.',
+  goal:'목표', start:'시작', remain:'남음', lost:'감량', gained:'증량', goalLost:(d, w) => d + ' 동안 ' + w + ' 감량', goalGained:(d, w) => d + ' 동안 ' + w + ' 증량', goalSoFar:d => d + '째 진행 중', since:d => d + '부터', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 무게를 알려드려요.',
   paceNote:()=>`다이어트 시 일반적으로 권장되는 감량 속도는 주당 ${PACE()}이에요.`, paceSrc:'출처: 영국 국민보건서비스 (NHS), 미국 CDC',
   cheerDown:'꾸준함이 제일 어려운 건데, 잘 해내고 있어요!', cheerSame:'정체기도 과정이에요. 흐름을 믿고 가봐요.',
   cheerUp:'하루 변동은 자연스러워요. 며칠 흐름을 봐요.', cheerNone:'오늘의 몸무게를 기록해볼까요?',
@@ -532,7 +532,7 @@ en:{
   today:'Today', latest:'Latest', relToday:'today', relYest:'yesterday',
   vsPrev:d=>`${d} from last entry`, noRecord:'No entries yet.', recordToday:'Log today’s weight',
   hideNums:'Hide numbers', showNums:'Show numbers',
-  goal:'Goal', start:'Start', remain:'to go', lost:'Lost', gained:'Gained', goalLost:(d, w) => w.replace('">', '">−') + ' in ' + d, goalGained:(d, w) => w.replace('">', '">+') + ' in ' + d, goalSoFar:d => 'No change in ' + d, since:d => 'Since ' + d, setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
+  goal:'Goal', start:'Start', remain:'to go', lost:'Lost', gained:'Gained', goalLost:(d, w) => w.replace('">', '">−') + ' in ' + d, goalGained:(d, w) => w.replace('">', '">+') + ' in ' + d, goalSoFar:d => d.charAt(0).toUpperCase() + d.slice(1) + ' in', since:d => 'Since ' + d, setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
   paceNote:()=>`Experts recommend losing ${PACE().replace(' ', '')} a week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
   cheerDown:'Consistency is the hardest part, and you’re doing it!', cheerSame:'Plateaus are part of the process. Keep going.',
   cheerUp:'Daily ups and downs are normal. Watch the trend.', cheerNone:'Ready to log today’s weight?',
