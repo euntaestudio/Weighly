@@ -31,7 +31,7 @@
 ## 앱을 고친 뒤 다시 올릴 때
 
 - 바뀐 파일을 같은 저장소에 다시 올리기 (같은 이름이면 덮어써져요)
-- `sw.js` 위쪽 `const CACHE = 'weighly-vNN'`의 숫자를 하나 올리고, `index.html`의 `APP_VER`도 0.01 올려서 같이 올리기
+- `index.html`의 `APP_VER`를 0.01 올리고, `sw.js` 위쪽 `const CACHE = 'weighly-v0.xx'`도 같은 숫자로 맞춰서 같이 올리기 (예: 0.17 → weighly-v0.17)
 - 폰에서 앱을 인터넷이 되는 상태로 한 번 열면 새 버전으로 바뀌어요
 
 ## 알아둘 것
