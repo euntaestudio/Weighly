@@ -152,6 +152,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
 .textbtn{border:0;background:none;color:var(--accent);text-decoration:none;font-weight:600;font-size:14px;padding:10px 4px;min-height:44px}
 .danger{color:var(--danger)}
 .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.gline{width:100%;display:flex;justify-content:space-between;align-items:baseline;gap:4px 12px;flex-wrap:wrap;font-size:15px}
+.gline>span:last-child{margin-left:auto;white-space:nowrap}
+.gline .gsince{flex-basis:100%;font-size:13px;margin-bottom:-2px}
 .bar{height:8px;border-radius:4px;background:var(--track);overflow:hidden}
 .bar i{display:block;height:100%;border-radius:4px;background:var(--accent)}
 .accent{color:var(--accent)}
@@ -450,14 +453,14 @@ textarea{width:100%;box-sizing:border-box;min-height:120px;border:1px solid var(
 /* ---------- strings ---------- */
 const WD = {ko:['일','월','화','수','목','금','토'], en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat']};
 const MON_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const APP_VER = '0.13';  // GitHub에 올릴 때마다 0.01씩 올려요
+const APP_VER = '0.14';  // GitHub에 올릴 때마다 0.01씩 올려요
 const T = {
 ko:{
   tabHome:'홈', tabCal:'캘린더', tabList:'목록', tabChart:'그래프', tabSet:'설정',
   today:'오늘', latest:'최근 기록', relToday:'오늘', relYest:'어제',
   vsPrev:d=>`지난 기록보다 ${d}`, noRecord:'아직 기록이 없어요.', recordToday:'오늘 몸무게 기록하기',
   hideNums:'몸무게 숫자 숨기기', showNums:'몸무게 숫자 보이기',
-  goal:'목표', start:'시작', remain:'남음', lost:'감량', gained:'증량', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 무게를 알려드려요.',
+  goal:'목표', start:'시작', remain:'남음', lost:'감량', gained:'증량', goalLost:(d, w) => d + ' 동안 ' + w + ' 감량', goalGained:(d, w) => d + ' 동안 ' + w + ' 증량', goalSoFar:d => d + ' 동안 변화 없음', since:d => d + '부터', setGoal:'목표 설정하기', noGoalText:'목표를 정하면 남은 기간과 무게를 알려드려요.',
   paceNote:()=>`다이어트 시 일반적으로 권장되는 감량 속도는 주당 ${PACE()}이에요.`, paceSrc:'출처: 영국 국민보건서비스 (NHS), 미국 CDC',
   cheerDown:'꾸준함이 제일 어려운 건데, 잘 해내고 있어요!', cheerSame:'정체기도 과정이에요. 흐름을 믿고 가봐요.',
   cheerUp:'하루 변동은 자연스러워요. 며칠 흐름을 봐요.', cheerNone:'오늘의 몸무게를 기록해볼까요?',
@@ -529,7 +532,7 @@ en:{
   today:'Today', latest:'Latest', relToday:'today', relYest:'yesterday',
   vsPrev:d=>`${d} from last entry`, noRecord:'No entries yet.', recordToday:'Log today’s weight',
   hideNums:'Hide numbers', showNums:'Show numbers',
-  goal:'Goal', start:'Start', remain:'to go', lost:'lost', gained:'gained', setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
+  goal:'Goal', start:'Start', remain:'to go', lost:'Lost', gained:'Gained', goalLost:(d, w) => w.replace('">', '">−') + ' in ' + d, goalGained:(d, w) => w.replace('">', '">+') + ' in ' + d, goalSoFar:d => 'No change in ' + d, since:d => 'Since ' + d, setGoal:'Set a goal', noGoalText:'Set a goal to see the days and weight left.',
   paceNote:()=>`Experts recommend losing ${PACE().replace(' ', '')} a week.`, paceSrc:'Sources: NHS (UK), CDC (US)',
   cheerDown:'Consistency is the hardest part, and you’re doing it!', cheerSame:'Plateaus are part of the process. Keep going.',
   cheerUp:'Daily ups and downs are normal. Watch the trend.', cheerNone:'Ready to log today’s weight?',
@@ -806,10 +809,13 @@ function vHome(){
     const total = g.startW - g.target, done = g.startW - cur;
     const p = total === 0 ? 0 : Math.max(0, Math.min(1, done / total));
     const dd = g.end ? diffDays(tk, g.end) : null;
+    const ch = cur - g.startW, wB = kg => `<b class="num" style="color:var(--fg)">${hide ? mask + U() : toU(Math.abs(kg)).toFixed(1) + U()}</b>`;
+    const prog = Math.abs(ch) < 0.05 ? t('goalSoFar', dur(g.start, tk)) : t(ch < 0 ? 'goalLost' : 'goalGained', dur(g.start, tk), wB(ch));
     goalHtml = `<button class="card goal" data-act="openGoal">
-      <div class="row" style="width:100%"><span style="font-weight:600">${t('goal')} <span class="num">${fWU(g.target, true)}</span></span><span class="accent num" style="font-weight:700">${dd == null ? t('noEnd') : dd === 0 ? 'D-Day' : 'D-' + dd}</span></div>
+      <div class="row" style="width:100%"><span style="font-weight:600">${g.title ? esc(g.title) : t('goal')}</span><span class="accent num" style="font-weight:700">${dd == null ? t('noEnd') : dd === 0 ? 'D-Day' : 'D-' + dd}</span></div>
+      <div class="gline"><span class="gsince sub num">${t('since', ymd(g.start))}</span><span>${prog}</span><span>${wB(cur - g.target)} ${t('remain')}</span></div>
       <div class="bar" style="width:100%" role="img" aria-label="${Math.round(p*100)}%"><i style="width:${(p*100).toFixed(1)}%"></i></div>
-      <div class="row sub" style="width:100%;font-size:13px"><span>${t('start')} <span class="num">${fWU(g.startW, true)}</span>${Math.abs(cur - g.startW) >= 0.05 ? ` · <b class="num" style="color:var(--fg)">${hide ? mask + U() : toU(Math.abs(cur - g.startW)).toFixed(1) + U()}</b> ${t(cur < g.startW ? 'lost' : 'gained')}` : ''}</span><span><b class="num" style="color:var(--fg)">${hide ? mask + U() : toU(Math.abs(cur - g.target)).toFixed(1) + U()}</b> ${t('remain')}</span></div>
+      <div class="row sub" style="width:100%;font-size:13px"><span>${t('start')} <span class="num">${fWU(g.startW, true)}</span></span><span>${t('goal')} <span class="num">${fWU(g.target, true)}</span></span></div>
     </button>`;
   } else {
     goalHtml = `<div class="card" style="display:flex;flex-direction:column;gap:12px"><span class="sub">${t('noGoalText')}</span><button class="secondary" data-act="openGoal">${t('setGoal')}</button></div>`;
@@ -1039,7 +1045,7 @@ function vArchive(tabs){
     live = `<button class="acard live" data-act="openGoal">
       <div class="row" style="width:100%;align-items:center"><span style="font-size:16px;font-weight:600">${g.title ? esc(g.title) : t('goalName', fWU(g.target))}</span><span class="badge b-live">${t('inProgress')}</span></div>
       <span class="sub num" style="font-size:13px;margin-top:-6px">${ymd(g.start)} – ${g.end ? ymd(g.end) + ' (' + dur(g.start, g.end) + ')' : t('noEnd')}</span>
-      <div class="row" style="width:100%;align-items:flex-end"><span class="aval num">${fW(g.startW)} → ${fW(cur)}<small>${U()}</small> <small class="sub" style="margin-left:8px">${fDelta(cur - g.startW).replace(/(kg|lb)$/, ' $1')}</small></span>${spark(pts)}</div></button>`;
+      <div class="row" style="width:100%;align-items:flex-end"><span class="aval num">${fW(g.startW)} → ${fW(g.target)}<small>${U()}</small></span>${spark(pts)}</div></button>`;
   }
   const card = a => {
     const badge = a.type === 'achieved' ? `<span class="badge b-done">${t('achieved')}</span>` : a.type === 'ended' ? `<span class="badge b-plain">${t('ended')}</span>` : '';
