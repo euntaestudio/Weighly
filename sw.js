@@ -1,6 +1,6 @@
 // © 2026 Euntae Studio. All rights reserved.
 // Weighly 오프라인 저장소. 올릴 때마다 아래 숫자를 index.html의 APP_VER와 같게 맞춰 주세요.
-const CACHE = 'weighly-v0.17';
+const CACHE = 'Weighly ver 0.18';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
